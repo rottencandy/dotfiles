@@ -1,0 +1,108 @@
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Visual appearance
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+syntax enable           " enable syntax highlighting
+filetype indent on      " Load filetype-specific indentation
+
+" Set and configure the color scheme
+colorscheme gruvbox
+set background=dark
+set number              " Show line numbers
+set showcmd             " Show command being typed in bottom bar
+set lazyredraw          " Redraw screen less frequently(Does not affect usage)
+set showmatch           " Highlight matching [{()}]
+set hlsearch            " Highlight search matches
+
+" Disable all error bells
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Functionality
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set shiftwidth=4        " Read tab character as 4 spaces 
+set softtabstop=4       " Write 4 spaces when tab is pressed
+set expandtab           " Tabs mean spaces. Use <C-V>Tab to insert real tab.
+"set smarttab            " Insert real tab if pressed in beginning of line
+
+" Backspace works on autoindent, line break and start of insert
+set backspace=indent,eol,start
+set autoindent
+set smartindent
+set wrap
+
+set encoding=utf8       " UTF-8 as default encoding
+set ffs=unix,dos,mac    " Standard file type as Unix
+set autoread            " automatically read when file is edited from outside
+set wildmenu            " Command-line completion dropdown-thing
+set confirm             " Prompt if exiting without saving
+set mouse=a             " Use mouse for all modes
+
+set incsearch           " Search as characters are entered
+set ignorecase          " Ignore case
+set smartcase           " Except if there is a capital letter
+" Map redraw-screen to also clear search highlights
+nnoremap <C-L> :nohl<CR><C-L>
+
+set splitbelow          " New split goes below
+set splitright          " and to right
+set foldenable          " Enable code folding
+set foldnestmax=10      " Max 10 nested folds
+set foldlevel=0         " Close all folds by default
+"set foldmethod=indent   " Fold based on indent level
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Status line
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set laststatus=2                " Always show statusline
+set statusline=
+set statusline+=%#DiffAdd#%{(mode()=='n')?'\ \ NORMAL\ ':''}
+set statusline+=%#DiffChange#%{(mode()=='i')?'\ \ INSERT\ ':''}
+set statusline+=%#DiffDelete#%{(mode()=='r')?'\ \ RPLACE\ ':''}
+set statusline+=%#Cursor#%{(mode()=='v')?'\ \ VISUAL\ ':''}
+set statusline+=\ %n\           " buffer number
+set statusline+=%#Visual#       " colour
+set statusline+=%{&paste?'\ PASTE\ ':''}
+set statusline+=%{&spell?'\ SPELL\ ':''}
+set statusline+=%#CursorIM#     " colour
+set statusline+=%R              " readonly flag
+set statusline+=%M              " modified [+] flag
+set statusline+=%#Cursor#       " colour
+set statusline+=%#CursorLine#   " colour
+set statusline+=\ %t\           " short file name
+set statusline+=%=              " right align
+set statusline+=%#CursorLine#   " colour
+set statusline+=\ %Y\           " file type
+set statusline+=%#CursorIM#     " colour
+set statusline+=\ %3l:%-2c\     " line + column
+set statusline+=%#Cursor#       " colour
+set statusline+=\ %3p%%\        " percentage
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Key maps
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" :W to save file with elevated permissions
+command W w !sudo tee % > /dev/null
+
+" j and k keys together to exit insert mode.
+:imap jk <Esc>
+:imap kj <Esc>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"Plugins
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" % jump to matching xml tags, if/else/endif, etc.
+packadd! matchit
+
+" Enable fzf plugin
+set rtp+=~/apps/fzf
+
+" Mapping for clang-format
+"autocmd FileType javascript nnoremap <C-K> :pyf ~/code/clang-format.py<cr>
+
+" Mapping for js beautify
+autocmd FileType javascript nnoremap <C-K> :call JsBeautify()<cr>
+autocmd FileType html nnoremap <C-K> :call HtmlBeautify()<cr>
+autocmd FileType css nnoremap <C-K> :call CSSBeautify()<cr>

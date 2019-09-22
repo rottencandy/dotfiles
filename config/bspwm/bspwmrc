@@ -1,0 +1,37 @@
+#! /bin/sh
+
+sxhkd &
+
+bspc monitor -d I II III IV V VI VII VIII IX X
+#bspc monitor -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7 $ws8 $ws9 $ws10
+
+bspc config border_width         2
+bspc config window_gap          10
+
+bspc config split_ratio          0.50
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+bspc config focus_by_distance    true
+
+bspc config pointer_modifier 'mod4'
+bspc config pointer_action1 'move'
+bspc config pointer_action2 'resize_size'
+bspc config pointer_action3 'resize_corner'
+
+bspc config normal_border_color '#484848'
+bspc config focused_border_color '#1F8999'
+bspc config active_border_color '#B58900'
+bspc config presel_border_color '#26E2FF'
+
+bspc rule -a Gimp state=floating follow=on focus=on
+bspc rule -a Gimp-2.8 state=floating follow=on focus=on
+bspc rule -a Retroshare state=floating follow=on focus=on
+
+feh --bg-fill ~/Public/bread.jpg
+compton &
+
+BAR_FONT="Source Code Pro-10"
+# First two values for transparency
+BAR_FG="#ffefefef"
+BAR_BG="#CC282828"
+~/.config/bspwm/bar.sh | lemonbar -p -f "$BAR_FONT" -f "FontAwesome-12" -F"$BAR_FG" -B"$BAR_BG" | bash
