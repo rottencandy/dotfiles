@@ -1,0 +1,9 @@
+[submodule "vim/pack/general/start/vim-fugitive"]
+	path = vim/pack/general/start/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive
+[submodule "vim/pack/general/start/vim-javascript"]
+	path = vim/pack/general/start/vim-javascript
+	url = https://github.com/pangloss/vim-javascript
+[submodule "vim/pack/general/start/vim-jsbeautify"]
+	path = vim/pack/general/start/vim-jsbeautify
+	url = https://github.com/maksimr/vim-jsbeautify
