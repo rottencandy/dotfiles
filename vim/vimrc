@@ -52,6 +52,7 @@ set foldenable          " Enable code folding
 set foldnestmax=10      " Max 10 nested folds
 set foldlevel=0         " Close all folds by default
 "set foldmethod=indent   " Fold based on indent level
+set scrolloff=0         " scroll offset
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Status line
@@ -97,12 +98,13 @@ command W w !sudo tee % > /dev/null
 packadd! matchit
 
 " Enable fzf plugin
-set rtp+=~/apps/fzf
+"set rtp+=~/apps/fzf
 
 " Mapping for clang-format
 "autocmd FileType javascript nnoremap <C-K> :pyf ~/code/clang-format.py<cr>
 
 " Mapping for js beautify
-autocmd FileType javascript nnoremap <C-K> :call JsBeautify()<cr>
-autocmd FileType html nnoremap <C-K> :call HtmlBeautify()<cr>
-autocmd FileType css nnoremap <C-K> :call CSSBeautify()<cr>
+"autocmd FileType javascript nnoremap <C-K> :call JsBeautify()<cr>
+"autocmd FileType html nnoremap <C-K> :call HtmlBeautify()<cr>
+"autocmd FileType css nnoremap <C-K> :call CSSBeautify()<cr>
+

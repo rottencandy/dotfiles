@@ -7,3 +7,6 @@
 [submodule "vim/pack/general/start/vim-jsbeautify"]
 	path = vim/pack/general/start/vim-jsbeautify
 	url = https://github.com/maksimr/vim-jsbeautify
+[submodule "vim/pack/general/start/vim-go"]
+	path = vim/pack/general/start/vim-go
+	url = https://github.com/fatih/vim-go

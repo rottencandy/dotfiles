@@ -4,8 +4,9 @@ sxhkd &
 
 bspc monitor -d I II III IV V VI VII VIII IX X
 #bspc monitor -d $ws1 $ws2 $ws3 $ws4 $ws5 $ws6 $ws7 $ws8 $ws9 $ws10
+$HOME/.config/bspwm/query_monitors.sh
 
-bspc config border_width         2
+bspc config border_width         3
 bspc config window_gap          10
 
 bspc config split_ratio          0.50
@@ -25,13 +26,24 @@ bspc config presel_border_color '#26E2FF'
 
 bspc rule -a Gimp state=floating follow=on focus=on
 bspc rule -a Gimp-2.8 state=floating follow=on focus=on
-bspc rule -a Retroshare state=floating follow=on focus=on
 
-feh --bg-fill ~/Public/bread.jpg
+# background
+feh --bg-max ~/Pictures/k3MYEh1.jpg
+
+# fix cursor showing X on non-window areas
+xsetroot -cursor_name left_ptr &
+
+# compositor
 compton &
 
+# lemon bar
 BAR_FONT="Source Code Pro-10"
 # First two values for transparency
 BAR_FG="#ffefefef"
 BAR_BG="#CC282828"
-~/.config/bspwm/bar.sh | lemonbar -p -f "$BAR_FONT" -f "FontAwesome-12" -F"$BAR_FG" -B"$BAR_BG" | bash
+
+#~/.config/bspwm/bar.sh | lemonbar -p -f "$BAR_FONT" -f "FontAwesome-12" -F"$BAR_FG" -B"$BAR_BG" | bash
+
+# polybar
+$HOME/.config/polybar/launch.sh
+

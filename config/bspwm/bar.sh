@@ -55,3 +55,4 @@ while true; do
     echo -e "%{l}$(bspwm)%{c}$(clock)%{r}\uf028 $(volume)    \uf2c9 $(temp)   \uf133 $(cal) "
     sleep .5
 done
+

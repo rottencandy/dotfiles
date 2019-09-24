@@ -1,10 +1,10 @@
-#
+###########
 # wm independent hotkeys
-#
+###########
 
 # terminal emulator
 super + Return
-	sakura
+	gnome-terminal
 
 # program launcher
 super + @space
@@ -16,32 +16,37 @@ super + shift + R
 
 # Lock screen
 alt + p
-        dm-tool lock
+        $HOME/.config/sxhkd/lock.sh
+
+#lightdm
+        #dm-tool lock
 
 # Lauch rofi window selector
 super + r
         rofi -show window
 
-# Control volume
-super + F1
+## Control volume
+XF86AudioRaiseVolume
         amixer sset Master playback 5%+
-super + F2
+XF86AudioLowerVolume
         amixer sset Master playback 5%-
 
 # toggle vol mute
-super + F3
+XF86AudioMute
         amixer sset Master toggle
+#super + F3
+#        amixer sset Master toggle
 
-#
+###########
 # bspwm hotkeys
-#
+###########
 
 # quit bspwm normally
 super + alt + Escape
 	bspc quit
 
 # close/kill
-alt + {_,shift + }w
+super + {_,shift + }q
 	bspc node -{c,k}
 
 # alternate between the tiled and monocle layout
@@ -56,9 +61,9 @@ super + y
 super + g
 	bspc node -s biggest
 
-#
+###########
 # state/flags
-#
+###########
 
 # set the window state
 super + {t,shift + t,s,f}
@@ -68,9 +73,9 @@ super + {t,shift + t,s,f}
 super + ctrl + {m,x,y,z}
 	bspc node -g {marked,locked,sticky,private}
 
-#
+###########
 # focus/swap
-#
+###########
 
 # focus the node in the given direction
 super + {_,shift + }{h,j,k,l}
@@ -98,13 +103,21 @@ super + {o,i}
 	bspc node {older,newer} -f; \
 	bspc wm -h on
 
-# focus or send to the given desktop
+# focus or send to the given desktop(multi monitor setup)
+#super + {_,shift + }{1-9,0}
+#	bspc {desktop -f, window -d} $(bspc query -M -m) '^{1-9, 10}'
+
+# focus or send to the given desktop(single monitor setup)
 super + {_,shift + }{1-9,0}
 	bspc {desktop -f,node -d} '^{1-9,10}'
 
-#
+# focus next monitor
+super + w
+	bspc monitor -f next
+
+###########
 # preselect
-#
+###########
 
 # preselect the direction
 super + ctrl + {h,j,k,l}
@@ -122,9 +135,9 @@ super + ctrl + space
 super + ctrl + shift + space
 	bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
 
-#
+###########
 # move/resize
-#
+###########
 
 # expand a window by moving one of its side outward
 super + alt + {h,j,k,l}
@@ -137,3 +150,4 @@ super + alt + shift + {h,j,k,l}
 # move a floating window
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
+
