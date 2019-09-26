@@ -67,26 +67,26 @@ set statusline+=%#DiffDelete#%{(mode()=='r')?'\ \ RPLACE\ ':''}
 set statusline+=%#Cursor#%{(mode()=='v')?'\ \ VISUAL\ ':''}
 
 set statusline+=\ %n\           " buffer number
-set statusline+=%#Visual#       " colour
+set statusline+=%#Visual#       " color
 set statusline+=%{&paste?'\ PASTE\ ':''}
 set statusline+=%{&spell?'\ SPELL\ ':''}
-set statusline+=%#CursorIM#     " colour
+set statusline+=%#CursorIM#     " color
 set statusline+=%R              " readonly flag
 set statusline+=%M              " modified [+] flag
-set statusline+=%#Cursor#       " colour
-set statusline+=%#CursorLine#   " colour
+set statusline+=%#Cursor#       " color
+set statusline+=%#CursorLine#   " color
 set statusline+=\ %f\           " file name
 set statusline+=%=              " right align
-set statusline+=%#CursorLine#   " colour
+set statusline+=%#CursorLine#   " color
 "
 " file encoding, format
 set statusline+=\ %{&fileencoding?&fileencoding:&encoding}\ 
-set statusline+=\[%{&fileformat}\]
+set statusline+=\[%{&fileformat}\]\ 
 
-set statusline+=\ \|\ %Y\       " file type
-set statusline+=%#CursorIM#     " colour
+set statusline+=\|\ %Y\       " file type
+set statusline+=%#CursorIM#     " color
 set statusline+=\ %3l:%-2c\     " line + column
-set statusline+=%#Cursor#       " colour
+set statusline+=%#Cursor#       " color
 set statusline+=\ %3p%%\        " percentage
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
