@@ -112,7 +112,7 @@ packadd! matchit
 "autocmd FileType javascript nnoremap <C-K> :pyf ~/code/clang-format.py<cr>
 
 " Mapping for js beautify
-"autocmd FileType javascript nnoremap <C-K> :call JsBeautify()<cr>
-"autocmd FileType html nnoremap <C-K> :call HtmlBeautify()<cr>
-"autocmd FileType css nnoremap <C-K> :call CSSBeautify()<cr>
+autocmd FileType javascript nnoremap <C-K> :call JsBeautify()<cr>
+autocmd FileType html nnoremap <C-K> :call HtmlBeautify()<cr>
+autocmd FileType css nnoremap <C-K> :call CSSBeautify()<cr>
 
