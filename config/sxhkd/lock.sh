@@ -11,6 +11,6 @@ convert $img -scale 10% -scale 1000% $img
 convert $img $icon -gravity center -composite $img
 i3lock -e -p default -i $img
 
-sleep 5
+sleep 2
 xset dpms force off
 

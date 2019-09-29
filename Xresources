@@ -12,40 +12,29 @@
 !  └─ based on mustang by Henrique C. Alves (hcarvalhoalves@gmail.com)
 
 !! Set the background, foreground and cursor colors as below:
-! █▓▒░ scorcerer colors
 *.foreground:   #c2c2b0
 *.background:   #111111
 *.cursorColor:  #c2c2b0
-! black
-*.color0:       #111111
-*.color8:       #181818
-! red
-*.color1:       #aa4450
-*.color9:       #ff6a6a
-! green
-*.color2:       #719611
-*.color10:      #b1d631
-! yellow
-*.color3:       #ff9800
-*.color11:      #87875f
-! blue
-*.color4:       #6688aa
-*.color12:      #90b0d1
-! magenta
-*.color5:       #8f6f8f
-*.color13:      #8181a6
-! cyan
-*.color6:       #528b8b
-*.color14:      #87ceeb
-! white
-*.color7:       #d3d3d3
-*.color15:      #c1cdc1
-! stylized
-*.colorIT:      #719611
-*.colorBD:      #d3d3d3
-*.colorUL:      #528b8b
 
-!! !! gruvbox:
+! █▓▒░ scorcerer colors
+*.color0:  #111111
+*.color8:  #181818
+*.color1:  #aa4450
+*.color9:  #ff6a6a
+*.color2:  #719611
+*.color10: #b1d631
+*.color3:  #ff9800
+*.color11: #87875f
+*.color4:  #6688aa
+*.color12: #90b0d1
+*.color5:  #8f6f8f
+*.color13: #8181a6
+*.color6:  #528b8b
+*.color14: #87ceeb
+*.color7:  #d3d3d3
+*.color15: #c1cdc1
+
+! █▓▒░ gruvbox
 !! *.color0: #1d2021
 !! *.color1: #cc241d
 !! *.color2: #98971a
@@ -63,7 +52,7 @@
 !! *.color14: #8ec07c
 !! *.color15: #ebdbb2
 
-!! !! gruvbox light:
+! █▓▒░ gruvbox light
 !! *.color0: #fbf1c7
 !! *.color1: #cc241d
 !! *.color2: #98971a
@@ -81,7 +70,7 @@
 !! *.color14: #427b58
 !! *.color15: #3c3836
 
-!! !! brogrammer:
+! █▓▒░ brogrammer
 !! *.foreground:  #d6dbe5
 !! *.background:  #131313
 !! *.color0:      #1f1f1f
@@ -102,7 +91,7 @@
 !! *.color15:     #ffffff
 !! *.colorBD:     #d6dbe5
 
-!! ! base16
+! █▓▒░ base16
 !! *.color0:       #181818
 !! *.color1:       #ab4642
 !! *.color2:       #a1b56c
@@ -120,7 +109,7 @@
 !! *.color14:      #86c1b9
 !! *.color15:      #f8f8f8
 
-!! !! solarized
+! █▓▒░ solarized
 !! *.color0:	#073642
 !! *.color1:	#dc322f
 !! *.color2:	#859900
@@ -138,7 +127,7 @@
 !! *.color14:	#93a1a1
 !! *.color15:	#fdf6e3
 
-!! !! xterm
+! █▓▒░ xterm
 !! *.color0:   #000000
 !! *.color1:   #cd0000
 !! *.color2:   #00cd00
@@ -156,7 +145,7 @@
 !! *.color14:  #00ffff
 !! *.color15:  #aabac8
 
-!! !! seoul256 (dark) for URxvt
+! █▓▒░ seoul256 (dark) for URxvt
 !*background: #3a3a3a
 !*foreground: #d0d0d0
 !*color0: #4e4e4e
@@ -189,99 +178,76 @@
 
 ! to specify an X11 core font, just specify its name or prefix it with "x:".
 ! To specify an XFT-font, you need to prefix it with "xft:", e.g.:
-!               urxvt -fn "xft:Bitstream Vera Sans Mono:pixelsize=15"
 !               urxvt -fn "9x15bold,xft:Bitstream Vera Sans Mono"
-!
-! should only be xft=fontconfig so these 'core' fonts should be changed.
-!
-URxvt*font: xft:PowerLineSymbols:style=Regular:size=12:hinting=full
-!URxvt*font: xft:Source Code Pro:style=Regular:size=12:hinting=full
-!URxvt*font:  xft:inconsolata:size=10:antialias=true
-!URxvt*buffered: true
 
-!URxvt*boldFont: 
-!URxvt*italicFont: 
-!URxvt*bolditalicFont: 
-
-URxvt*cursorBlink: false
-URxvt*underlineColor: yellow
-URxvt*depth: 32
-URxvt*borderless: 1
-URxvt*loginShell: true
-URxvt*termName: rxvt-unicode
-URxvt.matcher.button: 1
-
-!URxvt*letterSpace: -1
-!URxvt*lineSpace: -1
+!URxvt.font: xft:PowerLineSymbols:style=Regular:size=12:hinting=full
+!URxvt.font: xft:Source Code Pro:style=Regular:size=12:hinting=full
+!URxvt.font: xft: Source Code Pro for Powerline:style=Regular:size=11
+!URxvt.font: xft:Terminess Powerline:style=Regular
+URxvt.font:  xft:Liberation Mono:size=12:antialias=true:style=Regular:hinting=full
 
 ! █▓▒░ interface
+URxvt.scrollBar: false
+URxvt.borderLess: false
 ! Enable Shift-PageUp/Down in screen
-Urxvt*secondaryScroll:  true
-URxvt*scrollBar: false
-URxvt*transparent: false
-URxvt*internalBorder: 0
-URxvt*borderColor: #3B4252
-URxvt*borderLess: false
+Urxvt.secondaryScroll:  true
+
+! Transparency
+URxvt.transparent: true
+URxvt.shading: 20
+
+URxvt.buffered: true
+URxvt.cursorBlink: false
+!URxvt.depth: 32
+!URxvt.termName: rxvt-unicode
+URxvt.termName: rxvt-unicode-256color
+URxvt.letterSpace: -1
+!URxvt.lineSpace: -1
 
 ! █▓▒░ extensions
-
-URxvt.keysym.M-u: perl:url-select:select_next
-URxvt.perl-ext: default,clipboard,url-select
-URxvt.perl-ext-common: default,matcher
-URxvt.urlLauncher: firefox
-URxvt.url-select.underline: false
-URxvt.url-select.launcher: /usr/bin/xdg-open
-URxvt.url-select.autocopy: true
-URxvt.clipboard.autocopy: true
-URxvt.clipboard.copycmd: xsel -ib
-URxvt.clipboard.pastecmd: xsel -ob
-URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
+!! Disabling the urxvt perl extention (too long to start up)
+!! see man urxvtperl
+!!
+urxvt*perl-ext:
+!URxvt.keysym.M-u: perl:url-select:select_next
+!URxvt.perl-ext: default,clipboard,url-select
+!URxvt.perl-ext-common: default,matcher
+!URxvt.urlLauncher: firefox
+!URxvt.url-select.underline: false
+!URxvt.url-select.launcher: /usr/bin/xdg-open
+!URxvt.url-select.autocopy: true
+!URxvt.clipboard.autocopy: true
+!URxvt.clipboard.copycmd: xsel -ib
+!URxvt.clipboard.pastecmd: xsel -ob
+!URxvt.keysym.M-C-v: perl:clipboard:paste_escaped
 
 ! █▓▒░ misc
+
 URxvt.saveLines: 5000
-URxvt.iso14755: false
 !URxvt*altSendsEscape: true
 
+!Disable the insanely annoying Ctrl+Shift shortcut that enters ISO14755 mode
+URxvt.iso14755:    false
+URxvt.iso14755_52: false
+
 ! █▓▒░ high dpi mode
+
 !Xft.dpi: 190
 !Xft.autohint: 0
 !Xft.lcdfilter: lcddefault
-Xft.hintstyle: hintfull
-Xft.hinting: 1
-Xft.antialias: 1
+Xft.hinting: full
+Xft.antialias: true
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !st config
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-!
-!! Transparency (0-1):
-st.alpha: 0.92
-
-!! Set a default font and font size as below:
-!st.font: Source Code Pro-12;
-st.font: Monospace-11;
 
 !st.termname: term-256color
 !st.borderpx: 2
 
-!!! ----- urxvt --------------------------------------------
-!
-!!! see: http://510x.se/notes/posts/Configuring_and_using_rxvt-unicode/
-!!!		http://lists.schmorp.de/pipermail/rxvt-unicode/
-!urxvt*termname:			rxvt-unicode-256color
-!
-!!# Disabling the urxvt perl extention (too long to start up)
-!!# see man urxvtperl
-!!
-!!urxvt*perl-ext:
-!urxvt*perl-ext-common: urxvt-colours
-!urxvt*perl-lib: /usr/local/bin/
-!urxvt*keysyms.C-Tab: perl:urxvt-colours
-!
-!!! changes the prompt colour
-!URxvt*intensityStyles: true
-!
-!!Disables the insanely annoying Ctrl+Shift shortcut that enters ISO14755 mode
-!URxvt.iso14755:    false
-!URxvt.iso14755_52: false
-!
+! Transparency(0-1) requires compositor
+st.alpha: 0.5
+
+!! Set a default font and font size as below:
+!st.font: Source Code Pro-12;
+st.font: Monospace-11;
