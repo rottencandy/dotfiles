@@ -108,11 +108,11 @@ packadd! matchit
 " Enable fzf plugin
 "set rtp+=~/apps/fzf
 
-" Mapping for clang-format
-"autocmd FileType javascript nnoremap <C-K> :pyf ~/code/clang-format.py<cr>
+" Mapping for prettier
+autocmd FileType javascript nnoremap <C-K> :PrettierAsync<cr>
 
 " Mapping for js beautify
-autocmd FileType javascript nnoremap <C-K> :call JsBeautify()<cr>
-autocmd FileType html nnoremap <C-K> :call HtmlBeautify()<cr>
-autocmd FileType css nnoremap <C-K> :call CSSBeautify()<cr>
+"autocmd FileType javascript nnoremap <C-K> :call JsBeautify()<cr>
+"autocmd FileType html nnoremap <C-K> :call HtmlBeautify()<cr>
+"autocmd FileType css nnoremap <C-K> :call CSSBeautify()<cr>
 
