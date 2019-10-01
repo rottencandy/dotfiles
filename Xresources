@@ -16,23 +16,23 @@
 *.background:   #111111
 *.cursorColor:  #c2c2b0
 
-! █▓▒░ scorcerer colors
-*.color0:  #111111
-*.color8:  #181818
-*.color1:  #aa4450
-*.color9:  #ff6a6a
-*.color2:  #719611
-*.color10: #b1d631
-*.color3:  #ff9800
-*.color11: #87875f
-*.color4:  #6688aa
-*.color12: #90b0d1
-*.color5:  #8f6f8f
-*.color13: #8181a6
-*.color6:  #528b8b
-*.color14: #87ceeb
-*.color7:  #d3d3d3
-*.color15: #c1cdc1
+! █▓▒░ scorcerer
+!*.color0:  #111111
+!*.color8:  #181818
+!*.color1:  #aa4450
+!*.color9:  #ff6a6a
+!*.color2:  #719611
+!*.color10: #b1d631
+!*.color3:  #ff9800
+!*.color11: #87875f
+!*.color4:  #6688aa
+!*.color12: #90b0d1
+!*.color5:  #8f6f8f
+!*.color13: #8181a6
+!*.color6:  #528b8b
+!*.color14: #87ceeb
+!*.color7:  #d3d3d3
+!*.color15: #c1cdc1
 
 ! █▓▒░ gruvbox
 !! *.color0: #1d2021
@@ -168,6 +168,25 @@
 !*cursorColor2: #3a3a3a
 !*colorBD: #e4e4e4
 
+! █▓▒░ gnome-terminal
+*.background: #2B2B2B
+*.foreground: #DEDEDE
+*.color0  : #2E3436
+*.color8  : #555753
+*.color1  : #CC0000
+*.color9  : #EF2929
+*.color2  : #4E9A06
+*.color10 : #8AE234
+*.color3  : #C4A000
+*.color11 : #FCE94F
+*.color4  : #3465A4
+*.color12 : #729FCF
+*.color5  : #75507B
+*.color13 : #AD7FA8
+*.color6  : #06989A
+*.color14 : #34E2E2
+*.color7  : #D3D7CF
+*.color15 : #EEEEEC
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !urxvt config
@@ -249,5 +268,5 @@ Xft.antialias: true
 st.alpha: 0.5
 
 !! Set a default font and font size as below:
-!st.font: Source Code Pro-12;
-st.font: Monospace-11;
+st.font: Source Code Pro-12;
+!st.font: Monospace-11;
