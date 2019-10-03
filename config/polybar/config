@@ -60,10 +60,10 @@ module-margin-right = 2
 
 ; font-N = <fontconfig pattern>;<vertical offset>
 font-0 = "fixed:pixelsize=10;1"
-font-1 = "unifont:fontformat=truetype:size=8:antialias=false;0"
-font-2 = "Fira Mono:pixelsize=10;1"
-font-3 = "FontAwesome:style=Regular;1"
-font-4 = siji:pixelsize=10;1
+font-1 = siji:pixelsize=10;1
+font-2 = "unifont:fontformat=truetype:size=8:antialias=false;0"
+font-3 = "Fira Mono:pixelsize=10;1"
+font-4 = "FontAwesome:style=Regular;1"
 
 modules-left = bspwm
 modules-center = date

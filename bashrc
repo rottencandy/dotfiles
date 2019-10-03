@@ -40,6 +40,12 @@ export SYSTEMD_PAGER=
 
 ##################################################
 
+# Disable ctrl-s and ctrl-q
+stty -ixon
+
+# cd into directory by typing directory name
+shopt -s autocd
+
 # Bash prompt
 #export PS1=$"\[\033[48;5;2m\]\u@\h>\[$(tput sgr0)\]\[\033[48;5;8m\]\w \\$>\[$(tput sgr0)\]"
 PS1="\[\e[42m\]\u\[\e[m\]\[\e[32;46m\]\[\e[m\]\[\e[37;46m\]\h\[\e[m\]\[\e[36;47m\]\[\e[m\]\[\e[30;47m\]\w\[\e[m\] "
