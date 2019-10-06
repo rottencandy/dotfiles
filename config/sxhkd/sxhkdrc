@@ -27,9 +27,15 @@ super + r
 
 ## Control volume
 XF86AudioRaiseVolume
-        amixer sset Master playback 5%+
+        amixer sset Master playback 10%+
 XF86AudioLowerVolume
-        amixer sset Master playback 5%-
+        amixer sset Master playback 10%-
+#
+## Control brightness
+XF86MonBrightnessUp
+        xbacklight -inc 5%
+XF86MonBrightnessDown
+        xbacklight -dec 5%
 
 # toggle vol mute
 XF86AudioMute

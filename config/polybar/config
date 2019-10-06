@@ -27,10 +27,18 @@ primary = #ffb52a
 secondary = #e60053
 alert = #bd2c40
 
+; Use xresources to fetch colors
+;background = ${xrdb:color0:#222}
+;foreground = ${xrdb:color7:#222}
+;foreground-alt = ${xrdb:color7:#222}
+;primary = ${xrdb:color1:#222}
+;secondary = ${xrdb:color2:#222}
+;alert = ${xrdb:color3:#222}
+
 [bar/primary]
 ;monitor = ${env:MONITOR:HDMI-1}
 width = 100%
-height = 27
+height = 30
 ;offset-x = 1%
 ;offset-y = 1%
 
@@ -40,37 +48,37 @@ height = 27
 ; pseudo-transparency or use a compositor like compton.
 ; Individual top/bottom values can be defined using:
 ;   radius-{top,bottom}
-radius = 6.0
+radius = 7.0
 fixed-center = true
 
 background = ${colors.background}
 foreground = ${colors.foreground}
 
-line-size = 3
+line-size = 2
 line-color = #f00
 
-border-size = 4
+border-size = 5
 border-color = #00000000
 
-padding-left = 2
-padding-right = 2
+padding-left = 1
+padding-right = 1
 
 module-margin-left = 1
-module-margin-right = 2
+module-margin-right = 1
 
 ; font-N = <fontconfig pattern>;<vertical offset>
-font-0 = "fixed:pixelsize=10;1"
-font-1 = siji:pixelsize=10;1
-font-2 = "unifont:fontformat=truetype:size=8:antialias=false;0"
-font-3 = "Fira Mono:pixelsize=10;1"
-font-4 = "FontAwesome:style=Regular;1"
+font-0 = "Fira Mono:size=11;1"
+font-1 = "Ubuntu Nerd Font:style=Book:size=11;1"
+;font-0 = "fixed:pixelsize=10;1"
+;font-1 = "siji:pixelsize=10;1"
+;font-2 = "unifont:fontformat=truetype:size=8:antialias=false;0"
 
 modules-left = bspwm
 modules-center = date
-modules-right = filesystem pulseaudio xkeyboard memory cpu wlan eth battery1 battery2 backlight-acpi temperature powermenu
+modules-right = pulseaudio xkeyboard wlan eth filesystem memory cpu battery1 battery2 backlight-acpi temperature powermenu
 
 tray-position = right
-tray-padding = 2
+tray-padding = 1
 ;tray-background = #0063ff
 
 wm-restack = bspwm
@@ -78,8 +86,8 @@ wm-restack = bspwm
 
 ;override-redirect = true
 
-scroll-up = bspwm-desknext
-scroll-down = bspwm-deskprev
+;scroll-up = bspwm-desknext
+;scroll-down = bspwm-deskprev
 
 ;scroll-up = i3wm-wsnext
 ;scroll-down = i3wm-wsprev
@@ -95,7 +103,7 @@ label = %title:0:30:...%
 type = internal/xkeyboard
 blacklist-0 = num lock
 
-format-prefix = " "
+format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 format-prefix-underline = ${colors.secondary}
 
@@ -113,7 +121,7 @@ interval = 25
 
 mount-0 = /
 
-label-mounted = %{F#0a81f5}%mountpoint%%{F-}: %percentage_used%%
+label-mounted = %{F#0a81f5}%{F-} %percentage_used%%
 label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
 
@@ -128,7 +136,7 @@ label-focused-padding = 2
 label-occupied = %index%
 label-occupied-padding = 2
 
-label-urgent = %index%!
+label-urgent = %index%
 label-urgent-background = ${colors.alert}
 label-urgent-padding = 2
 
@@ -201,19 +209,19 @@ type = internal/xbacklight
 
 ; XRandR output to get get values from
 ; Default: the monitor defined for the running bar
-output = XWAYLAND0
+;output = XWAYLAND0
 
 format = <label> <bar>
-label = BL
+label = 
 
 bar-width = 10
 bar-indicator = |
 bar-indicator-foreground = #fff
 bar-indicator-font = 2
-bar-fill = ─
+bar-fill = -
 bar-fill-font = 2
 bar-fill-foreground = #9f78e1
-bar-empty = ─
+bar-empty = -
 bar-empty-font = 2
 bar-empty-foreground = ${colors.foreground-alt}
 
@@ -225,7 +233,7 @@ card = intel_backlight
 [module/cpu]
 type = internal/cpu
 interval = 2
-format-prefix = " "
+format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #f90000
 label = %percentage:2%%
@@ -233,7 +241,7 @@ label = %percentage:2%%
 [module/memory]
 type = internal/memory
 interval = 2
-format-prefix = " "
+format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #4bffdc
 label = %percentage_used%%
@@ -253,11 +261,11 @@ format-disconnected =
 ;label-disconnected = %ifname% disconnected
 ;label-disconnected-foreground = ${colors.foreground-alt}
 
-ramp-signal-0 = 
-ramp-signal-1 = 
-ramp-signal-2 = 
-ramp-signal-3 = 
-ramp-signal-4 = 
+ramp-signal-0 = 直
+ramp-signal-1 = 直
+ramp-signal-2 = 直
+ramp-signal-3 = 直
+ramp-signal-4 = 直
 ramp-signal-foreground = ${colors.foreground-alt}
 
 [module/eth]
@@ -266,7 +274,7 @@ interface = enp0s31f6
 interval = 3.0
 
 format-connected-underline = #55aa55
-format-connected-prefix = " "
+format-connected-prefix = " "
 format-connected-prefix-foreground = ${colors.foreground-alt}
 label-connected = %local_ip%
 
@@ -279,32 +287,31 @@ format-disconnected =
 [module/date]
 type = internal/date
 ; Seconds to sleep between updates
-interval = 5
+interval = 30
 
 ; See "http://en.cppreference.com/w/cpp/io/manip/put_time" for details on how to format the date string
 ; NOTE: if you want to use syntax tags here you need to use %%{...}
 ; date = %Y-%m-%d%
-date ="%m-%d"
+date ="%d %b"
 date-alt = " %Y-%m-%d"
 
 time = %I:%M
 time-alt = %H:%M:%S
 
-format-prefix = 
+format-prefix = " "
 format-prefix-foreground = ${colors.foreground-alt}
 format-underline = #0a6cf5
 
-label = %date% %time%
+label = %date%  %time%
 
 [module/pulseaudio]
 type = internal/pulseaudio
 
 format-volume = <label-volume> <bar-volume>
-label-volume = VOL %percentage%%
+label-volume =  %percentage%%
 label-volume-foreground = ${root.foreground}
 
-label-muted = muted
-#label-muted = 🔇 muted
+label-muted = 
 label-muted-foreground = #666
 
 bar-volume-width = 10
@@ -318,9 +325,9 @@ bar-volume-foreground-6 = #ff5555
 bar-volume-gradient = false
 bar-volume-indicator = |
 bar-volume-indicator-font = 2
-bar-volume-fill = ─
+bar-volume-fill = -
 bar-volume-fill-font = 2
-bar-volume-empty = ─
+bar-volume-empty = -
 bar-volume-empty-font = 2
 bar-volume-empty-foreground = ${colors.foreground-alt}
 
@@ -346,9 +353,9 @@ bar-volume-foreground-6 = #ff5555
 bar-volume-gradient = false
 bar-volume-indicator = |
 bar-volume-indicator-font = 2
-bar-volume-fill = ─
+bar-volume-fill = -
 bar-volume-fill-font = 2
-bar-volume-empty = ─
+bar-volume-empty = -
 bar-volume-empty-font = 2
 bar-volume-empty-foreground = ${colors.foreground-alt}
 
@@ -361,29 +368,23 @@ full-at = 99
 format-charging = <animation-charging> <label-charging>
 format-charging-underline = #ffb52a
 
-format-discharging = <animation-discharging> <label-discharging>
+format-discharging = <ramp-capacity> <label-discharging>
 format-discharging-underline = ${self.format-charging-underline}
 
-format-full-prefix = " "
+format-full-prefix = " "
 format-full-prefix-foreground = ${colors.foreground-alt}
 format-full-underline = ${self.format-charging-underline}
 
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
 ramp-capacity-foreground = ${colors.foreground-alt}
 
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
 animation-charging-foreground = ${colors.foreground-alt}
 animation-charging-framerate = 750
-
-animation-discharging-0 = 
-animation-discharging-1 = 
-animation-discharging-2 = 
-animation-discharging-foreground = ${colors.foreground-alt}
-animation-discharging-framerate = 750
 
 [module/battery2]
 type = internal/battery
@@ -394,29 +395,23 @@ full-at = 99
 format-charging = <animation-charging> <label-charging>
 format-charging-underline = #ffb52a
 
-format-discharging = <animation-discharging> <label-discharging>
+format-discharging = <ramp-capacity> <label-discharging>
 format-discharging-underline = ${self.format-charging-underline}
 
-format-full-prefix = " "
+format-full-prefix = " "
 format-full-prefix-foreground = ${colors.foreground-alt}
 format-full-underline = ${self.format-charging-underline}
 
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
 ramp-capacity-foreground = ${colors.foreground-alt}
 
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
 animation-charging-foreground = ${colors.foreground-alt}
 animation-charging-framerate = 750
-
-animation-discharging-0 = 
-animation-discharging-1 = 
-animation-discharging-2 = 
-animation-discharging-foreground = ${colors.foreground-alt}
-animation-discharging-framerate = 750
 
 [module/temperature]
 type = internal/temperature
@@ -432,9 +427,9 @@ label = %temperature-c%
 label-warn = %temperature-c%
 label-warn-foreground = ${colors.secondary}
 
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
 ramp-foreground = ${colors.foreground-alt}
 
 [module/powermenu]
@@ -444,9 +439,9 @@ expand-right = true
 
 format-spacing = 1
 
-label-open = 
+label-open = 
 label-open-foreground = ${colors.secondary}
-label-close =  cancel
+label-close =  cancel
 label-close-foreground = ${colors.secondary}
 label-separator = |
 label-separator-foreground = ${colors.foreground-alt}
@@ -475,7 +470,7 @@ screenchange-reload = true
 ;pseudo-transparency = false
 
 [global/wm]
-margin-top = 5
-margin-bottom = 5
+margin-top = 3
+margin-bottom = 3
 
 ; vim:ft=dosini

@@ -3,12 +3,12 @@ configuration {
 /*	width: 50;*/
 /*	lines: 15;*/
 /*	columns: 1;*/
-	font: "mono 11";
+	font: "Hurmit Nerd Font Mono 14";
 	bw: 0;
-/*	location: 0;*/
-/*	padding: 5;*/
-/*	yoffset: 0;*/
-/*	xoffset: 0;*/
+	location: 0;
+	padding: 10;
+	yoffset: 0;
+	xoffset: 0;
 /*	fixed-num-lines: true;*/
 	show-icons: true;
 /*	terminal: "xdg-terminal";*/
@@ -19,38 +19,44 @@ configuration {
 /*	run-shell-command: "{terminal} '{cmd}'";*/
 /*	window-command: "xkill -id {window}";*/
 /*	window-match-fields: "all";*/
-	drun-icon-theme: "La-capitaine";
+/*	drun-icon-theme: "La-capitaine";*/
 /*	drun-match-fields: "name,generic,exec,categories";*/
 /*	disable-history: false;*/
 /*	sort: false;*/
 /*	levenshtein-sort: false;*/
 /*	case-sensitive: false;*/
-/*	cycle: true;*/
+	cycle: true;
 /*	sidebar-mode: false;*/
-/*	eh: 1;*/
+	eh: 1;
 /*	auto-select: false;*/
 /*	parse-hosts: false;*/
 /*	parse-known-hosts: true;*/
 /*	combi-modi: "window,run";*/
 /*	matching: "normal";*/
 /*	tokenize: true;*/
-/*	m: "-5";*/
-/*	line-margin: 2;*/
-/*	line-padding: 1;*/
+	m: "-5";
+	line-margin: 2;
+	line-padding: 1;
 /*	filter: ;*/
-/*	separator-style: "dash";*/
+	separator-style: "dash";
 /*	hide-scrollbar: false;*/
-/*	fullscreen: false;*/
+	fullscreen: false;
 /*	fake-transparency: false;*/
 /*	dpi: -1;*/
 /*	threads: 0;*/
-/*	scrollbar-width: 8;*/
-/*	scroll-method: 0;*/
+	scrollbar-width: 8;
+	scroll-method: 0;
 /*	fake-background: "screenshot";*/
-/*	window-format: "{w}    {i}{c}   {t}";*/
+	window-format: "{w}    {i}{c}   {t}";
 /*	click-to-exit: true;*/
 /*	show-match: true;*/
-	theme: "/usr/share/rofi/themes/gruvbox-dark";
+
+/* Set theme using pywal
+        theme: "~/.cache/wal/colors-rofi-dark.rasi";
+*/
+	theme: "/usr/share/rofi/themes/Monokai.rasi";
+	kb-row-up: "Up,Control+k";
+	kb-row-down: "Down,Control+j";
 /*	color-normal: ;*/
 /*	color-urgent: ;*/
 /*	color-active: ;*/
@@ -78,9 +84,9 @@ configuration {
 /*	kb-remove-word-forward: "Control+Alt+d";*/
 /*	kb-remove-char-forward: "Delete,Control+d";*/
 /*	kb-remove-char-back: "BackSpace,Control+h";*/
-/*	kb-remove-to-eol: "Control+k";*/
+	kb-remove-to-eol: "Control+p";
 /*	kb-remove-to-sol: "Control+u";*/
-/*	kb-accept-entry: "Control+j,Control+m,Return,KP_Enter";*/
+	kb-accept-entry: "Control+n,Control+m,Return,KP_Enter";
 /*	kb-accept-custom: "Control+Return";*/
 /*	kb-accept-alt: "Shift+Return";*/
 /*	kb-delete-entry: "Shift+Delete";*/
