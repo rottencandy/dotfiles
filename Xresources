@@ -200,7 +200,7 @@
 !               urxvt -fn "9x15bold,xft:Bitstream Vera Sans Mono"
 
 !URxvt.font: xft:PowerLineSymbols:style=Regular:size=12:hinting=full
-URxvt.font: xft:Source Code Pro:style=Regular:size=12:hinting=full
+URxvt.font: xft:Hurmit Nerd Font Mono:style=medium:size=12
 !URxvt.font: xft:Terminess Powerline:style=Regular
 !URxvt.font:  xft:Liberation Mono:size=12:antialias=true:style=Regular:hinting=full
 

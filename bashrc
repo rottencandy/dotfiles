@@ -68,7 +68,8 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 # Use gvim (better X, clipboard support)
-alias vim='gvim -v'
+alias vim='gvim -v'\
+    t=tmux
 
 # Path for go workspaces
 export GOPATH=~/code/go

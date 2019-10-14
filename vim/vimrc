@@ -22,7 +22,7 @@ set tm=500
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Functionality
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set shiftwidth=4        " Read tab character as 4 spaces 
+set shiftwidth=4        " Set display size of tabs
 set softtabstop=4       " Write 4 spaces when tab is pressed
 set expandtab           " Tabs mean spaces. Use <C-V>Tab to insert real tab.
 set smarttab            " Insert real tab if pressed in beginning of line
@@ -90,10 +90,8 @@ set statusline+=%#DiffDelete#%{(mode()=='r')?'\ \ RPLACE\ ':''}
 set statusline+=%#Cursor#%{(mode()=='v')?'\ \ VISUAL\ ':''}
 
 set statusline+=\ %n\           " buffer number
-set statusline+=%#Visual#       " color
 set statusline+=%{&paste?'\ PASTE\ ':''}
 set statusline+=%{&spell?'\ SPELL\ ':''}
-set statusline+=%#CursorIM#     " color
 set statusline+=%R              " readonly flag
 set statusline+=%M              " modified [+] flag
 set statusline+=%#CursorLine#  " color

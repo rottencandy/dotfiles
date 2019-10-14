@@ -11,8 +11,12 @@ super + @space
 	rofi -show drun
 
 # make sxhkd reload its configuration files:
-super + shift + R
+super + shift + r
 	pkill -USR1 -x sxhkd
+
+# reload bspwm configuration files:
+super + shift + t
+	~/.config/bspwm/bspwmrc
 
 # Lock screen
 alt + p

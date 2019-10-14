@@ -54,7 +54,7 @@ configuration {
 /* Set theme using pywal
         theme: "~/.cache/wal/colors-rofi-dark.rasi";
 */
-	theme: "/usr/share/rofi/themes/Monokai.rasi";
+/*	theme: "/usr/share/rofi/themes/Monokai.rasi";*/
 	kb-row-up: "Up,Control+k";
 	kb-row-down: "Down,Control+j";
 /*	color-normal: ;*/
@@ -68,7 +68,8 @@ configuration {
 /*	display-windowcd: ;*/
 /*	display-run: ;*/
 /*	display-ssh: ;*/
-/*	display-drun: ;*/
+	display-drun:  " Search:";
+        drun-display-format: "{name}";
 /*	display-combi: ;*/
 /*	display-keys: ;*/
 /*	kb-primary-paste: "Control+V,Shift+Insert";*/
@@ -143,4 +144,72 @@ configuration {
 /*	me-accept-entry: "MouseDPrimary";*/
 /*	me-accept-custom: "Control+MouseDPrimary";*/
 }
+
+* {
+  background-color: #282828;
+  text-color: #ebdbb2;
+}
+ 
+window {
+  background-color: #1d2021;
+  location: center;
+  width: 60%;
+  height: 45%;
+  
+}
+ 
+mainbox {
+  children: [ listview, inputbar ];
+  padding: 40;
+}
+ 
+listview {
+  columns: 4;
+  layout: vertical;
+  spacing: 30;
+}
+ 
+element {
+  border-radius: 0;
+  orientation: vertical;
+  padding: 10;
+}
+ 
+element selected {
+  background-color: #8ec07c;
+  text-color: #282828;
+  transition: 20;
+}
+ 
+element-icon {
+  size: 40;
+}
+ 
+element-text {
+  horizontal-align: 0.5;
+  padding: 5 0 0 0;
+  text-color: inherit;
+}
+ 
+inputbar {
+  border-radius: 50%;
+/*  margin: 0 30;*/
+  padding: 10 0;
+}
+ 
+prompt {
+  background-color: #8ec07c;
+  padding: 5px;
+  border-radius: 50% 0 0 50%;
+  text-color: #282828;
+  enabled: true;
+}
+ 
+entry {
+  font: "Hurmit Nerd Font Mono 14";
+  border-radius: 0 50% 50% 0;
+  text-color: #282828;
+  background-color: #ebdbb2;
+}
+
 /* vim:ft=css

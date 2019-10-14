@@ -1,5 +1,6 @@
 12ibt6/*
 autostart/*
+browsh/*
 Blue Jeans/*
 cmus/*
 configstore/*
@@ -12,6 +13,7 @@ gedit/*
 GIMP/*
 git/*
 gnome-*
+godot/*
 google-chrome/*
 gtk-*
 ibus*
@@ -30,6 +32,7 @@ QtProject/*
 QtProject.conf
 ristretto/*
 snes9x/*
+totem/*
 Trolltech/*
 Trolltech.conf
 unity3d/*
