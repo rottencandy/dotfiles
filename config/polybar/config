@@ -73,8 +73,8 @@ font-1 = "Ubuntu Nerd Font:style=Book:size=11;1"
 ;font-1 = "siji:pixelsize=10;1"
 ;font-2 = "unifont:fontformat=truetype:size=8:antialias=false;0"
 
-modules-left = bspwm
-modules-center = date
+modules-left = bspwm date
+modules-center =
 modules-right = pulseaudio xkeyboard wlan eth filesystem memory cpu battery1 battery2 backlight-acpi temperature powermenu
 
 tray-position = right

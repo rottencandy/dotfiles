@@ -1,13 +1,17 @@
 12ibt6/*
 autostart/*
-browsh/*
+blender/*
 Blue Jeans/*
+browsh/*
 cmus/*
+Code/*
 configstore/*
 containers/*
 dconf/*
+dleyna-renderer-service.conf
 enchant/*
 evolution/*
+fcitx/*
 gconf/*
 gedit/*
 GIMP/*
@@ -21,18 +25,24 @@ icedtea-web/*
 iridium/*
 kdeconnect/*
 keybase/*
+leafpad/*
 libreoffice/*
 menus/*
 midori/*
 mimeapps.list
 nautilus/*
+nnn/*
+pavucontrol.ini
 pragha/*
 pulse/*
 QtProject/*
 QtProject.conf
 ristretto/*
 snes9x/*
+SpiderOak Groups/*
+Thunar/*
 totem/*
+transmission/*
 Trolltech/*
 Trolltech.conf
 unity3d/*
@@ -42,3 +52,4 @@ VA_11_Hall_A/*
 VirtualBox/*
 vlc/*
 xfce4/*
+yelp/*

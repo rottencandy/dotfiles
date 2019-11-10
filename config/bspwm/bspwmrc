@@ -45,6 +45,7 @@ bspc config presel_border_color '#26E2FF'
 
 bspc rule -a Gimp state=floating follow=on focus=on
 bspc rule -a Gimp-2.8 state=floating follow=on focus=on
+bspc rule -a feh state=floating follow=on focus=on
 
 # background
 feh --bg-max ~/Pictures/wall.png

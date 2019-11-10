@@ -69,7 +69,8 @@ export NVM_DIR="$HOME/.nvm"
 
 # Use gvim (better X, clipboard support)
 alias vim='gvim -v'\
-    t=tmux
+    t=tmux\
+    g=git
 
 # Path for go workspaces
 export GOPATH=~/code/go
@@ -78,4 +79,7 @@ PATH=$PATH:$GOPATH/bin
 
 # Kubernetes cl
 export KUBE_EDITOR="vim"
+
+# https://github.com/nvbn/thefuck
+eval "$(thefuck --alias)"
 

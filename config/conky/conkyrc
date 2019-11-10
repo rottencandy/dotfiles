@@ -1,0 +1,137 @@
+-- Conky for Debian Gnu/Linux and derivatives - Version 2.5
+--  By Gustavo Valério
+--  www.gustavovalerio.com
+--  https://github.com/gustavovalerio/Conky
+-- Modified May 18, 2019 - Version 3.0
+--  By Dean Loros (autocrosser1)
+
+-- LICENSE GPL V 2.1
+--  Free for use and modification
+--  Keep the credits
+
+-- DEPENDENCIES
+--  Package conky-all >= 1.10 (apt install conky-all)
+--  Package lm-sensors (apt install lm-sensors)
+--  All needed fonts in the .font file
+--  CPU usage in percents. For SMP machines, the CPU number can be provided as an argument. ${cpu cpu0} is/ the total usage, and ${cpu cpuX} (X >= 1) are individual CPUs.
+
+conky.config = {
+
+-- MONITOR
+    xinerama_head = 0,
+
+-- SIZE
+    minimum_width = 250,
+    minimum_height = 300,
+
+-- ALIGNMENT
+    gap_x = 0,
+    gap_y = 40,
+    alignment = 'top_right',
+
+-- COLORS
+    default_color = 'white',
+    default_shade_color = 'blue',
+    default_outline_color = 'blue',
+    
+-- XFT
+    xftalpha = 1,
+    use_xft = true,
+    font = 'Coda:size=9',
+
+-- AVG SAMPLES
+    net_avg_samples = 1,
+    cpu_avg_samples = 1,
+    diskio_avg_samples = 2,
+
+-- BORDERS AND SHADES
+    border_width = 0,
+    draw_shades = false,
+    stippled_borders = 0,
+    draw_borders = false,
+    draw_outline = false,
+    extra_newline = false,
+    border_outer_margin = 0,
+    border_inner_margin = 0,
+    draw_graph_borders = true,
+
+-- Misc Console
+    out_to_console = false,
+    out_to_stderr = false,
+    extra_newline = false,
+
+-- WINDOW
+    own_window = true,
+    background = false,
+    own_window_class = 'conky',
+    own_window_transparent = true,
+    own_window_argb_visual = true,
+    own_window_hints = 'undecorated,below,sticky,skip_taskbar,skip_pager',
+
+-- GLOBAL
+    uppercase = false,
+    no_buffers = true,
+    update_interval = 1,
+    total_run_times = 0,
+    use_spacer = 'right',
+    double_buffer = true,
+    out_to_stderr = false,
+    out_to_console = false,
+    show_graph_range = false,
+    show_graph_scale = false,
+    override_utf8_locale = yes,
+    temperature_unit = 'celsius'
+};
+
+conky.text = [[
+${voffset 5}${goto 15}${font Fontawesome:size=10} ${voffset -4}${font Coda:size=12} SYSTEM INFORMATION:
+${goto 25}${voffset 5}${font Fontawesome:size=10}$font  ${voffset -2}OS:  ${execi 999999 cat /etc/issue.net | sed 's#s#S#g'}
+${goto 25}${font Fontawesome:size=10}$font  ${voffset -2}DESKTOP:  ${execi 999999 echo $DESKTOP_SESSION}
+${goto 25}${font Fontawesome:size=10}$font  ${voffset -2}USER:  ${execi 999999 whoami}
+${goto 25}${font Fontawesome:size=10} $font SYSTEM INSTALLED: ${execi 999999 ls -lct /etc | tail -1 | awk '{print $6, $7, $8}'}
+${goto 25}${font Fontawesome:size=10} $font ${voffset -2}CPU TYPE: ${execi 3600 cat /proc/cpuinfo|grep 'model name'|sed -e 's/model name.*: //'| uniq | cut -c 19-40}
+${goto 25}${font Fontawesome:size=10}$font  ${voffset -2}CPU FREQUENCY:  ${freq 0} mhz
+${goto 25}${font Fontawesome:size=10}$font  ${voffset -2}BATTERY:  $battery_percent %
+${goto 25}${font Fontawesome:size=10} $font KERNEL:  $kernel
+${goto 25}${font Fontawesome:size=10} $font MEMORY:  $mem OF $memmax
+${goto 25}${font Fontawesome:size=10} $font MEMORY ON STARTUP:  ${execi 999999 free -m | grep -i mem |  awk '{print $3}'}MiB
+${goto 25}${font ConkySymbols:size=10}n$font  ${voffset -2}PROCESSES:  $processes  (${running_processes} Running)
+${goto 25}${font Fontawesome:size=10} $font THREADS:  $running_threads
+${goto 25}${font Fontawesome:size=10}  $font UPDATES:  ${execi 60 apt list --upgradable | sed 2d | wc -l | tail}${voffset 5}
+${image ~/.conky/img/net-box03.png -p 27,234}${image ~/.conky/img/net-box03.png -p 144,234}
+${alignc}${voffset -2}${offset -10}AVERAGE CPU ${offset 40}AVERAGE RAM
+${alignc}${voffset 10}${offset 12}${font ConkyWind:size=88}%%$font
+${alignc}${voffset -75}${offset -40}${font Open 24 Display St:size=26}${cpu cpu0}%$font
+${alignc}${voffset -42}${offset 77}${font Open 24 Display St:size=26}${memperc}%$font$color
+${voffset 10}${image ~/.conky/img/net-box04.png -p 45,368}${image ~/.conky/img/net-box04.png -p 112,368}${image ~/.conky/img/net-box04.png -p 180,368}${voffset 2}
+${voffset 10}${offset 35}CPU 0${offset 35}CPU 1${offset 39}CPU 2${offset 39}CPU 3
+${alignc}${voffset 5}${offset 12}${font ConkyWind:size=50}%%%%$font
+${alignc}${voffset -45}${offset -88}${font Open 24 Display St:size=15}${cpu cpu1}%$font
+${alignc}${voffset -26}${offset -20}${font Open 24 Display St:size=15}${cpu cpu2}%$font
+${alignc}${voffset -26}${offset 47}${font Open 24 Display St:size=15}${cpu cpu3}%$font
+${alignc}${voffset -26}${offset 113}${font Open 24 Display St:size=15}${cpu cpu4}%$font
+${image ~/.conky/img/net-box04.png -p 45,454}${image ~/.conky/img/net-box04.png -p 112,454}${image ~/.conky/img/net-box04.png -p 180,454}
+${voffset 5}${offset 35}CPU 4${offset 35}CPU 5${offset 35}CPU 6${offset 35}CPU 7
+${alignc}${voffset 5}${offset 12}${font ConkyWind:size=50}%%%%$font
+${alignc}${voffset -45}${offset -88}${font Open 24 Display St:size=15}${cpu cpu5}%$font
+${alignc}${voffset -26}${offset -20}${font Open 24 Display St:size=15}${cpu cpu6}%$font
+${alignc}${voffset -26}${offset 47}${font Open 24 Display St:size=15}${cpu cpu7}%$font
+${alignc}${voffset -26}${offset 113}${font Open 24 Display St:size=15}${cpu cpu8}%$font${voffset -5}
+${goto 15}${voffset 30}${font ConkySymbols:size=10}H$font${voffset -4}${font Coda:size=12} TEMPERATURES:
+${goto 25}${font ConkySymbols:size=10}H$font Core0:${goto 85}${execi 30 sensors|grep 'Core 0'| awk -F'+' '{print $2}' | awk -F'.' '{print $1}'} °C${goto 150}${font ConkySymbols:size=10}H$font Core1:${goto 205}${execi 30 sensors|grep 'Core 1'| awk -F'+' '{print $2}' | awk -F'.' '{print $1}'} °C 
+${goto 25}${font ConkySymbols:size=10}H$font Core2:${goto 85}${execi 30 sensors|grep 'Core 2'| awk -F'+' '{print $2}' | awk -F'.' '{print $1}'} °C${goto 150}${font ConkySymbols:size=10}H${font}Core3:${goto 205}${execi 30 sensors|grep 'Core 3'| awk -F'+' '{print $2}' | awk -F'.' '{print $1}'} °C 
+${voffset 5}${goto 15}${font ConkySymbols:size=10}K${voffset -3}${font Coda:size=12} STORAGE: $font
+${goto 25}${font ConkySymbols:size=10}M$font  SSD: ${goto 80}${fs_used /} of ${fs_size /} 
+${goto 25}${color 83A1FF}${fs_bar 4,200 /}${color}
+${voffset 5}${goto 15}${font Fontawesome:size=10} ${voffset -4}${font Coda:size=12} NETWORK:
+${goto 25}${font ConkySymbols:size=10}d$font UPLOAD  TOTAL:  ${totalup wlp1s0}
+${goto 25}${font ConkySymbols:size=10}e$font DOWNLOAD  TOTAL:  ${totaldown wlp1s0}${voffset 5}
+${goto 25}${font Fontawesome:size=10} $font UPLOAD $alignr${offset -26}${upspeed wlp1s0}/s
+${goto 25}${voffset -4}${color A40810}${upspeedgraph wlp1s0 20,200 A40810 A40810 -t}${color}
+${goto 25}${voffset -6}${font Fontawesome:size=10}$font  DOWNLOAD $alignr${offset -26}${downspeed wlp1s0}/s
+${goto 25}${voffset -5}${color 06FF1C}${downspeedgraph wlp1s0 20,200 06FF1C 06FF1C -t}${color}
+${goto 25}${font Fontawesome:size=10}$font  INBOUND PORTS: ${tcp_portmon 1 32767 count}
+${goto 25}${font Fontawesome:size=10} $font OUTBOUND PORTS: ${tcp_portmon 32768 61000 count}
+${goto 25}${font ConkySymbols:size=10}i$font  IP:   ${addr wlp1s0}
+${goto 22}$font  Ethernet:   ${addr enx3c8cf8ffccbc}
+]];

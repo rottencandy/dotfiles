@@ -26,6 +26,7 @@ set shiftwidth=4        " Set display size of tabs
 set softtabstop=4       " Write 4 spaces when tab is pressed
 set expandtab           " Tabs mean spaces. Use <C-V>Tab to insert real tab.
 set smarttab            " Insert real tab if pressed in beginning of line
+set nrformats="bin,hex" " define bases for <C-a> and <C-x> math operations
 
 " Backspace works on autoindent, line break and start of insert
 set backspace=indent,eol,start
@@ -40,6 +41,7 @@ set wildmenu            " Command-line completion dropdown-thing
 set hidden              " Hide unsaved buffers instead of closing
 "set confirm             " Prompt if exiting without saving
 set mouse=a             " Use mouse for all modes
+let mapleader = " "     " Set leader key
 
 set incsearch           " Search as characters are entered
 set ignorecase          " Ignore case
@@ -108,6 +110,20 @@ set statusline+=%#CursorIM#     " color
 set statusline+=\ %3l:%-2c\     " line + column
 set statusline+=%#Cursor#      " color
 set statusline+=%3p%%\          " percentage
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"netrw
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let g:netrw_banner = 0          " Top banner
+let g:netrw_liststyle = 3       " Directory list view
+let g:netrw_browse_split = 4    " File open behaviour
+let g:netrw_altv = 1
+let g:netrw_winsize = 25        " Size of opened buffer
+" Open by default on launch
+"augroup ProjectDrawer
+"  autocmd!
+"  autocmd VimEnter * :Vexplore
+"augroup END
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Key maps

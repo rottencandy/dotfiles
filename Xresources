@@ -267,5 +267,5 @@ st.borderpx: 10
 st.alpha: 1.0
 
 !! Set a default font and font size as below:
-st.font: Hurmit Nerd Font Mono-12;
+st.font: Hack-12;
 !st.font: Source Code Pro-12;

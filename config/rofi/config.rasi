@@ -3,7 +3,7 @@ configuration {
 /*	width: 50;*/
 /*	lines: 15;*/
 /*	columns: 1;*/
-	font: "Hurmit Nerd Font Mono 14";
+	font: "SpaceMono Nerd Font Mono 14";
 	bw: 0;
 	location: 0;
 	padding: 10;
