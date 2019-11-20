@@ -54,7 +54,7 @@ feh --bg-max ~/Pictures/wall.png
 xsetroot -cursor_name left_ptr &
 
 # compositor
-compton &
+picom &
 
 # lemon bar
 BAR_FONT="Source Code Pro-10"
