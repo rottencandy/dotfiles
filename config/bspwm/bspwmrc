@@ -48,7 +48,7 @@ bspc rule -a Gimp-2.8 state=floating follow=on focus=on
 bspc rule -a feh state=floating follow=on focus=on
 
 # background
-feh --bg-max ~/Pictures/wall.png
+feh --bg-fill ~/Pictures/wall.png
 
 # fix cursor showing X on non-window areas
 xsetroot -cursor_name left_ptr &
