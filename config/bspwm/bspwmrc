@@ -44,23 +44,25 @@ bspc config active_border_color '#B58900'
 bspc config presel_border_color '#26E2FF'
 
 bspc rule -a Gimp state=floating follow=on focus=on
-bspc rule -a Gimp-2.8 state=floating follow=on focus=on
 bspc rule -a feh state=floating follow=on focus=on
+
+# fix cursor showing X on non-window areas
+xsetroot -cursor_name left_ptr &
 
 # background
 feh --bg-fill ~/Pictures/wall.png
 
-# fix cursor showing X on non-window areas
-xsetroot -cursor_name left_ptr &
+# input method
+fcitx -d &
 
 # compositor
 picom &
 
 # lemon bar
-BAR_FONT="Source Code Pro-10"
+#BAR_FONT="Source Code Pro-10"
 # First two values for transparency
-BAR_FG="#ffefefef"
-BAR_BG="#CC282828"
+#BAR_FG="#ffefefef"
+#BAR_BG="#CC282828"
 
 #~/.config/bspwm/bar.sh | lemonbar -p -f "$BAR_FONT" -f "FontAwesome-12" -F"$BAR_FG" -B"$BAR_BG" | bash
 
