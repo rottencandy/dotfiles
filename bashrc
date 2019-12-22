@@ -10,6 +10,8 @@
 # here, since multilingual X sessions would not work properly if LANG is over-
 # ridden in every subshell.
 
+export LC_CTYPE=en_US.UTF-8
+
 # Some applications read the EDITOR variable to determine your favourite text
 export EDITOR=/usr/bin/vim
 export BROWSER=/usr/bin/firefox
@@ -40,7 +42,7 @@ export SYSTEMD_PAGER=
 
 ##################################################
 
-# Disable ctrl-s and ctrl-q
+# Disable  the insanely annoying ctrl-s and ctrl-q
 stty -ixon
 
 # cd into directory by typing directory name
@@ -71,11 +73,6 @@ export NVM_DIR="$HOME/.nvm"
 alias vim='gvim -v'\
     t=tmux\
     g=git
-
-# Path for go workspaces
-export GOPATH=~/code/go
-# Include `go install` binary dir in path
-PATH=$PATH:$GOPATH/bin
 
 # Kubernetes cl
 export KUBE_EDITOR="vim"
