@@ -1,5 +1,5 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Visual appearance
+"Appearance
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable           " enable syntax highlighting
 filetype indent on      " Load filetype-specific indentation
@@ -20,8 +20,9 @@ set t_vb=
 set tm=500
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Functionality
+"Behaviour
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+filetype plugin on      " Load filetype-specific configs
 set shiftwidth=4        " Set display size of tabs
 set softtabstop=4       " Write 4 spaces when tab is pressed
 set expandtab           " Tabs mean spaces. Use <C-V>Tab to insert real tab.
@@ -41,13 +42,10 @@ set wildmenu            " Command-line completion dropdown-thing
 set hidden              " Hide unsaved buffers instead of closing
 "set confirm             " Prompt if exiting without saving
 set mouse=a             " Use mouse for all modes
-let mapleader = " "     " Set leader key
 
 set incsearch           " Search as characters are entered
 set ignorecase          " Ignore case
 set smartcase           " Except if there is a capital letter
-" Map redraw-screen to also clear search highlights
-nnoremap <C-L> :nohl<CR><C-L>
 
 set splitbelow          " New split goes below
 set splitright          " and to right
@@ -135,6 +133,12 @@ command W w !sudo tee % > /dev/null
 :imap jk <Esc>
 :imap kj <Esc>
 
+" Map redraw-screen to also clear search highlights
+nnoremap <C-L> :nohl<CR><C-L>
+
+let mapleader = " "     " Set leader key
+nnoremap <leader>f :FZF<CR>
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Plugins
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -143,7 +147,4 @@ packadd! matchit
 
 " Enable fzf plugin
 "set rtp+=~/apps/fzf
-
-" Mapping for prettier
-autocmd FileType javascript nnoremap <C-K> :PrettierAsync<cr>
 
