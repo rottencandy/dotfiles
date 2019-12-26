@@ -20,6 +20,7 @@ gnome-*
 godot/*
 google-chrome/*
 gtk-*
+helm
 ibus*
 icedtea-web/*
 iridium/*
