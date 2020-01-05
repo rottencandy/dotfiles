@@ -75,7 +75,7 @@ font-1 = "Ubuntu Nerd Font:style=Book:size=11;1"
 
 modules-left = bspwm date
 modules-center =
-modules-right = pulseaudio xkeyboard wlan eth filesystem memory cpu battery1 battery2 backlight-acpi temperature powermenu
+modules-right = pulseaudio xkeyboard wlan eth filesystem memory cpu battery1 battery2 backlight-acpi temperature
 
 tray-position = right
 tray-padding = 1
