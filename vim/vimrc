@@ -8,6 +8,7 @@ filetype indent on      " Load filetype-specific indentation
 colorscheme gruvbox
 set background=dark
 set number              " Show line numbers
+set relativenumber      " Relative line numbering
 set showcmd             " Show command being typed in bottom bar
 set lazyredraw          " Redraw screen less frequently(Does not affect usage)
 set showmatch           " Highlight matching [{()}]
