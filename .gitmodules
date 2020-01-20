@@ -19,3 +19,6 @@
 [submodule "vim/pack/general/opt/ale"]
 	path = vim/pack/general/opt/ale
 	url = https://github.com/dense-analysis/ale
+[submodule "vim/pack/general/start/editorconfig-vim"]
+	path = vim/pack/general/start/editorconfig-vim
+	url = https://github.com/editorconfig/editorconfig-vim
