@@ -59,6 +59,8 @@ PS1="\[\e[42m\]\u\[\e[m\]\[\e[32;46m\]\[\e[m\]\[\e[37;46m\]\h\[\e[m\]\[\e[36;
 if [ -f /usr/share/fzf/shell/key-bindings.bash ]; then
     . /usr/share/fzf/shell/key-bindings.bash
 fi
+# Default fzf options
+export FZF_DEFAULT_COMMAND='fd --type f --hidden'
 # Load fzf
 #[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
@@ -69,12 +71,12 @@ export NVM_DIR="$HOME/.nvm"
 # nvm bash_completion
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-# Use gvim (better X, clipboard support)
+# Use gvim (better X, clipboard support)(can also use vimx)
 alias vim='gvim -v'\
     t=tmux\
     g=git
 
-# Kubernetes cl
+# Kubernetes resource editor
 export KUBE_EDITOR="vim"
 
 # https://github.com/nvbn/thefuck
