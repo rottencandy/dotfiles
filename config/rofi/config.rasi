@@ -179,6 +179,7 @@ element selected {
   background-color: #8ec07c;
   text-color: #282828;
   transition: 20;
+  border-radius: 50% 50%;
 }
  
 element-icon {
@@ -209,6 +210,7 @@ entry {
   font: "Hurmit Nerd Font Mono 14";
   border-radius: 0 50% 50% 0;
   text-color: #282828;
+  padding: 10px;
   background-color: #ebdbb2;
 }
 
