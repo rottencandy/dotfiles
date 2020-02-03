@@ -20,7 +20,7 @@ super + shift + t
 
 # Lock screen
 alt + p
-        $HOME/.config/sxhkd/lock.sh
+	$HOME/.config/sxhkd/lock.sh
 
 #lightdm
         #dm-tool lock

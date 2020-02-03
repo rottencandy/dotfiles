@@ -11,65 +11,49 @@
 !  ├─ based on sorcerer by Jeet Sukumaran (http://jeetworks.org)
 !  └─ based on mustang by Henrique C. Alves (hcarvalhoalves@gmail.com)
 
-!! Set the background, foreground and cursor colors as below:
-*.foreground:   #c2c2b0
-*.background:   #282828
-*.cursorColor:  #c2c2b0
+!*.cursorColor:  #ccc
 Xcursor.theme: Hacked-White
-!
+*foreground: #d0d0d0
+*background: #3a3a3a
+*.cursorColor:  #ccc
+
 ! █▓▒░ scorcerer
-!*.color0:  #111111
-!*.color8:  #181818
-!*.color1:  #aa4450
-!*.color9:  #ff6a6a
-!*.color2:  #719611
-!*.color10: #b1d631
-!*.color3:  #ff9800
-!*.color11: #87875f
-!*.color4:  #6688aa
-!*.color12: #90b0d1
-!*.color5:  #8f6f8f
-!*.color13: #8181a6
-!*.color6:  #528b8b
-!*.color14: #87ceeb
-!*.color7:  #d3d3d3
-!*.color15: #c1cdc1
+!*.color0:      #111111
+!*.color8:      #181818
+!*.color1:      #aa4450
+!*.color9:      #ff6a6a
+!*.color2:      #719611
+!*.color10:     #b1d631
+!*.color3:      #ff9800
+!*.color11:     #87875f
+!*.color4:      #6688aa
+!*.color12:     #90b0d1
+!*.color5:      #8f6f8f
+!*.color13:     #8181a6
+!*.color6:      #528b8b
+!*.color14:     #87ceeb
+!*.color7:      #d3d3d3
+!*.color15:     #c1cdc1
 
 ! █▓▒░ gruvbox
-*.color0: #1d2021
-*.color1: #cc241d
-*.color2: #98971a
-*.color3: #d79921
-*.color4: #458588
-*.color5: #b16286
-*.color6: #689d6a
-*.color7: #a89984
-*.color8: #928374
-*.color9: #fb4934
-*.color10: #b8bb26
-*.color11: #fabd2f
-*.color12: #83a598
-*.color13: #d3869b
-*.color14: #8ec07c
-*.color15: #ebdbb2
-
-! █▓▒░ gruvbox light
-!*.color0: #fbf1c7
-!*.color1: #cc241d
-!*.color2: #98971a
-!*.color3: #d79921
-!*.color4: #458588
-!*.color5: #b16286
-!*.color6: #689d6a
-!*.color7: #7c6f64
-!*.color8: #928374
-!*.color9: #9d0006
-!*.color10: #79740e
-!*.color11: #b57614
-!*.color12: #076678
-!*.color13: #8f3f71
-!*.color14: #427b58
-!*.color15: #3c3836
+!*.foreground: #c2c2b0
+!*.background: #282828
+!*.color0:     #1d2021
+!*.color1:     #cc241d
+!*.color2:     #98971a
+!*.color3:     #d79921
+!*.color4:     #458588
+!*.color5:     #b16286
+!*.color6:     #689d6a
+!*.color7:     #a89984
+!*.color8:     #928374
+!*.color9:     #fb4934
+!*.color10:    #b8bb26
+!*.color11:    #fabd2f
+!*.color12:    #83a598
+!*.color13:    #d3869b
+!*.color14:    #8ec07c
+!*.color15:    #ebdbb2
 
 ! █▓▒░ brogrammer
 !*.foreground:  #d6dbe5
@@ -93,22 +77,22 @@ Xcursor.theme: Hacked-White
 !*.colorBD:     #d6dbe5
 
 ! █▓▒░ base16
-!*.color0:       #181818
-!*.color1:       #ab4642
-!*.color2:       #a1b56c
-!*.color3:       #f7ca88
-!*.color4:       #7cafc2
-!*.color5:       #ba8baf
-!*.color6:       #86c1b9
-!*.color7:       #d8d8d8
-!*.color8:       #585858
-!*.color9:       #ab4642
-!*.color10:      #a1b56c
-!*.color11:      #f7ca88
-!*.color12:      #7cafc2
-!*.color13:      #ba8baf
-!*.color14:      #86c1b9
-!*.color15:      #f8f8f8
+*.color0:       #181818
+*.color1:       #ab4642
+*.color2:       #a1b56c
+*.color3:       #f7ca88
+*.color4:       #7cafc2
+*.color5:       #ba8baf
+*.color6:       #86c1b9
+*.color7:       #d8d8d8
+*.color8:       #585858
+*.color9:       #ab4642
+*.color10:      #a1b56c
+*.color11:      #f7ca88
+*.color12:      #7cafc2
+*.color13:      #ba8baf
+*.color14:      #86c1b9
+*.color15:      #f8f8f8
 
 ! █▓▒░ solarized
 !*.color0:	#073642
@@ -127,24 +111,6 @@ Xcursor.theme: Hacked-White
 !*.color13:	#6c71c4
 !*.color14:	#93a1a1
 !*.color15:	#fdf6e3
-
-! █▓▒░ xterm
-!*.color0:   #000000
-!*.color1:   #cd0000
-!*.color2:   #00cd00
-!*.color3:   #cdcd00
-!*.color4:   #0000cd
-!*.color5:   #cd00cd
-!*.color6:   #00cdcd
-!*.color7:   #e5e5e5
-!*.color8:   #4d4d4d
-!*.color9:   #ff0000
-!*.color10:  #00ff00
-!*.color11:  #ffff00
-!*.color12:  #0000ff
-!*.color13:  #ff00ff
-!*.color14:  #00ffff
-!*.color15:  #aabac8
 
 ! █▓▒░ seoul256 (dark) for URxvt
 !*background: #3a3a3a
@@ -188,6 +154,27 @@ Xcursor.theme: Hacked-White
 !*.color14 : #34E2E2
 !*.color7  : #D3D7CF
 !*.color15 : #EEEEEC
+
+! █▓▒░ alduin
+!*.foreground:   #dfdfaf
+!*.background:   #1c1c1c
+!*.cursorColor:  #dfdfaf
+!*.color0:       #1c1c1c
+!*.color8:       #878787
+!*.color1:       #af5f5f
+!*.color9:       #af5f5f
+!*.color2:       #87875f
+!*.color10:      #87875f
+!*.color3:       #af875f
+!*.color11:      #af875f
+!*.color4:       #878787
+!*.color12:      #878787
+!*.color5:       #af8787
+!*.color13:      #af8787
+!*.color6:       #87afaf
+!*.color14:      #87afaf
+!*.color7:       #dfdfaf
+!*.color15:      #dfdfaf
 
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !urxvt config
@@ -265,8 +252,7 @@ Xft.antialias: true
 st.borderpx: 10
 
 ! Opacity(0-1) requires compositor
-st.alpha: 1.0
+st.alpha: 0.4
 
 !! Set a default font and font size as below:
 st.font: Hack-12;
-!st.font: Source Code Pro-12;

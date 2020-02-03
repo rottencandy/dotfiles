@@ -1,11 +1,8 @@
 configuration {
 	modi: "window,run,drun";
-/*	width: 50;*/
 /*	lines: 15;*/
-/*	columns: 1;*/
-	font: "SpaceMono Nerd Font Mono 14";
+	font: "Hurmit Nerd Font Mono 14";
 	bw: 0;
-	location: 0;
 	padding: 10;
 	yoffset: 0;
 	xoffset: 0;
@@ -19,7 +16,7 @@ configuration {
 /*	run-shell-command: "{terminal} '{cmd}'";*/
 /*	window-command: "xkill -id {window}";*/
 /*	window-match-fields: "all";*/
-/*	drun-icon-theme: "La-capitaine";*/
+/*	drun-icon-theme: "Tela";*/
 /*	drun-match-fields: "name,generic,exec,categories";*/
 /*	disable-history: false;*/
 /*	sort: false;*/
@@ -32,7 +29,7 @@ configuration {
 /*	parse-hosts: false;*/
 /*	parse-known-hosts: true;*/
 /*	combi-modi: "window,run";*/
-/*	matching: "normal";*/
+	matching: "fuzzy";
 /*	tokenize: true;*/
 	m: "-5";
 	line-margin: 2;
@@ -44,8 +41,8 @@ configuration {
 /*	fake-transparency: false;*/
 /*	dpi: -1;*/
 /*	threads: 0;*/
-	scrollbar-width: 8;
-	scroll-method: 0;
+/*	scrollbar-width: 8;*/
+/*	scroll-method: 0;*/
 /*	fake-background: "screenshot";*/
 	window-format: "{w}    {i}{c}   {t}";
 /*	click-to-exit: true;*/
@@ -68,7 +65,9 @@ configuration {
 /*	display-windowcd: ;*/
 /*	display-run: ;*/
 /*	display-ssh: ;*/
-	display-drun:  " Search:";
+        display-window: "  ";
+	display-run:  "  ";
+	display-drun:  "  ";
         drun-display-format: "{name}";
 /*	display-combi: ;*/
 /*	display-keys: ;*/
@@ -146,72 +145,70 @@ configuration {
 }
 
 * {
-  background-color: #282828;
-  text-color: #ebdbb2;
+  background-color: #4443;
+  text-color: #ddd;
+  border-radius: 3%;
 }
  
 window {
-  background-color: #1d2021;
-  location: center;
-  width: 60%;
-  height: 45%;
-  
+  location: west;
+  width: 30%;
+  height: 100%;
 }
  
 mainbox {
-  children: [ listview, inputbar ];
   padding: 40;
+  children: [ inputbar, listview, mode-switcher ];
 }
  
 listview {
-  columns: 4;
+  padding: 50 10;
+  columns: 2;
   layout: vertical;
-  spacing: 30;
+  spacing: 50;
 }
  
 element {
+  padding: 20;
   border-radius: 0;
-  orientation: vertical;
-  padding: 10;
+  orientation: horizontal;
+  border-radius: 50%;
 }
  
-element selected {
-  background-color: #8ec07c;
-  text-color: #282828;
-  transition: 20;
-  border-radius: 50% 50%;
-}
- 
-element-icon {
-  size: 40;
-}
- 
-element-text {
-  horizontal-align: 0.5;
-  padding: 5 0 0 0;
-  text-color: inherit;
+element.selected {
+  background-color: #fff3;
 }
  
 inputbar {
-  border-radius: 50%;
-/*  margin: 0 30;*/
-  padding: 10 0;
+  spacing: 0;
 }
  
-prompt {
-  background-color: #8ec07c;
-  padding: 5px;
+prompt, entry {
+  background-color: #fff3;
+  padding: 10px;
   border-radius: 50% 0 0 50%;
-  text-color: #282828;
-  enabled: true;
 }
  
 entry {
-  font: "Hurmit Nerd Font Mono 14";
   border-radius: 0 50% 50% 0;
-  text-color: #282828;
-  padding: 10px;
-  background-color: #ebdbb2;
+}
+
+mode-switcher {
+  background-color: #111;
+  padding: 15;
+  margin: 0;
+  border: 0;
+  border-radius: 50%;
+}
+
+button {
+  padding: 15;
+  background-color: inherit;
+  border-radius: 50%;
+}
+
+button.selected {
+  background-color: #fff3;
 }
 
 /* vim:ft=css
