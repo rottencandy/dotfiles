@@ -50,7 +50,7 @@ shopt -s autocd
 
 # Bash prompt
 #export PS1=$"\[\033[48;5;2m\]\u@\h>\[$(tput sgr0)\]\[\033[48;5;8m\]\w \\$>\[$(tput sgr0)\]"
-PS1="\[\e[42m\]\u\[\e[m\]\[\e[32;46m\]\[\e[m\]\[\e[37;46m\]\h\[\e[m\]\[\e[36;47m\]\[\e[m\]\[\e[30;47m\]\w\[\e[m\] "
+PS1="\[\e[42m\]\u\[\e[m\]\[\e[32;46m\]\[\e[m\]\[\e[30;46m\]\h\[\e[m\]\[\e[36;47m\]\[\e[m\]\[\e[30;47m\]\w\[\e[m\] "
 
 # Git completion
 #source /usr/share/bash-completion/completions/git
@@ -64,6 +64,12 @@ export FZF_DEFAULT_COMMAND='fd --type f --hidden'
 # Load fzf
 #[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
+# NNN Settings
+export NNN_PLUG='e:-_vim $nnn*;n:-_vim ~/notes*;f:fzcd;u:-getplugs;r:-launch'
+export NNN_BMS='v:~/Videos;d:~/Documents;D:~/Downloads'
+export NNN_CONTEXT_COLORS='2674'
+[ -n "$NNNLVL" ] && PS1="N$NNNLVL $PS1"
+
 # Node version manager
 export NVM_DIR="$HOME/.nvm"
 # loads nvm
@@ -71,8 +77,36 @@ export NVM_DIR="$HOME/.nvm"
 # nvm bash_completion
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
-# Use gvim (better X, clipboard support)(can also use vimx)
-alias vim='gvim -v'\
+# nnn with cd on quit
+n ()
+{
+    # Block nesting of nnn in subshells
+    if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
+        echo "nnn is already running"
+        return
+    fi
+
+    # To cd on quit only on ^G, remove the "export"
+    # NOTE: NNN_TMPFILE is fixed, should not be modified
+    export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
+
+    # Unmask ^Q (, ^V etc.) (if required, see `stty -a`) to Quit nnn
+    # stty start undef
+    # stty stop undef
+    # stty lwrap undef
+    # stty lnext undef
+
+    nnn "$@"
+
+    if [ -f "$NNN_TMPFILE" ]; then
+            . "$NNN_TMPFILE"
+            rm -f "$NNN_TMPFILE" > /dev/null
+    fi
+}
+
+# can also use gvim -v
+alias vim='vimx'\
+    vi='vimx'\
     t=tmux\
     g=git
 

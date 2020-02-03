@@ -22,3 +22,6 @@
 [submodule "vim/pack/general/start/editorconfig-vim"]
 	path = vim/pack/general/start/editorconfig-vim
 	url = https://github.com/editorconfig/editorconfig-vim
+[submodule "vim/pack/general/start/goyo.vim"]
+	path = vim/pack/general/start/goyo.vim
+	url = https://github.com/junegunn/goyo.vim
