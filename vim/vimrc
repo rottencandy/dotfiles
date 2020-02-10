@@ -5,13 +5,11 @@ syntax enable           " enable syntax highlighting
 filetype plugin indent on      " Load filetype-specific indentation
 
 " Set and configure the color scheme
-colorscheme OceanicNext
-hi Normal guibg=NONE ctermbg=NONE
+colorscheme iceberg
 set background=dark
 set number              " Show line numbers
 set relativenumber      " Relative line numbering
-set showcmd             " Show command being typed in bottom bar
-set lazyredraw          " Redraw screen less frequently(Does not affect usage)
+set lazyredraw          " Do not redraw on macro/regs/untyped commands
 set showmatch           " Highlight matching [{()}]
 set hlsearch            " Highlight search matches
 
@@ -22,7 +20,7 @@ set t_vb=
 set tm=500
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Behaviour
+"Behavior
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 filetype plugin on      " Load filetype-specific configs
 set shiftwidth=4        " Set display size of tabs
@@ -70,10 +68,10 @@ function! StatuslineMode()
         return "  INSERT "
     elseif l:mode==?"v"
         return "  VISUAL "
-    elseif l:mode==?"R"
-        return "  REPLACE "
+    elseif l:mode==?"r"
+        return "  RPLACE "
     else
-	return "   "
+	return "         "
     endif
 endfunction
 
@@ -98,33 +96,34 @@ endfunction
 "    \ '!'  : '  SHELL ',
 "    \ 't'  : '  TERMINAL '
 "    \}
-hi User1 ctermbg=black ctermfg=grey guibg=black guifg=grey
-hi User2 ctermbg=green ctermfg=black guibg=green guifg=black
-hi User3 ctermbg=black ctermfg=lightgreen guibg=black guifg=lightgreen
+hi User1 cterm=bold ctermbg=239 ctermfg=lightgreen
+hi User2 ctermbg=239
+hi User3 ctermbg=251 ctermfg=235
 
 set statusline=
-set statusline+=%#DiffAdd#%{StatuslineMode()}
+set statusline+=%#User1#%{StatuslineMode()}
 
-set statusline+=%#Cursor#
+set statusline+=%#User3#
 set statusline+=\ %n\           " buffer number
 set statusline+=%{&paste?'\ PASTE\ ':''}
 set statusline+=%{&spell?'\ SPELL\ ':''}
 set statusline+=%R              " readonly flag
 set statusline+=%M              " modified [+] flag
-set statusline+=%#CursorLine#  " color
+set statusline+=%#User2#       " color
 set statusline+=\ %f\           " file name
 set statusline+=%=              " right align
-set statusline+=%#CursorColumn# " color
 
 " file encoding, format
 set statusline+=%{&fileencoding?&fileencoding:&encoding}\ 
 set statusline+=%{&fileformat}\ 
 
 set statusline+=%Y\            " file type
+set statusline+=%#User1#
 set statusline+=\ %{FugitiveHead()}
+set statusline+=%#User2#        " color
 set statusline+=\ %3l:%-2c      " line + column
-set statusline+=%#CursorLine#  " separator
-set statusline+=%#Cursor#       " color
+set statusline+=               " separator
+set statusline+=%#User3#       " color
 set statusline+=%3p%%\          " percentage
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -134,7 +133,7 @@ let g:netrw_banner = 0          " Top banner
 let g:netrw_liststyle = 3       " Directory list view
 let g:netrw_browse_split = 4    " File open behaviour
 let g:netrw_altv = 1
-let g:netrw_winsize = 25        " Size of opened buffer
+let g:netrw_winsize = 17        " Size of opened buffer
 " Open by default on launch
 "augroup ProjectDrawer
 "  autocmd!
@@ -154,8 +153,14 @@ command W w !sudo tee % > /dev/null
 " Map redraw-screen to also clear search highlights
 nnoremap <C-L> :nohl<CR><C-L>
 
-let mapleader = " "     " Set leader key
+let mapleader = " "             " Set leader key
+let maplocalleader = ";"        " Set local leader key
+
 nnoremap <leader>f :FZF<CR>
+
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+vnoremap <leader>" <esc>`<i"<esc>`>la"<esc>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Plugins
