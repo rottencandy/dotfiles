@@ -145,34 +145,36 @@ configuration {
 }
 
 * {
-  background-color: #4443;
   text-color: #ddd;
   border-radius: 3%;
 }
  
 window {
-  location: west;
   width: 30%;
   height: 100%;
+  background-color: #4443;
+  location: west;
 }
  
 mainbox {
   padding: 40;
+  background-color: #4440;
   children: [ inputbar, listview, mode-switcher ];
 }
  
 listview {
-  padding: 50 10;
   columns: 2;
+  padding: 50 10;
+  background-color: #4440;
   layout: vertical;
   spacing: 50;
 }
  
 element {
   padding: 20;
-  border-radius: 0;
-  orientation: horizontal;
   border-radius: 50%;
+  background-color: #4440;
+  orientation: horizontal;
 }
  
 element.selected {
@@ -180,12 +182,14 @@ element.selected {
 }
  
 inputbar {
+  background-color: #4443;
   spacing: 0;
+  children: [ prompt, entry ];
 }
  
 prompt, entry {
-  background-color: #fff3;
   padding: 10px;
+  background-color: #fff3;
   border-radius: 50% 0 0 50%;
 }
  
@@ -194,17 +198,17 @@ entry {
 }
 
 mode-switcher {
-  background-color: #111;
-  padding: 15;
   margin: 0;
   border: 0;
+  padding: 15;
   border-radius: 50%;
+  background-color: #111;
 }
 
 button {
   padding: 15;
-  background-color: inherit;
   border-radius: 50%;
+  background-color: inherit;
 }
 
 button.selected {
