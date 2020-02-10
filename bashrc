@@ -65,7 +65,7 @@ export FZF_DEFAULT_COMMAND='fd --type f --hidden'
 #[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
 # NNN Settings
-export NNN_PLUG='e:-_vim $nnn*;n:-_vim ~/notes*;f:fzcd;u:-getplugs;r:-launch'
+export NNN_PLUG='e:-_vim $nnn*;n:-_vim /home/msaud/notes*;f:fzcd;u:-getplugs;r:-launch'
 export NNN_BMS='v:~/Videos;d:~/Documents;D:~/Downloads'
 export NNN_CONTEXT_COLORS='2674'
 [ -n "$NNNLVL" ] && PS1="N$NNNLVL $PS1"
@@ -105,8 +105,8 @@ n ()
 }
 
 # can also use gvim -v
-alias vim='vimx'\
-    vi='vimx'\
+alias vim=vimx\
+    vi=vimx\
     t=tmux\
     g=git
 
