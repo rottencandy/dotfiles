@@ -23,3 +23,5 @@ let g:ale_completion_max_suggestions = 25
 
 " Fix syntax
 nnoremap <C-K> :ALEFix<CR>
+
+iabbrev <buffer> clg console.log("
