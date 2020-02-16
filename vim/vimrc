@@ -5,7 +5,7 @@ syntax enable           " enable syntax highlighting
 filetype plugin indent on      " Load filetype-specific indentation
 
 " Set and configure the color scheme
-colorscheme iceberg
+colorscheme OceanicNext
 set background=dark
 set number              " Show line numbers
 set relativenumber      " Relative line numbering
@@ -18,6 +18,13 @@ set noerrorbells
 set novisualbell
 set t_vb=
 set tm=500
+
+" Make active buffer more obvious
+augroup BufFocus
+    autocmd!
+    autocmd VimEnter,WinEnter,BufWinEnter * set cursorline | set cursorcolumn
+    autocmd WinLeave * set nocursorline | set nocursorcolumn
+augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
 "Behavior {{{
