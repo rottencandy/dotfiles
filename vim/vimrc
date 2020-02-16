@@ -1,5 +1,5 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Appearance
+"Appearance {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable           " enable syntax highlighting
 filetype plugin indent on      " Load filetype-specific indentation
@@ -19,8 +19,8 @@ set novisualbell
 set t_vb=
 set tm=500
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Behavior
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
+"Behavior {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 filetype plugin on      " Load filetype-specific configs
 set shiftwidth=4        " Set display size of tabs
@@ -54,8 +54,15 @@ set foldlevel=0         " Close all folds by default
 "set foldmethod=indent   " Fold based on indent level
 set scrolloff=0         " scroll offset
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Status line
+" Fold vimrc on opening
+augroup filetype_vim
+  autocmd!
+  autocmd FileType vim setlocal foldmethod=marker
+  autocmd FileType vim setlocal foldlevelstart=0
+augroup END
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
+"Status line {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " unicode(private) separators: 
 set laststatus=2                " Always show statusline
@@ -118,16 +125,16 @@ set statusline+=%{&fileencoding?&fileencoding:&encoding}\
 set statusline+=%{&fileformat}\ 
 
 set statusline+=%Y\            " file type
-set statusline+=%#User1#
+set statusline+=%#User1#        " color
 set statusline+=\ %{FugitiveHead()}
 set statusline+=%#User2#        " color
 set statusline+=\ %3l:%-2c      " line + column
 set statusline+=               " separator
-set statusline+=%#User3#       " color
+set statusline+=%#User3#        " color
 set statusline+=%3p%%\          " percentage
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"netrw
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
+"netrw {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:netrw_banner = 0          " Top banner
 let g:netrw_liststyle = 3       " Directory list view
@@ -140,8 +147,8 @@ let g:netrw_winsize = 17        " Size of opened buffer
 "  autocmd VimEnter * :Vexplore
 "augroup END
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Key maps
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
+"Key maps {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " :W to save file with elevated permissions
 command W w !sudo tee % > /dev/null
@@ -162,8 +169,8 @@ nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 vnoremap <leader>" <esc>`<i"<esc>`>la"<esc>
 
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"Plugins
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
+"Plugins {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " % jump to matching xml tags, if/else/endif, etc.
 packadd! matchit
