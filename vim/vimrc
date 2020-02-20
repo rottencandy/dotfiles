@@ -1,9 +1,6 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Appearance {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-syntax enable           " enable syntax highlighting
-filetype plugin indent on      " Load filetype-specific indentation
-
 " Set and configure the color scheme
 colorscheme OceanicNext
 set background=dark
@@ -12,6 +9,7 @@ set relativenumber      " Relative line numbering
 set lazyredraw          " Do not redraw on macro/regs/untyped commands
 set showmatch           " Highlight matching [{()}]
 set hlsearch            " Highlight search matches
+set scrolloff=0         " scroll offset
 
 " Disable all error bells
 set noerrorbells
@@ -22,19 +20,24 @@ set tm=500
 " Make active buffer more obvious
 augroup BufFocus
     autocmd!
-    autocmd VimEnter,WinEnter,BufWinEnter * set cursorline | set cursorcolumn
-    autocmd WinLeave * set nocursorline | set nocursorcolumn
+    autocmd VimEnter,WinEnter,BufWinEnter * set cursorline
+    autocmd WinLeave * set nocursorline
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
 "Behavior {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+syntax enable           " enable syntax highlighting
+filetype plugin indent on      " Load filetype-specific indentation
+
 filetype plugin on      " Load filetype-specific configs
-set shiftwidth=4        " Set display size of tabs
+"set shiftwidth=4        " Set display size of tabs
 "set softtabstop=4       " Write 4 spaces when tab is pressed
 "set expandtab           " Tabs mean spaces. Use <C-V>Tab to insert real tab.
 set smarttab            " Insert real tab if pressed in beginning of line
 set nrformats="bin,hex" " define bases for <C-a> and <C-x> math operations
+set history=1000        " Remember more stuff
+set tabpagemax=50       " Max tab pages
 
 " Backspace works on autoindent, line break and start of insert
 set backspace=indent,eol,start
@@ -43,7 +46,7 @@ set wrap
 
 set encoding=utf8       " UTF-8 as default encoding
 set ffs=unix,dos,mac    " Standard file type as Unix
-set autoread            " automatically read when file is edited from outside
+set autoread            " automatically read when file is changed from outside
 set wildmenu            " Command-line completion dropdown-thing
 set hidden              " Hide unsaved buffers instead of closing
 "set confirm             " Prompt if exiting without saving
@@ -58,8 +61,15 @@ set splitright          " and to right
 set foldenable          " Enable code folding
 set foldnestmax=10      " Max 10 nested folds
 set foldlevel=0         " Close all folds by default
-"set foldmethod=indent   " Fold based on indent level
-set scrolloff=0         " scroll offset
+set formatoptions+=j    " Delete comment character when joining commented lines
+
+" Break line joins into multiple edits
+inoremap <C-U> <C-G>u<C-U>
+inoremap <C-W> <C-G>u<C-W>
+
+" :h :mkview
+set sessionoptions-=options
+set viewoptions-=options
 
 " Fold vimrc on opening
 augroup filetype_vim
@@ -74,48 +84,33 @@ augroup END
 " unicode(private) separators: 
 set laststatus=2                " Always show statusline
 
-function! StatuslineMode()
-    let l:mode=mode()
-    if l:mode==#"n"
-        return "  NORMAL "
-    elseif l:mode==#"i"
-        return "  INSERT "
-    elseif l:mode==?"v"
-        return "  VISUAL "
-    elseif l:mode==?"r"
-        return "  RPLACE "
-    else
-	return "         "
-    endif
-endfunction
-
-"let g:currentmode={
-"    \ 'n'  : '  NORMAL ',
-"    \ 'no' : '  NORMAL·Operator Pending ',
-"    \ 'v'  : '  VISUAL ',
-"    \ 'V'  : '  V·Line ',
-"    \ '^V' : '  V·Block ',
-"    \ 's'  : '  SELECT ',
-"    \ 'S'  : '  S·Line ',
-"    \ '^S' : '  S·Block ',
-"    \ 'i'  : '  INSERT ',
-"    \ 'R'  : '  REPLACE ',
-"    \ 'Rv' : '  V·Replace ',
-"    \ 'c'  : '  COMMAND ',
-"    \ 'cv' : '  Vim Ex ',
-"    \ 'ce' : '  EX ',
-"    \ 'r'  : '  PROMPT ',
-"    \ 'rm' : '  MORE ',
-"    \ 'r?' : '  CONFIRM ',
-"    \ '!'  : '  SHELL ',
-"    \ 't'  : '  TERMINAL '
-"    \}
+let currentmode = {
+  \ 'n'  : '  NORMAL ',
+  \ 'i'  : '  INSERT ',
+  \ 'v'  : '  VISUAL ',
+  \ 'V'  : '  V·LINE ',
+  \ '' : '  V·BLOCK ',
+  \ 'Rv' : '  V·RPLACE ',
+  \ 'R'  : '  RPLACE ',
+  \ 'no' : '  NORM·OP ',
+  \ 's'  : '  SELECT ',
+  \ 'S'  : '  S·LINE ',
+  \ '^S' : '  S·BLOCK ',
+  \ 'c'  : '  COMMAND ',
+  \ 'r'  : '  PROMPT ',
+  \ 'rm' : '  MORE ',
+  \ 'r?' : '  CONFIRM ',
+  \ 'cv' : '  VIM EX ',
+  \ 'ce' : '  EX ',
+  \ '!'  : '  SHELL ',
+  \ 't'  : '  TERMINAL ',
+  \}
 hi User1 cterm=bold ctermbg=239 ctermfg=lightgreen
 hi User2 ctermbg=239
 hi User3 ctermbg=251 ctermfg=235
 
 set statusline=
-set statusline+=%#User1#%{StatuslineMode()}
+set statusline+=%#User1#%{currentmode[mode()]}
 
 set statusline+=%#User3#
 set statusline+=\ %n\           " buffer number
@@ -165,16 +160,26 @@ command W w !sudo tee % > /dev/null
 :imap kj <Esc>
 
 " Map redraw-screen to also clear search highlights
-nnoremap <C-L> :nohl<CR><C-L>
+nnoremap <silent> <C-L> :nohl<CR>:mat<CR><C-L>
 
 let mapleader = " "             " Set leader key
 let maplocalleader = ";"        " Set local leader key
 
 nnoremap <leader>f :FZF<CR>
 
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-nnoremap <leader>sv :source $MYVIMRC<cr>
-vnoremap <leader>" <esc>`<i"<esc>`>la"<esc>
+" Quickly edit and reload vimrc
+nnoremap <leader>ev :vsplit $MYVIMRC<CR>
+nnoremap <leader>sv :source $MYVIMRC<CR>
+vnoremap <leader>" <esc>`<i"<esc>`>la"<Esc>
+
+" Highlight trailing whitespace
+nnoremap <leader>w :match Error /\v\s+$/<CR>
+
+" Start all searches in magic mode
+nnoremap / /\v
+
+" Grep for word under cursor in cwd and open matched files in quickfix window
+"nnoremap <leader>g :silent execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<CR>:copen<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
 "Plugins {{{
@@ -182,6 +187,4 @@ vnoremap <leader>" <esc>`<i"<esc>`>la"<esc>
 " % jump to matching xml tags, if/else/endif, etc.
 packadd! matchit
 
-" Enable fzf plugin
-"set rtp+=~/apps/fzf
-
+" vim:set ft=vim et sw=2
