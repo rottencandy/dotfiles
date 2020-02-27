@@ -28,13 +28,8 @@ augroup END
 "Behavior {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable           " enable syntax highlighting
-filetype plugin indent on      " Load filetype-specific indentation
+filetype plugin indent on " Load filetype-specific configuration
 
-filetype plugin on      " Load filetype-specific configs
-"set shiftwidth=4        " Set display size of tabs
-"set softtabstop=4       " Write 4 spaces when tab is pressed
-"set expandtab           " Tabs mean spaces. Use <C-V>Tab to insert real tab.
-set smarttab            " Insert real tab if pressed in beginning of line
 set nrformats="bin,hex" " define bases for <C-a> and <C-x> math operations
 set history=1000        " Remember more stuff
 set tabpagemax=50       " Max tab pages
@@ -105,20 +100,19 @@ let currentmode = {
   \ '!'  : '  SHELL ',
   \ 't'  : '  TERMINAL ',
   \}
-hi User1 cterm=bold ctermbg=239 ctermfg=lightgreen
-hi User2 ctermbg=239
-hi User3 ctermbg=251 ctermfg=235
+
+" |hitest.vim|
 
 set statusline=
-set statusline+=%#User1#%{currentmode[mode()]}
+set statusline+=%#DiffAdd#%{currentmode[mode()]}
 
-set statusline+=%#User3#
+set statusline+=%#Cursor#
 set statusline+=\ %n\           " buffer number
 set statusline+=%{&paste?'\ PASTE\ ':''}
 set statusline+=%{&spell?'\ SPELL\ ':''}
 set statusline+=%R              " readonly flag
 set statusline+=%M              " modified [+] flag
-set statusline+=%#User2#       " color
+set statusline+=%#CursorLine#       " color
 set statusline+=\ %f\           " file name
 set statusline+=%=              " right align
 
@@ -127,12 +121,12 @@ set statusline+=%{&fileencoding?&fileencoding:&encoding}\
 set statusline+=%{&fileformat}\ 
 
 set statusline+=%Y\            " file type
-set statusline+=%#User1#        " color
+set statusline+=%#DiffAdd#        " color
 set statusline+=\ %{FugitiveHead()}
-set statusline+=%#User2#        " color
+set statusline+=%#CursorLine#        " color
 set statusline+=\ %3l:%-2c      " line + column
 set statusline+=               " separator
-set statusline+=%#User3#        " color
+set statusline+=%#Cursor#        " color
 set statusline+=%3p%%\          " percentage
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
@@ -187,4 +181,4 @@ nnoremap / /\v
 " % jump to matching xml tags, if/else/endif, etc.
 packadd! matchit
 
-" vim:set ft=vim et sw=2
+" vim: set ts et sw=2
