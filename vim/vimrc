@@ -29,6 +29,7 @@ augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable           " enable syntax highlighting
 filetype plugin indent on " Load filetype-specific configuration
+set modeline            " Read vim modeline configs
 
 set nrformats="bin,hex" " define bases for <C-a> and <C-x> math operations
 set history=1000        " Remember more stuff

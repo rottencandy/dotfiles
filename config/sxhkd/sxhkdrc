@@ -7,7 +7,7 @@ super + Return
 	st
 
 # program launcher
-super + @space
+super + d
 	rofi -show drun
 
 # make sxhkd reload its configuration files:
@@ -44,8 +44,14 @@ XF86MonBrightnessDown
 # toggle vol mute
 XF86AudioMute
         amixer sset Master toggle
-#super + F3
-#        amixer sset Master toggle
+
+## For non-media keyboards
+super + F1
+        amixer sset Master playback 10%+
+super + F2
+        amixer sset Master playback 10%-
+super + F3
+        amixer sset Master toggle
 
 ###########
 # bspwm hotkeys

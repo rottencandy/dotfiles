@@ -25,3 +25,9 @@
 [submodule "vim/pack/general/start/goyo.vim"]
 	path = vim/pack/general/start/goyo.vim
 	url = https://github.com/junegunn/goyo.vim
+[submodule "vim/pack/general/start/delimitMate"]
+	path = vim/pack/general/start/delimitMate
+	url = https://github.com/Raimondi/delimitMate
+[submodule "vim/pack/general/start/vim-dirvish"]
+	path = vim/pack/general/start/vim-dirvish
+	url = https://github.com/justinmk/vim-dirvish

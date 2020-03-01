@@ -1,9 +1,9 @@
 configuration {
 	modi: "window,run,drun";
 /*	lines: 15;*/
-	font: "Hurmit Nerd Font Mono 14";
+	font: "Hurmit Nerd Font Mono 10";
 	bw: 0;
-	padding: 10;
+	padding: 5;
 	yoffset: 0;
 	xoffset: 0;
 /*	fixed-num-lines: true;*/
@@ -146,7 +146,7 @@ configuration {
 
 * {
   text-color: #ddd;
-  border-radius: 3%;
+  border-radius: 2%;
 }
  
 window {
@@ -157,21 +157,21 @@ window {
 }
  
 mainbox {
-  padding: 40;
+  padding: 35;
   background-color: #4440;
   children: [ inputbar, listview, mode-switcher ];
 }
  
 listview {
   columns: 2;
-  padding: 50 10;
+  padding: 40 10;
   background-color: #4440;
   layout: vertical;
-  spacing: 50;
+  spacing: 40;
 }
  
 element {
-  padding: 20;
+  padding: 10;
   border-radius: 50%;
   background-color: #4440;
   orientation: horizontal;
@@ -200,14 +200,14 @@ entry {
 mode-switcher {
   margin: 0;
   border: 0;
-  padding: 15;
+  padding: 10;
   border-radius: 50%;
   background-color: #111;
 }
 
 button {
-  padding: 15;
-  border-radius: 50%;
+  padding: 10;
+  border-radius: 30%;
   background-color: inherit;
 }
 

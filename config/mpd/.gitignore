@@ -1,4 +1,5 @@
 mpd.db
+mpd.pid
 mpdstate
 sticker.sql
 playlists/*

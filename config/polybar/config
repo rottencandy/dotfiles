@@ -67,15 +67,15 @@ module-margin-left = 1
 module-margin-right = 1
 
 ; font-N = <fontconfig pattern>;<vertical offset>
-font-0 = "Fira Mono:size=11;1"
-font-1 = "Ubuntu Nerd Font:style=Book:size=11;1"
+font-0 = "FuraCode Nerd Font Mono:style=regular:size=10;1"
+font-1 = "Ubuntu Nerd Font:style=Book:size=10;1"
 ;font-0 = "fixed:pixelsize=10;1"
 ;font-1 = "siji:pixelsize=10;1"
 ;font-2 = "unifont:fontformat=truetype:size=8:antialias=false;0"
 
 modules-left = bspwm xwindow
 modules-center = date
-modules-right = pulseaudio xkeyboard wlan eth filesystem memory cpu battery1 battery2 backlight-acpi temperature
+modules-right = pulseaudio xkeyboard eth filesystem memory cpu temperature
 
 tray-position = right
 tray-padding = 1
@@ -271,8 +271,8 @@ ramp-signal-foreground = ${colors.foreground-alt}
 
 [module/eth]
 type = internal/network
-interface = enp0s31f6
-interval = 3.0
+interface = enp1s0
+interval = 10.0
 
 format-connected-underline = #55aa55
 format-connected-prefix = " "
@@ -416,7 +416,13 @@ animation-charging-framerate = 750
 
 [module/temperature]
 type = internal/temperature
-thermal-zone = 0
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input
+# Package id 0 /sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input
+# Core 0 /sys/devices/platform/coretemp.0/hwmon/hwmon2/temp2_input
+# Core 1 /sys/devices/platform/coretemp.0/hwmon/hwmon2/temp3_input
+# temp1 /sys/devices/virtual/thermal/thermal_zone2/hwmon1/temp1_input
+
+thermal-zone = pch_skylake
 warn-temperature = 60
 
 format = <ramp><label>

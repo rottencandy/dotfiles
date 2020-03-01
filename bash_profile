@@ -9,12 +9,10 @@ fi
 export PATH="$HOME/.local/bin:$HOME/bin:$PATH"
 
 # Go
-export GOPATH=~/code/go
-# `go install` binary dir in path
-export PATH=$PATH:$GOPATH/bin
+export PATH="$PATH:$HOME/go/bin"
 
 # User specific environment and startup programs
-eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+#eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 
 export PATH="$HOME/.cargo/bin:$PATH"
 
@@ -22,3 +20,6 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export GTK_IM_MODULE="fcitx"
 export QT_IM_MODULE="fcitx"
 export XMODIFIERS="@im=fcitx"
+
+export LANG=en_US.UTF-8
+export LC_TYPE=en_US.UTF-8
