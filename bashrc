@@ -165,7 +165,7 @@ if ! shopt -oq posix; then
 #export PS1=$"\[\033[48;5;2m\]\u@\h>\[$(tput sgr0)\]\[\033[48;5;8m\]\w \\$>\[$(tput sgr0)\]"
 PS1="\[\e[42m\]\u\[\e[m\]\[\e[32;46m\]\[\e[m\]\[\e[30;46m\]\h\[\e[m\]\[\e[36;47m\]\[\e[m\]\[\e[30;47m\]\w\[\e[m\] "
 
-# Enable fzf shell bindings(fedora)
+# Enable fzf shell bindings(fedora/debian)
 if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
     . /usr/share/doc/fzf/examples/key-bindings.bash
 fi
