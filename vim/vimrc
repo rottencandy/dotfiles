@@ -19,9 +19,9 @@ set tm=500
 
 " Make active buffer more obvious
 augroup BufFocus
-    autocmd!
-    autocmd VimEnter,WinEnter,BufWinEnter * set cursorline
-    autocmd WinLeave * set nocursorline
+  autocmd!
+  autocmd VimEnter,WinEnter,BufWinEnter * set cursorline
+  autocmd WinLeave * set nocursorline
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
@@ -81,26 +81,26 @@ augroup END
 set laststatus=2                " Always show statusline
 
 let currentmode = {
-  \ 'n'  : '  NORMAL ',
-  \ 'i'  : '  INSERT ',
-  \ 'v'  : '  VISUAL ',
-  \ 'V'  : '  V·LINE ',
-  \ '' : '  V·BLOCK ',
-  \ 'Rv' : '  V·RPLACE ',
-  \ 'R'  : '  RPLACE ',
-  \ 'no' : '  NORM·OP ',
-  \ 's'  : '  SELECT ',
-  \ 'S'  : '  S·LINE ',
-  \ '^S' : '  S·BLOCK ',
-  \ 'c'  : '  COMMAND ',
-  \ 'r'  : '  PROMPT ',
-  \ 'rm' : '  MORE ',
-  \ 'r?' : '  CONFIRM ',
-  \ 'cv' : '  VIM EX ',
-  \ 'ce' : '  EX ',
-  \ '!'  : '  SHELL ',
-  \ 't'  : '  TERMINAL ',
-  \}
+      \ 'n'  : '  NORMAL ',
+      \ 'i'  : '  INSERT ',
+      \ 'v'  : '  VISUAL ',
+      \ 'V'  : '  V·LINE ',
+      \ '' : '  V·BLOCK ',
+      \ 'Rv' : '  V·RPLACE ',
+      \ 'R'  : '  RPLACE ',
+      \ 'no' : '  NORM·OP ',
+      \ 's'  : '  SELECT ',
+      \ 'S'  : '  S·LINE ',
+      \ '^S' : '  S·BLOCK ',
+      \ 'c'  : '  COMMAND ',
+      \ 'r'  : '  PROMPT ',
+      \ 'rm' : '  MORE ',
+      \ 'r?' : '  CONFIRM ',
+      \ 'cv' : '  VIM EX ',
+      \ 'ce' : '  EX ',
+      \ '!'  : '  SHELL ',
+      \ 't'  : '  TERMINAL ',
+      \}
 
 " |hitest.vim|
 
@@ -160,8 +160,6 @@ nnoremap <silent> <C-L> :nohl<CR>:mat<CR><C-L>
 let mapleader = " "             " Set leader key
 let maplocalleader = ";"        " Set local leader key
 
-nnoremap <leader>f :FZF<CR>
-
 " Quickly edit and reload vimrc
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
@@ -182,4 +180,26 @@ nnoremap / /\v
 " % jump to matching xml tags, if/else/endif, etc.
 packadd! matchit
 
-" vim: set ts et sw=2
+" Open files in current dir using fzf
+nnoremap <silent> <leader>f :FZF<CR>
+
+" Select from open buffers using fzf
+function! s:buflist()
+  redir => ls
+  silent ls
+  redir END
+  return split(ls, '\n')
+endfunction
+
+function! s:bufopen(e)
+  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
+endfunction
+
+nnoremap <silent> <Leader>b :call fzf#run({
+      \   'source':  reverse(<sid>buflist()),
+      \   'sink':    function('<sid>bufopen'),
+      \   'options': '+m',
+      \   'down':    len(<sid>buflist()) + 2
+      \ })<CR>
+
+" vim: ts:et:sw=2:
