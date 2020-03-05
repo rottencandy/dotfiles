@@ -150,10 +150,6 @@ let g:netrw_winsize = 17        " Size of opened buffer
 " :W to save file with elevated permissions
 command W w !sudo tee % > /dev/null
 
-" j and k keys together to exit insert mode.
-:imap jk <Esc>
-:imap kj <Esc>
-
 " Map redraw-screen to also clear search highlights
 nnoremap <silent> <C-L> :nohl<CR>:mat<CR><C-L>
 
