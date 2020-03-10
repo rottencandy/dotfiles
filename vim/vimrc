@@ -6,6 +6,7 @@ colorscheme OceanicNext
 set background=dark
 set number              " Show line numbers
 set relativenumber      " Relative line numbering
+set showcmd             " Display partially typed command
 set lazyredraw          " Do not redraw on macro/regs/untyped commands
 set showmatch           " Highlight matching [{()}]
 set hlsearch            " Highlight search matches
@@ -43,7 +44,8 @@ set wrap
 set encoding=utf8       " UTF-8 as default encoding
 set ffs=unix,dos,mac    " Standard file type as Unix
 set autoread            " automatically read when file is changed from outside
-set wildmenu            " Command-line completion dropdown-thing
+set wildmenu            " Completion dropdown-thing
+set completeopt=longest,menuone,popup,noselect
 set hidden              " Hide unsaved buffers instead of closing
 "set confirm             " Prompt if exiting without saving
 set mouse=a             " Use mouse for all modes

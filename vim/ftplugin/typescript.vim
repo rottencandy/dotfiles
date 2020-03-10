@@ -1,27 +1,18 @@
-" Handle formatting
-setlocal formatprg=prettier\ --parser\ typescript
-
 " Must be set before ale is loaded
-let g:ale_completion_enabled = 1
+let g:ale_completion_enabled = 0
 let g:ale_sign_highlight_linters = 1
+" Run fixers when file is saved
+let g:ale_fix_on_save = 1
 
 packadd ale
 
 " Fix files with prettier, and then ESLint.
 let b:ale_fixers = ['prettier', 'eslint']
-
 let b:ale_linters = ['eslint']
 
-" Run fixers when file is saved
-let g:ale_fix_on_save = 1
+setlocal omnifunc=ale#completion#OmniFunc
+setlocal formatprg=prettier\ --parser\ typescript
 
-" Automatically import ts module completion
-let g:ale_completion_tsserver_autoimport = 1
-
-" Max suggestions
-let g:ale_completion_max_suggestions = 25
-
-" Fix syntax
-nnoremap <C-K> :ALEFix<CR>
-
-iabbrev <buffer> clg console.log('
+nnoremap <buffer> <C-K> :ALEFix<CR>
+nnoremap <buffer> <leader>d :ALEGoToDefinition<CR>
+nnoremap <buffer> <leader>t :ALEGoToTypeDefinition<CR>
