@@ -42,6 +42,9 @@ export NNN_BMS='v:~/Videos;d:~/Documents;D:~/Downloads'
 export NNN_CONTEXT_COLORS='2674'
 export NVM_DIR="$HOME/.nvm"
 
+# Fzf options
+export FZF_DEFAULT_COMMAND='fdfind --type f'
+
 # Android SDK
 #export ANDROID_HOME=$HOME/android_sdk
 #export PATH=$PATH:$ANDROID_HOME/tools/bin

@@ -119,15 +119,11 @@ set statusline+=%#CursorLine#       " color
 set statusline+=\ %f\           " file name
 set statusline+=%=              " right align
 
-" file encoding, format
-set statusline+=%{&fileencoding?&fileencoding:&encoding}\ 
-set statusline+=%{&fileformat}\ 
-
 set statusline+=%Y\            " file type
 set statusline+=%#DiffAdd#        " color
-set statusline+=\ %{FugitiveHead()}
+set statusline+=\ %{FugitiveHead()}
 set statusline+=%#CursorLine#        " color
-set statusline+=\ %3l:%-2c      " line + column
+set statusline+=%3l:%-2c      " line + column
 set statusline+=               " separator
 set statusline+=%#Cursor#        " color
 set statusline+=%3p%%\          " percentage
@@ -155,19 +151,28 @@ command W w !sudo tee % > /dev/null
 " Map redraw-screen to also clear search highlights
 nnoremap <silent> <C-L> :nohl<CR>:mat<CR><C-L>
 
-let mapleader = " "             " Set leader key
-let maplocalleader = ";"        " Set local leader key
+let mapleader = " "             " Leader key
+let maplocalleader = ";"        " Local leader key
 
 " Quickly edit and reload vimrc
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
-vnoremap <leader>" <esc>`<i"<esc>`>la"<Esc>
 
 " Highlight trailing whitespace
 nnoremap <leader>w :match Error /\v\s+$/<CR>
 
 " Start all searches in magic mode
 nnoremap / /\v
+
+" Search for selected content
+function! s:VSetSearch()
+  let temp = @@
+  norm! gvy
+  let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
+  let @@ = temp
+endfunction
+vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR>
+vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
 
 " Grep for word under cursor in cwd and open matched files in quickfix window
 "nnoremap <leader>g :silent execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<CR>:copen<CR>

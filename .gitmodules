@@ -28,3 +28,6 @@
 [submodule "vim/pack/general/start/vim-dirvish"]
 	path = vim/pack/general/start/vim-dirvish
 	url = https://github.com/justinmk/vim-dirvish
+[submodule "vim/pack/general/start/vim-mucomplete"]
+	path = vim/pack/general/start/vim-mucomplete
+	url = https://github.com/lifepillar/vim-mucomplete

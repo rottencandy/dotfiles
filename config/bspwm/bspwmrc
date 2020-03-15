@@ -83,8 +83,8 @@ bspc config pointer_action3 'resize_corner'
 #bspc config active_border_color "$color2"
 #bspc config focused_border_color "$color15"
 
-bspc config normal_border_color '#282828'
-bspc config focused_border_color '#999999'
+bspc config normal_border_color '#555555'
+bspc config focused_border_color '#AAAAAA'
 bspc config active_border_color '#B58900'
 bspc config presel_border_color '#26E2FF'
 

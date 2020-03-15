@@ -14,5 +14,5 @@ setlocal omnifunc=ale#completion#OmniFunc
 setlocal formatprg=prettier
 
 nnoremap <buffer> <C-K> :ALEFix<CR>
-nnoremap <buffer> <leader>d :ALEGoToDefinition<CR>
+nnoremap <buffer> <leader>g :ALEGoToDefinition<CR>
 nnoremap <buffer> <leader>t :ALEGoToTypeDefinition<CR>
