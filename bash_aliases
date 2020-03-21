@@ -20,7 +20,7 @@ alias \
     fd='fdfind' \
     k='kubectl' \
     yt="youtube-dl --add-metadata -i" \
-    yta="yt -x -f bestaudio/best" \
+    yta="yt --add-metadata -x -f bestaudio" \
     nc="ncmpcpp"
 
 # vim: ts=4 sw=4 sts=4 et fdm=marker:

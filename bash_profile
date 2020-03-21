@@ -46,9 +46,9 @@ export NVM_DIR="$HOME/.nvm"
 export FZF_DEFAULT_COMMAND='fdfind --type f'
 
 # Android SDK
-#export ANDROID_HOME=$HOME/android_sdk
-#export PATH=$PATH:$ANDROID_HOME/tools/bin
-#export PATH=$PATH:$ANDROID_HOME/platform-tools
+#export ANDROID_HOME=/usr/lib/android-sdk
+export ANDROID_HOME=$HOME/android_sdk
+export PATH=$PATH:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
 
 #}}}
 

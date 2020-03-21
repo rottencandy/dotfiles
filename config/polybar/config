@@ -74,7 +74,7 @@ font-1 = "Ubuntu Nerd Font:style=Book:size=10;1"
 ;font-2 = "unifont:fontformat=truetype:size=8:antialias=false;0"
 
 modules-left = bspwm xwindow
-modules-center = date
+modules-center = date mpd
 modules-right = pulseaudio xkeyboard eth filesystem memory cpu temperature
 
 tray-position = right
@@ -188,13 +188,14 @@ label-urgent-padding = 2
 
 [module/mpd]
 type = internal/mpd
-format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
+#format-online = <label-song>  <icon-prev> <icon-stop> <toggle> <icon-next>
+format-online = <icon-prev> <icon-stop> <toggle> <icon-next>
 
-icon-prev = 
-icon-stop = 
-icon-play = 
-icon-pause = 
-icon-next = 
+icon-prev = ﭢ
+icon-stop = 
+icon-play = 喇
+icon-pause = 
+icon-next = ﭠ
 
 label-song-maxlen = 25
 label-song-ellipsis = true
@@ -256,7 +257,7 @@ format-connected = <ramp-signal> <label-connected>
 ;format-connected-underline = #9f78e1
 label-connected = %essid%
 
-format-disconnected =
+format-disconnected = 睊
 ;format-disconnected = <label-disconnected>
 ;format-disconnected-underline = ${self.format-connected-underline}
 ;label-disconnected = %ifname% disconnected

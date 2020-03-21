@@ -79,7 +79,7 @@ augroup END
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
 "Status line {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" unicode(private) separators: 
+" 
 set laststatus=2                " Always show statusline
 
 let currentmode = {
@@ -109,24 +109,25 @@ let currentmode = {
 set statusline=
 set statusline+=%#DiffAdd#%{currentmode[mode()]}
 
+set statusline+=%#CursorLine#    " separator
 set statusline+=%#Cursor#
-set statusline+=\ %n\           " buffer number
+set statusline+=\ %n\             " buffer number
 set statusline+=%{&paste?'\ PASTE\ ':''}
 set statusline+=%{&spell?'\ SPELL\ ':''}
-set statusline+=%R              " readonly flag
-set statusline+=%M              " modified [+] flag
-set statusline+=%#CursorLine#       " color
-set statusline+=\ %f\           " file name
-set statusline+=%=              " right align
+set statusline+=%R                " readonly flag
+set statusline+=%M                " modified [+] flag
+set statusline+=%#CursorLine#    " separator
+set statusline+=\ %f              " file name
+set statusline+=%=                " right align
 
-set statusline+=%Y\            " file type
+set statusline+=%Y\              " file type
 set statusline+=%#DiffAdd#        " color
-set statusline+=\ %{FugitiveHead()}
-set statusline+=%#CursorLine#        " color
-set statusline+=%3l:%-2c      " line + column
-set statusline+=               " separator
-set statusline+=%#Cursor#        " color
-set statusline+=%3p%%\          " percentage
+set statusline+=\ %{FugitiveHead()}
+set statusline+=%#CursorLine#     " color
+set statusline+=%3l:%-2c         " line + column
+set statusline+=                 " separator
+set statusline+=%#Cursor#         " color
+set statusline+=%3p%%\            " percentage
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
 "netrw {{{

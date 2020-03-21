@@ -31,3 +31,6 @@
 [submodule "vim/pack/general/start/vim-mucomplete"]
 	path = vim/pack/general/start/vim-mucomplete
 	url = https://github.com/lifepillar/vim-mucomplete
+[submodule "vim/pack/general/start/tabular"]
+	path = vim/pack/general/start/tabular
+	url = https://github.com/godlygeek/tabular
