@@ -5,10 +5,11 @@ test -s $HOME/.bashrc        && . $HOME/.bashrc
 # Path exports {{{
 #---------------------------------------------------------------------
 
-test -s $HOME/.local/bin     && PATH="$PATH:$HOME/.local/bin"
-test -s $HOME/bin            && PATH="$PATH:$HOME/bin"
-test -s $HOME/go/bin         && PATH="$PATH:$HOME/go/bin"
-test -s $HOME/.cargo/bin     && PATH="$PATH:$HOME/.cargo/bin"
+test -s $HOME/.local/bin          && PATH="$PATH:$HOME/.local/bin"
+test -s $HOME/bin                 && PATH="$PATH:$HOME/bin"
+test -s $HOME/go/bin              && PATH="$PATH:$HOME/go/bin"
+test -s $HOME/.cargo/bin          && PATH="$PATH:$HOME/.cargo/bin"
+test -s $HOME/.gem/ruby/2.5.0/bin && PATH="$PATH:$HOME/.gem/ruby/2.5.0/bin"
 
 export PATH
 
@@ -16,7 +17,7 @@ export PATH
 
 # Application environments {{{
 #---------------------------------------------------------------------
-export EDITOR=/usr/local/bin/vim
+export EDITOR=vim
 export BROWSER=/usr/bin/firefox
 export KUBE_EDITOR=vim
 
@@ -44,6 +45,7 @@ export NVM_DIR="$HOME/.nvm"
 
 # Fzf options
 export FZF_DEFAULT_COMMAND='fdfind --type f'
+export FZF_DEFAULT_OPTS='--multi --cycle --height 9 --color=dark --layout=reverse --prompt=" "'
 
 # Android SDK
 #export ANDROID_HOME=/usr/lib/android-sdk

@@ -134,7 +134,8 @@ set statusline+=%3p%%\            " percentage
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:netrw_banner = 0          " Top banner
 let g:netrw_liststyle = 3       " Directory list view
-let g:netrw_browse_split = 4    " File open behaviour
+let g:netrw_browse_split = 0    " File open behaviour
+let g:netrw_preview = 1         " Open preview files vertically
 let g:netrw_altv = 1
 let g:netrw_winsize = 17        " Size of opened buffer
 " Open by default on launch
@@ -149,6 +150,19 @@ let g:netrw_winsize = 17        " Size of opened buffer
 " :W to save file with elevated permissions
 command W w !sudo tee % > /dev/null
 
+" Start all searches in very magic mode
+nnoremap / /\v
+
+" Search for selected content
+function! s:VSetSearch()
+  let temp = @@
+  norm! gvy
+  let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
+  let @@ = temp
+endfunction
+vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR>
+vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
+
 " Map redraw-screen to also clear search highlights
 nnoremap <silent> <C-L> :nohl<CR>:mat<CR><C-L>
 
@@ -162,18 +176,11 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 " Highlight trailing whitespace
 nnoremap <leader>w :match Error /\v\s+$/<CR>
 
-" Start all searches in magic mode
-nnoremap / /\v
-
-" Search for selected content
-function! s:VSetSearch()
-  let temp = @@
-  norm! gvy
-  let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
-  let @@ = temp
-endfunction
-vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR>
-vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
+" Navigate panes
+nnoremap <leader>h <C-W>h
+nnoremap <leader>j <C-W>j
+nnoremap <leader>k <C-W>k
+nnoremap <leader>l <C-W>l
 
 " Grep for word under cursor in cwd and open matched files in quickfix window
 "nnoremap <leader>g :silent execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<CR>:copen<CR>
@@ -183,6 +190,10 @@ vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " % jump to matching xml tags, if/else/endif, etc.
 packadd! matchit
+
+" FZF configuration
+set rtp+=~/apps/fzf
+let g:fzf_layout = { 'window': { 'width': 0.7, 'height': 0.6 } }
 
 " Open files in current dir using fzf
 nnoremap <silent> <leader>f :FZF<CR>
@@ -199,11 +210,12 @@ function! s:bufopen(e)
   execute 'buffer' matchstr(a:e, '^[ 0-9]*')
 endfunction
 
-nnoremap <silent> <Leader>b :call fzf#run({
+nnoremap <silent> <Leader>b :call fzf#run(fzf#wrap({
       \   'source':  reverse(<sid>buflist()),
       \   'sink':    function('<sid>bufopen'),
       \   'options': '+m',
-      \   'down':    len(<sid>buflist()) + 2
-      \ })<CR>
+      \   'down':    len(<sid>buflist()) + 2,
+      \   'window': { 'width': 0.7, 'height': 0.6 } 
+      \ }))<CR>
 
 " vim: ts:et:sw=2:
