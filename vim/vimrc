@@ -1,3 +1,4 @@
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Appearance {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -26,11 +27,14 @@ augroup BufFocus
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
+
 "Behavior {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 syntax enable           " enable syntax highlighting
 filetype plugin indent on " Load filetype-specific configuration
 set modeline            " Read vim modeline configs
+" Swap files directory
+set directory=$HOME/.vim/swapfiles//
 
 set nrformats="bin,hex" " define bases for <C-a> and <C-x> math operations
 set history=1000        " Remember more stuff
@@ -77,6 +81,7 @@ augroup filetype_vim
 augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
+
 "Status line {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " 
@@ -130,6 +135,7 @@ set statusline+=%#Cursor#         " color
 set statusline+=%3p%%\            " percentage
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
+
 "netrw {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let g:netrw_banner = 0          " Top banner
@@ -145,6 +151,7 @@ let g:netrw_winsize = 17        " Size of opened buffer
 "augroup END
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
+
 "Key maps {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " :W to save file with elevated permissions
@@ -186,6 +193,7 @@ nnoremap <leader>l <C-W>l
 "nnoremap <leader>g :silent execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<CR>:copen<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
+
 "Plugins {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " % jump to matching xml tags, if/else/endif, etc.
