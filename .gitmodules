@@ -2,7 +2,7 @@
 	path = vim/pack/general/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive
 [submodule "vim/pack/general/start/vim-javascript"]
-	path = vim/pack/javascript/start/vim-javascript
+	path = vim/pack/webdev/start/vim-javascript
 	url = https://github.com/pangloss/vim-javascript
 [submodule "vim/pack/general/start/vim-go"]
 	path = vim/pack/go/start/vim-go
@@ -11,14 +11,11 @@
 	path = vim/pack/general/start/NrrwRgn
 	url = https://github.com/chrisbra/NrrwRgn
 [submodule "vim/pack/javascript/start/typescript-vim"]
-	path = vim/pack/javascript/start/typescript-vim
+	path = vim/pack/webdev/start/typescript-vim
 	url = https://github.com/leafgarland/typescript-vim.git
 [submodule "vim/pack/javascript/start/vim-jsx-typescript"]
-	path = vim/pack/javascript/start/vim-jsx-typescript
+	path = vim/pack/webdev/start/vim-jsx-typescript
 	url = https://github.com/peitalin/vim-jsx-typescript
-[submodule "vim/pack/general/opt/ale"]
-	path = vim/pack/general/opt/ale
-	url = https://github.com/dense-analysis/ale
 [submodule "vim/pack/general/start/editorconfig-vim"]
 	path = vim/pack/general/start/editorconfig-vim
 	url = https://github.com/editorconfig/editorconfig-vim
@@ -34,3 +31,9 @@
 [submodule "vim/pack/general/start/tabular"]
 	path = vim/pack/general/start/tabular
 	url = https://github.com/godlygeek/tabular
+[submodule "vim/pack/rust/rust.vim"]
+	path = vim/pack/rust/start/rust.vim
+	url = https://github.com/rust-lang/rust.vim
+[submodule "vim/pack/webdev/start/LanguageClient-neovim"]
+	path = vim/pack/webdev/start/LanguageClient-neovim
+	url = https://github.com/autozimu/LanguageClient-neovim.git
