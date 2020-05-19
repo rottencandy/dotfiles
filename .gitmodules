@@ -34,6 +34,18 @@
 [submodule "vim/pack/rust/rust.vim"]
 	path = vim/pack/rust/start/rust.vim
 	url = https://github.com/rust-lang/rust.vim
-[submodule "vim/pack/webdev/start/LanguageClient-neovim"]
-	path = vim/pack/webdev/start/LanguageClient-neovim
-	url = https://github.com/autozimu/LanguageClient-neovim.git
+[submodule "vim/pack/godot/start/vim-gdscript3"]
+	path = vim/pack/godot/start/vim-gdscript3
+	url = https://github.com/clktmr/vim-gdscript3
+[submodule "vim/pack/general/start/vim-lsp"]
+	path = vim/pack/general/start/vim-lsp
+	url = https://github.com/prabirshrestha/vim-lsp
+[submodule "vim/pack/general/start/async.vim"]
+	path = vim/pack/general/start/async.vim
+	url = https://github.com/prabirshrestha/async.vim
+[submodule "vim/pack/webdev/start/vim-lsp-typescript"]
+	path = vim/pack/webdev/start/vim-lsp-typescript
+	url = https://github.com/ryanolsonx/vim-lsp-typescript.git
+[submodule "vim/pack/webdev/start/vim-lsp-javascript"]
+	path = vim/pack/webdev/start/vim-lsp-javascript
+	url = https://github.com/ryanolsonx/vim-lsp-javascript
