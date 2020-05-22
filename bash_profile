@@ -38,7 +38,7 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # NNN options
-export NNN_PLUG='e:-_vim $nnn*;n:-_vim /home/msaud/notes*;f:fzcd;u:-getplugs;r:-launch'
+export NNN_PLUG='e:-_vim $nnn*;n:-_vim notes*;f:fzcd;u:-getplugs;r:-launch'
 export NNN_BMS='v:~/Videos;d:~/Documents;D:~/Downloads'
 export NNN_CONTEXT_COLORS='2674'
 export NVM_DIR="$HOME/.nvm"
@@ -51,6 +51,10 @@ export FZF_DEFAULT_OPTS='--multi --cycle --height 9 --color=dark --layout=revers
 #export ANDROID_HOME=/usr/lib/android-sdk
 export ANDROID_HOME=$HOME/android_sdk
 export PATH=$PATH:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
+
+# Deno
+export DENO_INSTALL="$HOME/.deno"
+export PATH="$PATH:$DENO_INSTALL/bin"
 
 #}}}
 

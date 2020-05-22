@@ -25,9 +25,6 @@
 [submodule "vim/pack/general/start/vim-dirvish"]
 	path = vim/pack/general/start/vim-dirvish
 	url = https://github.com/justinmk/vim-dirvish
-[submodule "vim/pack/general/start/vim-mucomplete"]
-	path = vim/pack/general/start/vim-mucomplete
-	url = https://github.com/lifepillar/vim-mucomplete
 [submodule "vim/pack/general/start/tabular"]
 	path = vim/pack/general/start/tabular
 	url = https://github.com/godlygeek/tabular
@@ -37,15 +34,7 @@
 [submodule "vim/pack/godot/start/vim-gdscript3"]
 	path = vim/pack/godot/start/vim-gdscript3
 	url = https://github.com/clktmr/vim-gdscript3
-[submodule "vim/pack/general/start/vim-lsp"]
-	path = vim/pack/general/start/vim-lsp
-	url = https://github.com/prabirshrestha/vim-lsp
-[submodule "vim/pack/general/start/async.vim"]
-	path = vim/pack/general/start/async.vim
-	url = https://github.com/prabirshrestha/async.vim
-[submodule "vim/pack/webdev/start/vim-lsp-typescript"]
-	path = vim/pack/webdev/start/vim-lsp-typescript
-	url = https://github.com/ryanolsonx/vim-lsp-typescript.git
-[submodule "vim/pack/webdev/start/vim-lsp-javascript"]
-	path = vim/pack/webdev/start/vim-lsp-javascript
-	url = https://github.com/ryanolsonx/vim-lsp-javascript
+[submodule "vim/pack/webdev/start/coc.nvim"]
+	path = vim/pack/webdev/start/coc.nvim
+	url = https://github.com/neoclide/coc.nvim
+	branch = release
