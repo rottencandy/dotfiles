@@ -17,7 +17,6 @@ alias \
     t='tmux' \
     v='vim' \
     g='git' \
-    fd='fdfind' \
     k='kubectl' \
     yt="youtube-dl --add-metadata -i" \
     yta="yt --add-metadata -x -f bestaudio" \
