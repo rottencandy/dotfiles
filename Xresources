@@ -252,8 +252,8 @@ Xft.antialias: true
 st.borderpx: 10
 
 ! Opacity(0-1) requires compositor
-st.alpha: 0.6
+st.alpha: 0.8
 
 !! Set a default font and font size as below:
-st.font: Hack-10;
-!st.font: Fira Code Regular-10;
+!st.font: Hack-10;
+st.font: Fira Code-11;

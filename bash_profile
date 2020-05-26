@@ -44,7 +44,7 @@ export NNN_CONTEXT_COLORS='2674'
 export NVM_DIR="$HOME/.nvm"
 
 # Fzf options
-export FZF_DEFAULT_COMMAND='fdfind --type f'
+export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_DEFAULT_OPTS='--multi --cycle --height 9 --color=dark --layout=reverse --prompt=" "'
 
 # Android SDK
