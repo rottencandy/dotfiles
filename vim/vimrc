@@ -11,7 +11,9 @@ set lazyredraw          " Do not redraw on macro/regs/untyped commands
 set showmatch           " Highlight matching [{()}]
 set hlsearch            " Highlight search matches
 set scrolloff=0         " scroll offset
-set signcolumn=number   " Number column also shows signs
+if !has('nvim')
+  set signcolumn=number   " Number column also shows signs
+endif
 
 " Disable all error bells
 set noerrorbells
@@ -49,7 +51,6 @@ set encoding=utf8       " UTF-8 as default encoding
 set ffs=unix,dos,mac    " Standard file type as Unix
 set autoread            " automatically read when file is changed from outside
 set wildmenu            " Completion dropdown-thing
-set completeopt=longest,menuone,popup,noselect
 set hidden              " Hide unsaved buffers instead of closing
 "set confirm             " Prompt if exiting without saving
 set mouse=a             " Use mouse for all modes
@@ -80,6 +81,10 @@ augroup filetype_vim
   autocmd FileType vim setlocal foldmethod=marker
   autocmd FileType vim setlocal foldlevelstart=0
 augroup END
+
+if !has('nvim')
+  set completeopt=longest,menuone,popup,noselect
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
 

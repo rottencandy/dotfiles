@@ -67,7 +67,7 @@ module-margin-left = 1
 module-margin-right = 1
 
 ; font-N = <fontconfig pattern>;<vertical offset>
-font-0 = "FuraCode Nerd Font Mono:style=regular:size=10;1"
+font-0 = "Fira Code:style=regular:size=10;1"
 font-1 = "Ubuntu Nerd Font:style=Book:size=10;1"
 ;font-0 = "fixed:pixelsize=10;1"
 ;font-1 = "siji:pixelsize=10;1"
@@ -75,7 +75,7 @@ font-1 = "Ubuntu Nerd Font:style=Book:size=10;1"
 
 modules-left = bspwm xwindow
 modules-center = date mpd
-modules-right = pulseaudio xkeyboard eth filesystem memory cpu temperature
+modules-right = pulseaudio xkeyboard eth filesystem memory cpu temperature battery1 battery2
 
 tray-position = right
 tray-padding = 1

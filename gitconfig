@@ -1,0 +1,12 @@
+[user]
+	email = md.saud020@gmail.com
+	name = Mohammed Saud
+[color] # colorize output
+	diff = auto
+	status = auto
+	branch = auto
+	interactive = auto
+	ui = true
+	pager = true
+[credential] # cache credentials
+	helper = cache --timeout=3600
