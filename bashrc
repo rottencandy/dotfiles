@@ -6,10 +6,21 @@ case $- in
     *) return;;
 esac
 
-# Env sources {{{
+# sources {{{
 #---------------------------------------------------------------------
 test -s /etc/bashrc          && . /etc/bashrc
-test -s $HOME/.bash_aliases  && . $HOME/.bash_aliases
+
+# FZF options
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
+if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
+    . /usr/share/doc/fzf/examples/key-bindings.bash
+fi
+
+# Node version manager
+test -s "$NVM_DIR/nvm.sh"           && \. "$NVM_DIR/nvm.sh"
+test -s "$NVM_DIR/bash_completion"  && \. "$NVM_DIR/bash_completion"
+
 
 # }}}
 
@@ -56,25 +67,6 @@ fi
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
 #}}}
-
-# Application environments {{{
-#---------------------------------------------------------------------
-
-# NNN options
-[ -n "$NNNLVL" ] && PS1="N$NNNLVL $PS1"
-
-# FZF options
-[ -f ~/.fzf.bash ] && source ~/.fzf.bash
-
-if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
-    . /usr/share/doc/fzf/examples/key-bindings.bash
-fi
-
-# Node version manager
-test -s "$NVM_DIR/nvm.sh"           && \. "$NVM_DIR/nvm.sh"
-test -s "$NVM_DIR/bash_completion"  && \. "$NVM_DIR/bash_completion"
-
-# }}}
 
 # Custom functions {{{
 #---------------------------------------------------------------------
@@ -150,5 +142,137 @@ ftpane() {
             tmux select-window -t $target_window
     fi
 }
+
+# Graphical git log
+glog() {
+    setterm -linewrap off
+
+    git --no-pager log --all --color=always --graph --abbrev-commit --decorate \
+        --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' | \
+        sed -E \
+        -e 's/\|(\x1b\[[0-9;]*m)+\\(\x1b\[[0-9;]*m)+ /├\1─╮\2/' \
+        -e 's/(\x1b\[[0-9;]+m)\|\x1b\[m\1\/\x1b\[m /\1├─╯\x1b\[m/' \
+        -e 's/\|(\x1b\[[0-9;]*m)+\\(\x1b\[[0-9;]*m)+/├\1╮\2/' \
+        -e 's/(\x1b\[[0-9;]+m)\|\x1b\[m\1\/\x1b\[m/\1├╯\x1b\[m/' \
+        -e 's/╮(\x1b\[[0-9;]*m)+\\/╮\1╰╮/' \
+        -e 's/╯(\x1b\[[0-9;]*m)+\//╯\1╭╯/' \
+        -e 's/(\||\\)\x1b\[m   (\x1b\[[0-9;]*m)/╰╮\2/' \
+        -e 's/(\x1b\[[0-9;]*m)\\/\1╮/g' \
+        -e 's/(\x1b\[[0-9;]*m)\//\1╯/g' \
+        -e 's/^\*|(\x1b\[m )\*/\1⎬/g' \
+        -e 's/(\x1b\[[0-9;]*m)\|/\1│/g' \
+        | command less -r +'/[^/]HEAD'
+
+    setterm -linewrap on
+}
+
+# }}}
+
+# Aliases {{{
+#---------------------------------------------------------------------
+
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias \
+        ls='ls -hN --color=auto --group-directories-first' \
+        dir='dir --color=auto' \
+        vdir='vdir --color=auto' \
+
+        grep='grep --color=auto' \
+        fgrep='fgrep --color=auto' \
+        egrep='egrep --color=auto'
+fi
+
+alias \
+    ll='ls -l' \
+    la='ls -A' \
+    l='ls -CF' \
+    t='tmux' \
+    v='vim' \
+    nv='nvim' \
+    g='git' \
+    k='kubectl' \
+    yt="youtube-dl --add-metadata -i" \
+    yta="yt --add-metadata -x -f bestaudio" \
+    nc="ncmpcpp" \
+    tree="lsd --tree"
+
+# }}}
+
+# Path exports {{{
+#---------------------------------------------------------------------
+
+test -s $HOME/.local/bin          && PATH="$PATH:$HOME/.local/bin"
+test -s $HOME/bin                 && PATH="$PATH:$HOME/bin"
+test -s $HOME/go/bin              && PATH="$PATH:$HOME/go/bin"
+test -s $HOME/.cargo/bin          && PATH="$PATH:$HOME/.cargo/bin"
+test -s $HOME/.gem/ruby/2.5.0/bin && PATH="$PATH:$HOME/.gem/ruby/2.5.0/bin"
+
+export PATH
+
+# }}}
+
+# Envs {{{
+#---------------------------------------------------------------------
+
+export EDITOR=vim
+export BROWSER=/usr/bin/firefox
+export KUBE_EDITOR=vim
+
+export GTK_IM_MODULE="fcitx"
+export QT_IM_MODULE="fcitx"
+export XMODIFIERS="@im=fcitx"
+
+# Colors with less
+# from: https://wiki.archlinux.org/index.php/Color_output_in_console#man
+export LESS_TERMCAP_mb=$'\e[1;31m'     # begin bold
+export LESS_TERMCAP_md=$'\e[1;33m'     # begin blink
+export LESS_TERMCAP_so=$'\e[01;44;37m' # begin reverse video
+export LESS_TERMCAP_us=$'\e[01;37m'    # begin underline
+export LESS_TERMCAP_me=$'\e[0m'        # reset bold/blink
+export LESS_TERMCAP_se=$'\e[0m'        # reset reverse video
+export LESS_TERMCAP_ue=$'\e[0m'        # reset underline
+export GROFF_NO_SGR=1                  # for konsole and gnome-terminal
+export MANPAGER='less -s -M +Gg'       # percentage FTW
+
+# colored GCC warnings and errors
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# NNN
+export NNN_PLUG='e:-_vim $nnn*;n:-_vim notes*;f:fzcd;u:-getplugs;r:-launch'
+export NNN_BMS='v:~/Videos;d:~/Documents;D:~/Downloads'
+export NNN_CONTEXT_COLORS='2674'
+export NVM_DIR="$HOME/.nvm"
+[ -n "$NNNLVL" ] && PS1="N$NNNLVL $PS1"
+
+# FZF
+export FZF_DEFAULT_COMMAND='fd --type f'
+export FZF_DEFAULT_OPTS='--multi --cycle --height 9 --color=dark --layout=reverse --prompt=" "'
+
+# Android SDK
+#export ANDROID_HOME=/usr/lib/android-sdk
+export ANDROID_HOME=$HOME/android_sdk
+export PATH=$PATH:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
+
+# Deno
+export DENO_INSTALL="$HOME/.deno"
+export PATH="$PATH:$DENO_INSTALL/bin"
+
+# }}}
+
+# Shell options {{{
+#---------------------------------------------------------------------
+
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
+export LC_TYPE=en_US.UTF-8
+
+export HISTSIZE=1000
+export HISTFILESIZE=2000
+export HISTCONTROL=erasedups
+
+export SYSTEMD_PAGER=
+
+# }}}
 
 # vim: ts=4 sw=4 sts=4 et fdm=marker:
