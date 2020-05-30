@@ -38,3 +38,6 @@
 	path = vim/pack/webdev/start/coc.nvim
 	url = https://github.com/neoclide/coc.nvim
 	branch = release
+[submodule "vim/pack/lua/start/vim-lua"]
+	path = vim/pack/lua/start/vim-lua
+	url = https://github.com/tbastos/vim-lua

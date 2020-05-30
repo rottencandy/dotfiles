@@ -18,6 +18,7 @@ if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
 fi
 
 # Node version manager
+export NVM_DIR="$HOME/.nvm"
 test -s "$NVM_DIR/nvm.sh"           && \. "$NVM_DIR/nvm.sh"
 test -s "$NVM_DIR/bash_completion"  && \. "$NVM_DIR/bash_completion"
 
@@ -242,7 +243,6 @@ export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quo
 export NNN_PLUG='e:-_vim $nnn*;n:-_vim notes*;f:fzcd;u:-getplugs;r:-launch'
 export NNN_BMS='v:~/Videos;d:~/Documents;D:~/Downloads'
 export NNN_CONTEXT_COLORS='2674'
-export NVM_DIR="$HOME/.nvm"
 [ -n "$NNNLVL" ] && PS1="N$NNNLVL $PS1"
 
 # FZF
