@@ -67,15 +67,15 @@ module-margin-left = 1
 module-margin-right = 1
 
 ; font-N = <fontconfig pattern>;<vertical offset>
-font-0 = "Fira Code:style=regular:size=10;1"
+font-0 = "Hack Nerd Font:style=regular:size=10;1"
 font-1 = "Ubuntu Nerd Font:style=Book:size=10;1"
 ;font-0 = "fixed:pixelsize=10;1"
 ;font-1 = "siji:pixelsize=10;1"
 ;font-2 = "unifont:fontformat=truetype:size=8:antialias=false;0"
 
 modules-left = bspwm xwindow
-modules-center = date mpd
-modules-right = pulseaudio xkeyboard eth filesystem memory cpu temperature battery1 battery2
+modules-center = date
+modules-right = backlight-acpi pulseaudio xkeyboard eth filesystem memory cpu temperature battery1
 
 tray-position = right
 tray-padding = 1
@@ -104,7 +104,7 @@ label-underline = ${colors.foreground-alt}
 type = internal/xkeyboard
 blacklist-0 = num lock
 
-format-prefix = ""
+format-prefix = "  "
 format-prefix-foreground = ${colors.foreground-alt}
 ;format-prefix-underline = ${colors.secondary}
 
@@ -243,7 +243,7 @@ label = %percentage:2%%
 [module/memory]
 type = internal/memory
 interval = 2
-format-prefix = ""
+format-prefix = "  "
 format-prefix-foreground = ${colors.foreground-alt}
 ;format-underline = #4bffdc
 label = %percentage_used%%
@@ -272,7 +272,8 @@ ramp-signal-foreground = ${colors.foreground-alt}
 
 [module/eth]
 type = internal/network
-interface = enp1s0
+;interface = enp0s0
+interface = enp0s31f6
 interval = 10.0
 
 format-connected-underline = #55aa55
@@ -361,6 +362,8 @@ bar-volume-empty = -
 bar-volume-empty-font = 2
 bar-volume-empty-foreground = ${colors.foreground-alt}
 
+; Use the following command to list batteries and adapters:
+; $ ls -1 /sys/class/power_supply/
 [module/battery1]
 type = internal/battery
 battery = BAT0
@@ -373,7 +376,7 @@ format-charging = <animation-charging><label-charging>
 format-discharging = <ramp-capacity><label-discharging>
 ;format-discharging-underline = ${self.format-charging-underline}
 
-format-full-prefix = ""
+format-full-prefix = "  "
 format-full-prefix-foreground = ${colors.foreground-alt}
 ;format-full-underline = ${self.format-charging-underline}
 
@@ -400,7 +403,7 @@ format-charging = <animation-charging><label-charging>
 format-discharging = <ramp-capacity><label-discharging>
 ;format-discharging-underline = ${self.format-charging-underline}
 
-format-full-prefix = ""
+format-full-prefix = "  "
 format-full-prefix-foreground = ${colors.foreground-alt}
 ;format-full-underline = ${self.format-charging-underline}
 
@@ -417,7 +420,12 @@ animation-charging-framerate = 750
 
 [module/temperature]
 type = internal/temperature
-hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input
+; Full path of temperature sysfs path
+; Use `sensors` to find preferred temperature source, then run
+; for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
+; to find path to desired file
+; Default reverts to thermal zone setting
+hwmon-path = /sys/devices/platform/coretemp.0/hwmon/hwmon7/temp1_input
 # Package id 0 /sys/devices/platform/coretemp.0/hwmon/hwmon2/temp1_input
 # Core 0 /sys/devices/platform/coretemp.0/hwmon/hwmon2/temp2_input
 # Core 1 /sys/devices/platform/coretemp.0/hwmon/hwmon2/temp3_input

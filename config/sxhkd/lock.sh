@@ -3,7 +3,7 @@
 icon="$HOME/.config/sxhkd/lock.png"
 img="$HOME/.cache/i3lock.png"
 
-scrot $img
+maim $img
 
 convert $img -scale 10% -scale 1000% $img
 #convert $img -blur 0x4 500% $img

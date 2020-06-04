@@ -1,3 +1,36 @@
+def_key "k"
+  scroll_up
+
+def_key "j"
+  scroll_down
+
+def_key "ctrl-b"
+  page_up
+
+def_key "ctrl-f"
+  page_down
+
+def_key "+"
+  volume_up
+
+def_key "-"
+  volume_down
+
+def_key "g"
+  move_home
+
+def_key "G"
+  move_end
+
+def_key "d"
+  delete_playlist_items
+
+def_key "ctrl-h"
+  previous_column
+
+def_key "ctrl-l"
+  next_column
+
 ##########################################################
 ## this is example bindings configuration file, copy it ##
 ## to ~/.ncmpcpp/bindings and set up your preferences   ##
@@ -146,11 +179,7 @@
 #def_key "mouse"
 #  mouse_event
 #
-def_key "k"
-  scroll_up
 #
-def_key "j"
-  scroll_down
 #
 #def_key "["
 #  scroll_up_album
@@ -164,32 +193,14 @@ def_key "j"
 #def_key "}"
 #  scroll_down_artist
 #
-def_key "ctrl-b"
-  page_up
-#
-def_key "ctrl-f"
-  page_down
-#
-def_key "g"
-  move_home
-#
-def_key "G"
-  move_end
-#
 #def_key "space"
 #  press_space
 #
 #def_key "enter"
 #  press_enter
 #
-def_key "d"
-  delete_playlist_items
-#
 #def_key "delete"
 #  delete_stored_playlist
-#
-def_key "ctrl-l"
-  next_column
 #
 #def_key "right"
 #  slave_screen
@@ -197,20 +208,11 @@ def_key "ctrl-l"
 #def_key "right"
 #  volume_up
 #
-def_key "+"
-  volume_up
-#
-def_key "ctrl-h"
-  previous_column
-#
 #def_key "l"
 #  master_screen
 #
 #def_key "l"
 #  volume_down
-#
-def_key "-"
-  volume_down
 #
 #def_key ":"
 #  execute_command

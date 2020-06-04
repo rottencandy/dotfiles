@@ -185,8 +185,8 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 alias \
-    ll='ls -l' \
-    la='ls -A' \
+    ll='lsd -l' \
+    la='lsd -A' \
     l='ls -CF' \
     t='tmux' \
     v='vim' \
@@ -269,7 +269,7 @@ export LC_TYPE=en_US.UTF-8
 
 export HISTSIZE=1000
 export HISTFILESIZE=2000
-export HISTCONTROL=erasedups
+export HISTCONTROL=erasedups:ignorespace
 
 export SYSTEMD_PAGER=
 

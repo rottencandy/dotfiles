@@ -256,4 +256,4 @@ st.alpha: 0.8
 
 !! Set a default font and font size as below:
 !st.font: Hack-10;
-st.font: Fira Code-11;
+st.font: SauceCodePro Nerd Font Mono-11;
