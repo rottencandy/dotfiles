@@ -1,6 +1,6 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "Appearance {{{
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Set and configure the color scheme
 colorscheme OceanicNext
 set background=dark
@@ -28,10 +28,10 @@ augroup BufFocus
   autocmd WinLeave * set nocursorline
 augroup END
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
+" }}}
 
 "Behavior {{{
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 syntax enable           " enable syntax highlighting
 filetype plugin indent on " Load filetype-specific configuration
 set modeline            " Read vim modeline configs
@@ -75,21 +75,26 @@ inoremap <C-W> <C-G>u<C-W>
 set sessionoptions-=options
 set viewoptions-=options
 
-" Fold vimrc on opening
-augroup filetype_vim
-  autocmd!
-  autocmd FileType vim setlocal foldmethod=marker
-  autocmd FileType vim setlocal foldlevelstart=0
-augroup END
-
 if !has('nvim')
   set completeopt=longest,menuone,popup,noselect
 endif
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
+fun! FoldText()
+  let line = getline(v:foldstart)
+  let line = substitute(line, '/\*\|\*/\|{{{\d\=', '', 'g')  " }}}
+
+  let offset = 16
+  let space = repeat(' ', winwidth(0) - strdisplaywidth(line) - offset) 
+  let lines = v:foldend-v:foldstart + 1
+
+  return line . space . lines
+endfun
+set foldtext=FoldText()
+
+" }}}
 
 "Status line {{{
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " 
 set laststatus=2                " Always show statusline
 
@@ -140,10 +145,10 @@ set statusline+=                 " separator
 set statusline+=%#Cursor#         " color
 set statusline+=%3p%%\            " percentage
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
+" }}}
 
 "netrw {{{
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 let g:netrw_banner = 0          " Top banner
 let g:netrw_liststyle = 3       " Directory list view
 let g:netrw_browse_split = 0    " File open behaviour
@@ -156,10 +161,10 @@ let g:netrw_winsize = 17        " Size of opened buffer
 "  autocmd VimEnter * :Vexplore
 "augroup END
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
+" }}}
 
 "Key maps {{{
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " :W to save file with elevated permissions
 command W w !sudo tee % > /dev/null
 
@@ -198,10 +203,10 @@ nnoremap <leader>l <C-W>l
 " Grep for word under cursor in cwd and open matched files in quickfix window
 "nnoremap <leader>g :silent execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<CR>:copen<CR>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
+" }}}
 
 "Plugins {{{
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " % jump to matching xml tags, if/else/endif, etc.
 packadd! matchit
 
@@ -233,10 +238,10 @@ nnoremap <silent> <Leader>b :call fzf#run(fzf#wrap({
       \   'down':    len(<sid>buflist()) + 2
       \ }))<CR>
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""" }}}
+" }}}
 
 "Language server {{{
-""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
@@ -346,5 +351,6 @@ nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
 nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
 " Resume latest coc list.
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+" }}}
 
-" vim: et:sw=2:
+" vim: fdm=marker:et:sw=2:
