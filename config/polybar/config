@@ -75,7 +75,7 @@ font-1 = "Ubuntu Nerd Font:style=Book:size=10;1"
 
 modules-left = bspwm xwindow
 modules-center = date
-modules-right = backlight-acpi pulseaudio xkeyboard eth filesystem memory cpu temperature battery1
+modules-right = backlight-acpi pulseaudio xkeyboard eth wlan filesystem memory cpu temperature battery1
 
 tray-position = right
 tray-padding = 1
@@ -250,7 +250,7 @@ label = %percentage_used%%
 
 [module/wlan]
 type = internal/network
-interface = wlp4s0
+interface = wlp0s20f3
 interval = 3.0
 
 format-connected = <ramp-signal> <label-connected>
