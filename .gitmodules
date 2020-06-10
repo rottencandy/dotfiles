@@ -22,12 +22,6 @@
 [submodule "vim/pack/general/start/delimitMate"]
 	path = vim/pack/general/start/delimitMate
 	url = https://github.com/Raimondi/delimitMate
-[submodule "vim/pack/general/start/vim-dirvish"]
-	path = vim/pack/general/start/vim-dirvish
-	url = https://github.com/justinmk/vim-dirvish
-[submodule "vim/pack/general/start/tabular"]
-	path = vim/pack/general/start/tabular
-	url = https://github.com/godlygeek/tabular
 [submodule "vim/pack/rust/rust.vim"]
 	path = vim/pack/rust/start/rust.vim
 	url = https://github.com/rust-lang/rust.vim

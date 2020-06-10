@@ -55,6 +55,7 @@ shopt -s histappend
 shopt -s globstar
 shopt -s extglob
 shopt -s nullglob
+unset command_not_found_handle
 
 if ! shopt -oq posix; then
     if [ -f /usr/share/bash-completion/bash_completion ]; then
@@ -109,22 +110,25 @@ s() {
     fi
 }
 
-# select file using fzf with max recursive depth
+# open file using fzf with max recursive depth
+# fld [depth] [cmd]
 fld() {
-    if [ $# -eq 0 ]
+    fzfcmd="fd -Hd 1"
+    cmd=nvim
+    if [ $# -eq 1 ]
     then
-        vim "$(fd -Hd 1 | fzf)"
-    elif [ $# -eq 1 ]
-    then
-        $1 "$(fd -Hd 1 | fzf)"
+        cmd=$1
     elif [ $# -eq 2 ]
     then
-        $2 "$(fd -Hd $1 | fzf)"
+        fzfcmd="fd -Hd $1"
+        cmd=$2
     fi
+    file=$($fzfcmd | fzf) || return
+    $cmd "$file"
 }
 
 # ftpane - switch pane (@george-b)
-# bind-key 0 run "tmux split-window -l 12 'bash -ci ftpane'"
+# bind f run "tmux split-window -v -l 10 'bash -ci ftpane'"
 ftpane() {
     local panes current_window current_pane target target_window target_pane
     panes=$(tmux list-panes -s -F '#I:#P - #{pane_current_path} #{pane_current_command}')
@@ -165,6 +169,17 @@ glog() {
         | command less -r +'/[^/]HEAD'
 
     setterm -linewrap on
+}
+
+# Open file selection in vim
+# bind 2 run "tmux split-window -h -b -l 45 'bash -ci nnnfiles'"
+nnnfiles () {
+    search_dir=$1 || "~"
+    selection=$(nnn -p - $search_dir)
+    if [$selection -eq ""]; then
+        return
+    fi
+    nvim $selection
 }
 
 # }}}
@@ -260,7 +275,7 @@ export PATH="$PATH:$DENO_INSTALL/bin"
 
 # }}}
 
-# Shell options {{{
+# Shell vars {{{
 #---------------------------------------------------------------------
 
 export LANG=en_US.UTF-8
