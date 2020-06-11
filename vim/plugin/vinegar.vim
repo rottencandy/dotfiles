@@ -16,51 +16,21 @@ function! s:fnameescape(file) abort
   endif
 endfunction
 
-let s:dotfiles = '\(^\|\s\s\)\zs\.\S\+'
-
 let s:escape = 'substitute(escape(v:val, ".$~"), "*", ".*", "g")'
-let g:netrw_list_hide =
-      \ join(map(split(&wildignore, ','), '"^".' . s:escape . '. "/\\=$"'), ',') . ',^\.\.\=/\=$' .
-      \ (get(g:, 'netrw_list_hide', '')[-strlen(s:dotfiles)-1:-1] ==# s:dotfiles ? ','.s:dotfiles : '')
-if !exists("g:netrw_banner")
-  let g:netrw_banner = 0
-endif
-unlet! s:netrw_up
 
-nnoremap <silent> <Plug>VinegarUp :call <SID>opendir('edit')<CR>
+nnoremap <silent> <Plug>VinegarUp :call <SID>opendir()<CR>
 if empty(maparg('-', 'n'))
   nmap - <Plug>VinegarUp
 endif
 
-nnoremap <silent> <Plug>VinegarTabUp :call <SID>opendir('tabedit')<CR>
-nnoremap <silent> <Plug>VinegarSplitUp :call <SID>opendir('split')<CR>
-nnoremap <silent> <Plug>VinegarVerticalSplitUp :call <SID>opendir('vsplit')<CR>
-
-function! s:opendir(cmd) abort
-  let df = ','.s:dotfiles
-  if expand('%:t')[0] ==# '.' && g:netrw_list_hide[-strlen(df):-1] ==# df
-    let g:netrw_list_hide = g:netrw_list_hide[0 : -strlen(df)-1]
-  endif
-  if &filetype ==# 'netrw' && len(s:netrw_up)
-    let basename = fnamemodify(b:netrw_curdir, ':t')
-    execute s:netrw_up
-    call s:seek(basename)
+function! s:opendir() abort
+  if &filetype ==# 'netrw'
+    silent execute 'b#'
   elseif expand('%') =~# '^$\|^term:[\/][\/]'
-    execute a:cmd '.'
+    silent execute 'edit .'
   else
-    execute a:cmd '%:h'
-    call s:seek(expand('#:t'))
+    silent execute 'edit %:h'
   endif
-endfunction
-
-function! s:seek(file) abort
-  if get(b:, 'netrw_liststyle') == 2
-    let pattern = '\%(^\|\s\+\)\zs'.escape(a:file, '.*[]~\').'[/*|@=]\=\%($\|\s\+\)'
-  else
-    let pattern = '^\%(| \)*'.escape(a:file, '.*[]~\').'[/*|@=]\=\%($\|\t\)'
-  endif
-  call search(pattern, 'wc')
-  return pattern
 endfunction
 
 augroup vinegar
@@ -98,28 +68,11 @@ function! s:escaped(first, last) abort
 endfunction
 
 function! s:setup_vinegar() abort
-  if !exists('s:netrw_up')
-    let orig = maparg('-', 'n')
-    if orig =~? '^<plug>'
-      let s:netrw_up = 'execute "normal \'.substitute(orig, ' *$', '', '').'"'
-    elseif orig =~# '^:'
-      " :exe "norm! 0"|call netrw#LocalBrowseCheck(<SNR>123_NetrwBrowseChgDir(1,'../'))<CR>
-      let s:netrw_up = substitute(orig, '\c^:\%(<c-u>\)\=\|<cr>$', '', 'g')
-    else
-      let s:netrw_up = ''
-    endif
-  endif
   nmap <buffer> - <Plug>VinegarUp
-  cnoremap <buffer><expr> <Plug><cfile> get(<SID>relatives('.'),0,"\022\006")
-  if empty(maparg('<C-R><C-F>', 'c'))
-    cmap <buffer> <C-R><C-F> <Plug><cfile>
-  endif
   nnoremap <buffer> ~ :edit ~/<CR>
   nnoremap <buffer> . :<C-U> <C-R>=<SID>escaped(line('.'), line('.') - 1 + v:count1)<CR><Home>
   xnoremap <buffer> . <Esc>: <C-R>=<SID>escaped(line("'<"), line("'>"))<CR><Home>
-  if empty(mapcheck('y.', 'n'))
-    nnoremap <silent><buffer> y. :<C-U>call setreg(v:register, join(<SID>absolutes(line('.'), line('.') - 1 + v:count1), "\n")."\n")<CR>
-  endif
+  nnoremap <silent><buffer> y. :<C-U>call setreg(v:register, join(<SID>absolutes(line('.'), line('.') - 1 + v:count1), "\n")."\n")<CR>
   nmap <buffer> ! .!
   xmap <buffer> ! .!
   let g:netrw_sort_sequence = '[\/]$,*' . (empty(&suffixes) ? '' : ',\%(' .

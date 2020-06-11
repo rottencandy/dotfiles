@@ -155,11 +155,6 @@ let g:netrw_browse_split = 0    " File open behaviour
 let g:netrw_preview = 1         " Open preview files vertically
 let g:netrw_altv = 1
 let g:netrw_winsize = 17        " Size of opened buffer
-" Open by default on launch
-"augroup ProjectDrawer
-"  autocmd!
-"  autocmd VimEnter * :Vexplore
-"augroup END
 
 " }}}
 
