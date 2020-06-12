@@ -35,3 +35,6 @@
 [submodule "vim/pack/lua/start/vim-lua"]
 	path = vim/pack/lua/start/vim-lua
 	url = https://github.com/tbastos/vim-lua
+[submodule "vim/pack/general/start/vim-vinegar"]
+	path = vim/pack/general/start/vim-vinegar
+	url = https://github.com/tpope/vim-vinegar
