@@ -3,28 +3,13 @@ local gears = require('gears')
 local wibox = require('wibox')
 
 local taglist_widget = require('statusbar.taglist')
+local tasklist_widget = require('statusbar.tasklist')
 local volume = require('statusbar.volume')
 local battery = require('statusbar.battery')
+local brightness = require('statusbar.brightness')
+local ram = require('statusbar.ram')
+local temp = require('statusbar.temp')
 
-
-local tasklist_buttons = gears.table.join(
-    awful.button({}, 1, function (c)
-        if c == client.focus then
-            c.minimized = true
-        else
-            c:emit_signal('request::activate', 'tasklist', {raise = true})
-        end
-    end),
-    awful.button({}, 3, function()
-        awful.menu.client_list({ theme = { width = 250 } })
-    end),
-    awful.button({}, 4, function ()
-        awful.client.focus.byidx(1)
-    end),
-    awful.button({}, 5, function ()
-        awful.client.focus.byidx(-1)
-    end)
-    )
 
 return function(s)
     -- Left widgets
@@ -33,11 +18,6 @@ return function(s)
     awful.tag(names, s, awful.layout.layouts[1])
     -- Create a taglist widget
     s.mytaglist = taglist_widget(s)
-    --s.mytaglist = awful.widget.taglist {
-    --    screen = s,
-    --    filter = awful.widget.taglist.filter.all,
-    --    buttons = taglist_buttons
-    --}
     -- Create a promptbox for each screen
     s.mypromptbox = awful.widget.prompt()
 
@@ -45,11 +25,7 @@ return function(s)
     -- ================================================================
 
     -- Create a tasklist widget
-    s.mytasklist = awful.widget.tasklist {
-        screen = s,
-        filter = awful.widget.tasklist.filter.currenttags,
-        buttons = tasklist_buttons
-    }
+    s.mytasklist = tasklist_widget(s)
 
     -- Right widgets
     -- ================================================================
@@ -90,6 +66,9 @@ return function(s)
 
         -- Right widgets
         { layout = wibox.layout.fixed.horizontal,
+            brightness,
+            ram,
+            temp,
             volume,
             battery,
             mykeyboardlayout,

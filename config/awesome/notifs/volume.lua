@@ -17,8 +17,8 @@ local function emit_vol_info()
 end
 
 local vol_script = [[
- sh -c '
- pactl subscribe 2> /dev/null | rg --line-buffered sink
+sh -c '
+pactl subscribe 2> /dev/null | rg --line-buffered sink
 '
 ]]
 

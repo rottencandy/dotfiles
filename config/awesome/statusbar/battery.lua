@@ -12,7 +12,7 @@ local bat_widget = wibox.widget {
 
 awesome.connect_signal('notifs::battery', function(percentage, charging)
     if charging then
-        bat_widget.markup = prefix .. percentage .. '%'
+        bat_widget.markup = prefix .. percentage .. '%(C)'
     else
         bat_widget.markup = prefix .. percentage .. '%'
     end
