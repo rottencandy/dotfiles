@@ -4,9 +4,7 @@ local wibox = require('wibox')
 
 local taglist_widget = require('statusbar.taglist')
 local tasklist_widget = require('statusbar.tasklist')
-local volume = require('statusbar.volume')
 local battery = require('statusbar.battery')
-local brightness = require('statusbar.brightness')
 local ram = require('statusbar.ram')
 local temp = require('statusbar.temp')
 
@@ -14,8 +12,6 @@ local temp = require('statusbar.temp')
 return function(s)
     -- Left widgets
     -- ================================================================
-    local names = { '一', '二', '三', '四', '五', '六', '七', '八', '九' }
-    awful.tag(names, s, awful.layout.layouts[1])
     -- Create a taglist widget
     s.mytaglist = taglist_widget(s)
     -- Create a promptbox for each screen
@@ -37,7 +33,7 @@ return function(s)
     local mysystray = wibox.widget.systray()
 
     -- Create a textclock widget
-    local mytextclock = wibox.widget.textclock()
+    local mytextclock = wibox.widget.textclock('%I:%M %a(%b %d)')
 
     -- Icon indicating current layout
     s.mylayoutbox = awful.widget.layoutbox(s)
@@ -66,10 +62,8 @@ return function(s)
 
         -- Right widgets
         { layout = wibox.layout.fixed.horizontal,
-            brightness,
             ram,
             temp,
-            volume,
             battery,
             mykeyboardlayout,
             mysystray,

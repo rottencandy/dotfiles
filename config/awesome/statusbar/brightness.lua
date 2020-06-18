@@ -11,7 +11,7 @@ local brightness_widget = wibox.widget {
 }
 
 awesome.connect_signal('notifs::brightness', function(percentage)
-        brightness_widget.markup = prefix .. percentage .. '%'
+    brightness_widget.markup = prefix .. percentage .. '%'
 end)
 
 return brightness_widget

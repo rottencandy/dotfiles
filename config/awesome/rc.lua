@@ -13,8 +13,10 @@ pcall(require, 'luarocks.loader')
 -- Read Xresources config
 local xrdb = beautiful.xresources.get_current_theme()
 
--- Start event listeners
+-- Setup event listeners
 require('notifs')
+-- Setup popups
+require('popups')
 
 -- {{{ Error handling
 
@@ -102,7 +104,7 @@ awful.layout.layouts = {
 
 -- }}}
 
--- Status bar {{{
+-- Screens setup {{{
 
 local function set_wallpaper(s)
     -- Wallpaper
@@ -123,6 +125,21 @@ local mybar = require('statusbar')
 
 awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
+
+    local names = { '一', '二', '三', '四', '五', '六', '七', '八', '九' }
+    local layouts = {
+        l.tile,
+        l.floating,
+        l.tile,
+        l.tile,
+        l.tile,
+        l.tile,
+        l.tile,
+        l.tile,
+        l.tile,
+    }
+    awful.tag(names, s, layouts)
+
     mybar(s)
 end)
 --- }}}
@@ -131,7 +148,7 @@ end)
 
 local keys = require('keys')
 
-root.keys(keys)
+root.keys(keys.globalkeys)
 -- }}}
 
 -- {{{ Rules
@@ -145,8 +162,8 @@ awful.rules.rules = {
             border_color = beautiful.border_normal,
             focus = awful.client.focus.filter,
             raise = true,
-            keys = clientkeys,
-            buttons = clientbuttons,
+            keys = keys.clientkeys,
+            buttons = keys.clientbuttons,
             screen = awful.screen.preferred,
             placement = awful.placement.no_overlap+awful.placement.no_offscreen
         }

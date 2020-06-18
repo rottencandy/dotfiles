@@ -1,6 +1,6 @@
 local gears = require('gears')
 local awful = require('awful')
-local naughty = require('awful')
+local naughty = require('naughty')
 local hotkeys_popup = require('awful.hotkeys_popup')
 local xrandr = require('xrandr')
 
@@ -17,16 +17,15 @@ local shift = 'Shift'
 local ctrl = 'Control'
 local enter = 'Return'
 
--- {{{
--- }}}
+local keys = {}
 
-local globalkeys = gears.table.join(
+keys.globalkeys = gears.table.join(
 -- {{{ Awesome manipulation
 
     awful.key({ superkey, shift }, 'r', awesome.restart,
         {description = 'reload awesome', group = 'awesome'}),
 
-    awful.key({ superkey, shift }, 'Esc', awesome.quit,
+    awful.key({ superkey, shift }, 'Escape', awesome.quit,
         {description = 'quit awesome', group = 'awesome'}),
 
     awful.key({ superkey, }, 's', hotkeys_popup.show_help,
@@ -35,8 +34,13 @@ local globalkeys = gears.table.join(
     awful.key({ superkey }, 'g', function() xrandr.xrandr() end,
         {description='setup screns', group='screen'}),
 
+-- }}}
+
+-- {{{ Notifications
+
     -- Dismiss all notifications
-    awful.key({ ctrl}, 'space', naughty.destroy_all_notifications ),
+    awful.key({ ctrl}, 'space', naughty.destroy_all_notifications,
+        {description = 'Clear all notifications', group='notifications'}),
 
 -- }}}
 
@@ -217,22 +221,22 @@ local globalkeys = gears.table.join(
 
 -- {{{ Clients
 
-clientkeys = gears.table.join(
+keys.clientkeys = gears.table.join(
     awful.key({ superkey, }, 'f',
         function (c)
             c.fullscreen = not c.fullscreen
             c:raise()
         end,
         {description = 'toggle fullscreen', group = 'client'}),
-    awful.key({ superkey, shift }, 'c', function (c) c:kill() end,
+    awful.key({ superkey, shift }, 'q', function (c) c:kill() end,
         {description = 'close', group = 'client'}),
-    awful.key({ superkey, ctrl }, 'space',awful.client.floating.toggle,
+    awful.key({ superkey, }, 't', awful.client.floating.toggle,
         {description = 'toggle floating', group = 'client'}),
-    awful.key({ superkey, ctrl }, enter, function (c) c:swap(awful.client.getmaster()) end,
-        {description = 'move to master', group = 'client'}),
-    awful.key({ superkey, }, 'o', function (c) c:move_to_screen() end,
-        {description = 'move to screen', group = 'client'}),
-    awful.key({ superkey, }, 't', function (c) c.ontop = not c.ontop end,
+    --awful.key({ superkey, ctrl }, enter, function (c) c:swap(awful.client.getmaster()) end,
+    --    {description = 'move to master', group = 'client'}),
+    --awful.key({ superkey, }, 'o', function (c) c:move_to_screen() end,
+    --    {description = 'move to screen', group = 'client'}),
+    awful.key({ superkey, }, 'i', function (c) c.ontop = not c.ontop end,
         {description = 'toggle keep on top', group = 'client'}),
     awful.key({ superkey, }, 'n',
         function (c)
@@ -263,9 +267,28 @@ clientkeys = gears.table.join(
 
 -- }}}
 
+-- {{{ Clients(mouse)
+keys.clientbuttons = gears.table.join(
+    awful.button({ }, 1, function (c)
+        c:emit_signal('request::activate', 'mouse_click', {raise = true})
+    end),
+    awful.button({ superkey }, 1, function (c)
+        c:emit_signal('request::activate', 'mouse_click', {raise = true})
+        awful.mouse.client.move(c)
+    end),
+    awful.button({ superkey }, 3, function (c)
+        c:emit_signal('request::activate', 'mouse_click', {raise = true})
+        awful.mouse.client.resize(c)
+    end)
+    )
+
+-- }}}
+
+-- {{{ Tags
+
 -- Bind all key numbers to tags.
 for i = 1, 9 do
-    globalkeys = gears.table.join(globalkeys,
+    keys.globalkeys = gears.table.join(keys.globalkeys,
         -- View tag only.
         awful.key({ superkey }, '#' .. i + 9,
             function ()
@@ -298,7 +321,7 @@ for i = 1, 9 do
             end,
             {description = 'move focused client to tag #'..i, group = 'tag'}),
         -- Toggle tag on focused client.
-        awful.key({ superkey,ctrl , shift }, '#' .. i + 9,
+        awful.key({ superkey, ctrl , shift }, '#' .. i + 9,
             function ()
                 if client.focus then
                     local tag = client.focus.screen.tags[i]
@@ -310,22 +333,9 @@ for i = 1, 9 do
             {description = 'toggle focused client on tag #' .. i, group = 'tag'})
         )
 end
-
-clientbuttons = gears.table.join(
-    awful.button({ }, 1, function (c)
-        c:emit_signal('request::activate', 'mouse_click', {raise = true})
-    end),
-    awful.button({ superkey }, 1, function (c)
-        c:emit_signal('request::activate', 'mouse_click', {raise = true})
-        awful.mouse.client.move(c)
-    end),
-    awful.button({ superkey }, 3, function (c)
-        c:emit_signal('request::activate', 'mouse_click', {raise = true})
-        awful.mouse.client.resize(c)
-    end)
-    )
+-- }}}
 
 
-return globalkeys
+return keys
 
 -- vim: et:sw=4:fdm=marker:textwidth=80
