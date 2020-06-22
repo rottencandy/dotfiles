@@ -37,6 +37,7 @@ filetype plugin indent on " Load filetype-specific configuration
 set modeline            " Read vim modeline configs
 " Swap files directory
 set directory=$HOME/.vim/swapfiles//
+set backupdir=$HOME/.vim/swapfiles//
 
 set nrformats="bin,hex" " define bases for <C-a> and <C-x> math operations
 set history=1000        " Remember more stuff

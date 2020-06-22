@@ -158,7 +158,7 @@ keys.globalkeys = gears.table.join(
     -- Application launcher
     awful.key({ superkey }, 'r', function () awful.spawn('rofi -show window') end,
         {description = 'run launcher(rofi)', group = 'launcher'}),
-    awful.key({ superkey }, 'd', function () awful.spawn('rofi -show run') end,
+    awful.key({ superkey }, 'd', function () awful.spawn('rofi -show drun') end,
         {description = 'run window selector(rofi)', group = 'launcher'}),
     -- Menubar
     --awful.key({ superkey }, 'p', function() menubar.show() end,
