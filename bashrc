@@ -221,6 +221,7 @@ alias \
 test -s $HOME/.local/bin          && PATH="$PATH:$HOME/.local/bin"
 test -s $HOME/bin                 && PATH="$PATH:$HOME/bin"
 test -s $HOME/go/bin              && PATH="$PATH:$HOME/go/bin"
+test -s $HOME/code/go/bin         && PATH="$PATH:$HOME/code/go/bin"
 test -s $HOME/.cargo/bin          && PATH="$PATH:$HOME/.cargo/bin"
 test -s $HOME/.gem/ruby/2.5.0/bin && PATH="$PATH:$HOME/.gem/ruby/2.5.0/bin"
 
@@ -262,7 +263,7 @@ export NNN_CONTEXT_COLORS='2674'
 
 # FZF
 export FZF_DEFAULT_COMMAND='fd --type f'
-export FZF_DEFAULT_OPTS='--multi --cycle --height 9 --color=dark --layout=reverse --prompt=" "'
+export FZF_DEFAULT_OPTS='--multi --cycle --height 16 --color=dark --layout=reverse --prompt=" "'
 
 # Android SDK
 #export ANDROID_HOME=/usr/lib/android-sdk
@@ -272,6 +273,10 @@ export PATH=$PATH:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
 # Deno
 export DENO_INSTALL="$HOME/.deno"
 export PATH="$PATH:$DENO_INSTALL/bin"
+
+# Go
+export GOPATH=$HOME/code/go
+export GOROOT=$HOME/go
 
 # }}}
 
