@@ -33,7 +33,7 @@ return function(s)
     local mysystray = wibox.widget.systray()
 
     -- Create a textclock widget
-    local mytextclock = wibox.widget.textclock('%I:%M %a(%b %d)')
+    local mytextclock = wibox.widget.textclock('%l:%M %p   %a %b %d ')
 
     -- Icon indicating current layout
     s.mylayoutbox = awful.widget.layoutbox(s)
@@ -65,7 +65,7 @@ return function(s)
             ram,
             temp,
             battery,
-            mykeyboardlayout,
+            --mykeyboardlayout,
             mysystray,
             mytextclock,
             s.mylayoutbox,

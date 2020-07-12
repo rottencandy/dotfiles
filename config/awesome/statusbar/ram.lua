@@ -1,6 +1,6 @@
 local wibox = require('wibox')
 
-local prefix = 'Ram: '
+local prefix = '   '
 
 -- TODO: add color
 local ram_widget = wibox.widget {

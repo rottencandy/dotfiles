@@ -1,6 +1,6 @@
 local wibox = require('wibox')
 
-local prefix = 'Temp: '
+local prefix = '   '
 
 -- TODO: add unsafe temp color/notif
 local temp_widget = wibox.widget {

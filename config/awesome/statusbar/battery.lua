@@ -1,6 +1,6 @@
 local wibox = require('wibox')
 
-local prefix = 'Bat: '
+local prefix = '   '
 
 -- TODO: add color
 local bat_widget = wibox.widget {
@@ -12,9 +12,9 @@ local bat_widget = wibox.widget {
 
 awesome.connect_signal('notifs::battery', function(percentage, charging)
     if charging then
-        bat_widget.markup = prefix .. percentage .. '%(C)'
+        bat_widget.markup = prefix .. percentage .. '%(C) '
     else
-        bat_widget.markup = prefix .. percentage .. '%'
+        bat_widget.markup = prefix .. percentage .. '% '
     end
 end)
 
