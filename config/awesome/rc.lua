@@ -45,6 +45,10 @@ end
 
 -- }}}
 
+-- {{{ Startup
+awful.spawn.with_shell(os.getenv('HOME') .. '/.config/awesome/startup.sh')
+-- }}}
+
 -- {{{ Global variable definitions
 
 local config_dir = os.getenv('HOME') .. '/.config/awesome/'
@@ -128,15 +132,15 @@ awful.screen.connect_for_each_screen(function(s)
 
     local names = { '一', '二', '三', '四', '五', '六', '七', '八', '九' }
     local layouts = {
-        l.tile,
         l.floating,
         l.tile,
-        l.tile,
-        l.tile,
-        l.tile,
-        l.tile,
-        l.tile,
-        l.tile,
+        l.floating,
+        l.floating,
+        l.floating,
+        l.floating,
+        l.floating,
+        l.floating,
+        l.floating,
     }
     awful.tag(names, s, layouts)
 
@@ -165,7 +169,7 @@ awful.rules.rules = {
             keys = keys.clientkeys,
             buttons = keys.clientbuttons,
             screen = awful.screen.preferred,
-            placement = awful.placement.no_overlap+awful.placement.no_offscreen
+            placement = awful.placement.centered + awful.placement.no_offscreen
         }
     },
 
@@ -181,6 +185,7 @@ awful.rules.rules = {
                 'Arandr',
                 'Blueman-manager',
                 'Gpick',
+                'GNU Image Manipulation Program',
                 'Kruler',
                 'MessageWin',  -- kalarm.
                 'Sxiv',
@@ -210,6 +215,12 @@ awful.rules.rules = {
         properties = { titlebars_enabled = true }
     },
 
+    -- Set terminal window to not have titlebar
+    {
+        rule = { name = terminal },
+        properties = { titlebars_enabled = false }
+    },
+
     -- Set Firefox to always map on the tag named '2' on screen 1.
     -- { rule = { class = 'Firefox' },
     --   properties = { screen = 1, tag = '2' } },
@@ -223,6 +234,7 @@ client.connect_signal('manage', function (c)
     -- Set the windows at the slave,
     -- i.e. put it at the end of others instead of setting it master.
     -- if not awesome.startup then awful.client.setslave(c) end
+    c.shape = gears.shape.rounded_rect
 
     if awesome.startup
         and not c.size_hints.user_position
@@ -248,7 +260,7 @@ client.connect_signal('request::titlebars', function(c)
         { -- Left
             awful.titlebar.widget.iconwidget(c),
             buttons = buttons,
-            layout  = wibox.layout.fixed.horizontal
+            layout = wibox.layout.fixed.horizontal
         },
         { -- Middle
             { -- Title
@@ -256,16 +268,16 @@ client.connect_signal('request::titlebars', function(c)
                 widget = awful.titlebar.widget.titlewidget(c)
             },
             buttons = buttons,
-            layout  = wibox.layout.flex.horizontal
+            layout = wibox.layout.flex.horizontal
         },
-        { -- Right
-            awful.titlebar.widget.floatingbutton(c),
-            awful.titlebar.widget.maximizedbutton(c),
-            awful.titlebar.widget.stickybutton(c),
-            awful.titlebar.widget.ontopbutton(c),
-            awful.titlebar.widget.closebutton(c),
-            layout = wibox.layout.fixed.horizontal()
-        },
+        --{ -- Right
+        --awful.titlebar.widget.floatingbutton(c),
+        --awful.titlebar.widget.maximizedbutton(c),
+        --awful.titlebar.widget.stickybutton(c),
+        --awful.titlebar.widget.ontopbutton(c),
+        --awful.titlebar.widget.closebutton(c),
+        --layout = wibox.layout.fixed.horizontal()
+        --},
         layout = wibox.layout.align.horizontal
     }
 end)

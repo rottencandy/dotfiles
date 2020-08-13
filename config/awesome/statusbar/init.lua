@@ -32,8 +32,13 @@ return function(s)
     -- System tray
     local mysystray = wibox.widget.systray()
 
-    -- Create a textclock widget
-    local mytextclock = wibox.widget.textclock('%l:%M %p   %a %b %d ')
+    -- Time
+    local time = wibox.widget.textclock('%l:%M')
+
+    -- Calendar
+    local calendar = wibox.widget.textclock(' %a')
+    local popup = awful.widget.calendar_popup.month()
+    popup:attach(calendar, 't')
 
     -- Icon indicating current layout
     s.mylayoutbox = awful.widget.layoutbox(s)
@@ -58,16 +63,19 @@ return function(s)
         },
 
         -- Middle widgets
-        s.mytasklist,
+        {
+            align = 'center',
+            widget = time,
+        },
 
         -- Right widgets
         { layout = wibox.layout.fixed.horizontal,
+            calendar,
             ram,
             temp,
             battery,
             --mykeyboardlayout,
             mysystray,
-            mytextclock,
             s.mylayoutbox,
         },
     }

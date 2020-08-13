@@ -96,7 +96,7 @@ set foldtext=FoldText()
 
 "Status line {{{
 
-" 
+" 
 set laststatus=2                " Always show statusline
 
 let currentmode = {
@@ -137,11 +137,11 @@ set statusline+=%#CursorLine#    " separator
 set statusline+=\ %f              " file name
 set statusline+=%=                " right align
 
-set statusline+=%Y\              " file type
+set statusline+=%Y\ \            " file type
 set statusline+=%#DiffAdd#        " color
-set statusline+=\ %{FugitiveHead()}
+set statusline+=%{FugitiveHead()}
 set statusline+=%#CursorLine#     " color
-set statusline+=%3l:%-2c         " line + column
+set statusline+=\ %3l:%-2c        " line + column
 set statusline+=                 " separator
 set statusline+=%#Cursor#         " color
 set statusline+=%3p%%\            " percentage
@@ -161,8 +161,11 @@ let g:netrw_altv = 1
 
 "Key maps {{{
 
-" :W to save file with elevated permissions
+" Save file with elevated permissions
 command W w !sudo tee % > /dev/null
+
+" cd to directory of current file
+command Fcd silent! lcd %:p:h
 
 " Start all searches in very magic mode
 nnoremap / /\v

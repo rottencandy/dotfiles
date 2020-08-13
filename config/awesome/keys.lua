@@ -20,7 +20,7 @@ local enter = 'Return'
 local keys = {}
 
 keys.globalkeys = gears.table.join(
--- {{{ Awesome manipulation
+    -- {{{ Awesome manipulation
 
     awful.key({ superkey, shift }, 'r', awesome.restart,
         {description = 'reload awesome', group = 'awesome'}),
@@ -34,17 +34,17 @@ keys.globalkeys = gears.table.join(
     awful.key({ superkey }, 'g', function() xrandr.xrandr() end,
         {description='setup screns', group='screen'}),
 
--- }}}
+    -- }}}
 
--- {{{ Notifications
+    -- {{{ Notifications
 
     -- Dismiss all notifications
     awful.key({ ctrl}, 'space', naughty.destroy_all_notifications,
         {description = 'Clear all notifications', group='notifications'}),
 
--- }}}
+    -- }}}
 
--- {{{ Navigation
+    -- {{{ Navigation
 
     awful.key({ superkey, }, 'k',
         function () awful.client.focus.bydirection('up') end,
@@ -99,16 +99,16 @@ keys.globalkeys = gears.table.join(
     awful.key({ superkey, ctrl }, 'k', function () awful.screen.focus_relative(-1) end,
         {description = 'focus the previous screen', group = 'screen'}),
 
--- }}}
+    -- }}}
 
--- {{{ Layout manipulation
+    -- {{{ Layout manipulation
 
     awful.key({ superkey, }, 'space', function () awful.layout.inc( 1) end,
         {description = 'select next layout', group = 'layout'}),
     awful.key({ superkey, shift }, 'space', function () awful.layout.inc(-1) end,
         {description = 'select previous layout', group = 'layout'}),
 
--- Gaps
+    -- Gaps
     awful.key({ superkey, shift }, 'minus', function () awful.tag.incgap(5, nil) end,
         {description = 'increment gaps for current tag', group = 'gaps'}),
     awful.key({ superkey }, 'minus', function () awful.tag.incgap(-5, nil) end,
@@ -144,9 +144,9 @@ keys.globalkeys = gears.table.join(
         end,
         {description = 'restore minimized', group = 'client'}),
 
--- }}}
+    -- }}}
 
--- {{{ Programs
+    -- {{{ Programs
 
     -- Terminal
     awful.key({ superkey, }, enter, function () awful.spawn(terminal) end,
@@ -175,46 +175,46 @@ keys.globalkeys = gears.table.join(
         end,
         {description = 'lua execute prompt', group = 'awesome'}),
 
--- }}}
+    -- }}}
 
--- {{{ Misc controls
+    -- {{{ Misc controls
 
     -- Volume
     awful.key({}, "XF86AudioLowerVolume", function ()
         awful.spawn("amixer -q -D pulse sset Master 5%-", false)
     end,
     {description = 'Lower volume', group = 'volume'}),
-    awful.key({}, "XF86AudioRaiseVolume", function ()
-        awful.spawn("amixer -q -D pulse sset Master 5%+", false)
-    end,
-    {description = 'Raise volume', group = 'volume'}),
+awful.key({}, "XF86AudioRaiseVolume", function ()
+    awful.spawn("amixer -q -D pulse sset Master 5%+", false)
+end,
+{description = 'Raise volume', group = 'volume'}),
     awful.key({}, "XF86AudioMute", function ()
         awful.spawn("amixer -D pulse set Master 1+ toggle", false)
     end,
     {description = 'toggle volume', group = 'volume'}),
-    -- For non-media keyboards
-    awful.key({ superkey }, "F1", function ()
-        awful.spawn("amixer -q -D pulse sset Master 5%+", false)
-    end,
-    {description = 'Raise volume', group = 'volume'}),
+-- For non-media keyboards
+awful.key({ superkey }, "F1", function ()
+    awful.spawn("amixer -q -D pulse sset Master 5%+", false)
+end,
+{description = 'Raise volume', group = 'volume'}),
     awful.key({ superkey }, "F2", function ()
         awful.spawn("amixer -q -D pulse sset Master 5%-", false)
     end,
     {description = 'Lower volume', group = 'volume'}),
-    awful.key({ superkey }, "F3", function ()
-        awful.spawn("amixer -D pulse set Master 1+ toggle", false)
-    end,
-    {description = 'toggle volume', group = 'volume'}),
+awful.key({ superkey }, "F3", function ()
+    awful.spawn("amixer -D pulse set Master 1+ toggle", false)
+end,
+{description = 'toggle volume', group = 'volume'}),
 
     -- Brightness
     awful.key({}, "XF86MonBrightnessUp", function ()
         awful.spawn("xbacklight -inc 5%", false)
     end,
     {description = 'Increase brightness', group = 'brightness'}),
-    awful.key({}, "XF86MonBrightnessDown", function ()
-        awful.spawn("xbacklight -dec 5%", false)
-    end,
-    {description = 'Decrease brightness', group = 'brightness'})
+awful.key({}, "XF86MonBrightnessDown", function ()
+    awful.spawn("xbacklight -dec 5%", false)
+end,
+{description = 'Decrease brightness', group = 'brightness'})
 
 -- }}}
 )
@@ -243,26 +243,29 @@ keys.clientkeys = gears.table.join(
             -- The client currently has the input focus, so it cannot be
             -- minimized, since minimized clients can't have the focus.
             c.minimized = true
-        end ,
+        end,
         {description = 'minimize', group = 'client'}),
     awful.key({ superkey, }, 'm',
         function (c)
             c.maximized = not c.maximized
             c:raise()
-        end ,
+        end,
         {description = '(un)maximize', group = 'client'}),
     awful.key({ superkey, ctrl }, 'm',
         function (c)
             c.maximized_vertical = not c.maximized_vertical
             c:raise()
-        end ,
+        end,
         {description = '(un)maximize vertically', group = 'client'}),
     awful.key({ superkey, shift }, 'm',
         function (c)
             c.maximized_horizontal = not c.maximized_horizontal
             c:raise()
-        end ,
-        {description = '(un)maximize horizontally', group = 'client'})
+        end,
+        {description = '(un)maximize horizontally', group = 'client'}),
+    awful.key({ superkey }, 'y',
+        function (c) c:raise() end,
+        {description = 'raise window', group = 'client'})
     )
 
 -- }}}

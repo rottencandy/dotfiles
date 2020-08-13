@@ -3,9 +3,9 @@
 icon="$HOME/.config/sxhkd/lock.png"
 img="$HOME/.cache/i3lock.png"
 
-maim $img
+maim -f jpg -m 1 $img
 
-convert $img -scale 10% -scale 1000% $img
+#convert $img -scale 10% -scale 1000% $img
 #convert $img -blur 0x4 500% $img
 
 convert $img $icon -gravity center -composite $img

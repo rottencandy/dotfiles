@@ -30,7 +30,7 @@ gedit
 git
 gnome-*
 godot
-google-chrome
+google-chrome*
 gsconnect
 gtk-*
 helm
@@ -41,6 +41,7 @@ kdeconnect
 keybase
 leafpad
 libreoffice
+lutris
 menus
 midori
 mimeapps.list
