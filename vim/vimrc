@@ -209,13 +209,23 @@ nnoremap <leader>l <C-W>l
 " % jump to matching xml tags, if/else/endif, etc.
 packadd! matchit
 
+" Vimkubectl configuration
+let g:vimkubectl_command = 'oc'
+
 " FZF configuration
 set rtp+=~/apps/fzf
+let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.7 } }
+let g:fzf_action = {
+      \ 'ctrl-t': 'tab split',
+      \ 'ctrl-x': 'split',
+      \ 'ctrl-v': 'vsplit' }
 
-let g:fzf_layout = { 'window': { 'width': 0.7, 'height': 0.6 } }
-
-" Open files in current dir using fzf
-nnoremap <silent> <leader>f :FZF<CR>
+" Open files under current dir using fzf
+"nnoremap <silent> <leader>f :FZF<CR>
+nnoremap <silent> <Leader>f :call fzf#run(fzf#wrap({
+      \   'source':  'fd --type f',
+      \   'options': '--preview ''bat --style=plain {}''',
+      \ }))<CR>
 
 " Select from open buffers using fzf
 fun! s:buflist()
@@ -225,16 +235,20 @@ fun! s:buflist()
   return split(ls, '\n')
 endfun
 
-fun! s:bufopen(e)
-  execute 'buffer' matchstr(a:e, '^[ 0-9]*')
+fun! s:bufopen(bufline)
+  if len(a:bufline) != 2
+    return
+  endif
+  let cmd = get({'ctrl-s': 'sbuffer',
+        \ 'ctrl-v': 'vert sbuffer',
+        \ 'ctrl-t': 'tabnew | buffer'}, a:bufline[0], 'buffer')
+  execute cmd matchstr(a:bufline[1], '^[ 0-9]*')
 endfun
 
 nnoremap <silent> <Leader>b :call fzf#run(fzf#wrap({
       \   'source':  reverse(<sid>buflist()),
-      \   'sink':    function('<sid>bufopen'),
-      \   'options': '+m',
-      \   'window': { 'width': 0.7, 'height': 0.6 },
-      \   'down':    len(<sid>buflist()) + 2
+      \   'sink*':   function('<sid>bufopen'),
+      \   'options': '--expect=ctrl-t,ctrl-v,ctrl-s',
       \ }))<CR>
 
 " }}}
@@ -329,8 +343,8 @@ omap ic <Plug>(coc-classobj-i)
 xmap ac <Plug>(coc-classobj-a)
 omap ac <Plug>(coc-classobj-a)
 
-" `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocAction('format')
+" `:Fmt` command to format current buffer.
+command! -nargs=0 Fmt :call CocAction('format')
 
 " `:Fold` command to fold current buffer.
 command! -nargs=? Fold :call CocAction('fold', <f-args>)

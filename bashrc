@@ -229,16 +229,17 @@ alias \
     ll='lsd -l' \
     la='lsd -A' \
     l='ls -CF' \
+    tree="lsd --tree" \
     t='tmux' \
     v='vim' \
     nv='nvim' \
-    g='git' \
+    gs='git status' \
+    gd='git diff' \
+    gr='cd ./$(git rev-parse --show-cdup)' \
     k='kubectl' \
     yt="youtube-dl --add-metadata -i" \
     yta="yt --add-metadata -x -f bestaudio" \
     nc="ncmpcpp" \
-    tree="lsd --tree" \
-    gr='cd ./$(git rev-parse --show-cdup)' \
     scrt='maim -g $(slop -q) scrt-screenshot-$(date +%s).png'
 
 # }}}
