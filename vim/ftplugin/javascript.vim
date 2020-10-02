@@ -1,1 +1,1 @@
-setlocal formatprg=prettier
+command Fmt PrettierAsync

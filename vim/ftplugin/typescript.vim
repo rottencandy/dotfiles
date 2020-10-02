@@ -1,1 +1,1 @@
-setlocal omnifunc=ale#completion#OmniFunc
+command Fmt PrettierAsync

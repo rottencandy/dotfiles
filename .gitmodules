@@ -28,13 +28,15 @@
 [submodule "vim/pack/godot/start/vim-gdscript3"]
 	path = vim/pack/godot/start/vim-gdscript3
 	url = https://github.com/clktmr/vim-gdscript3
-[submodule "vim/pack/webdev/start/coc.nvim"]
-	path = vim/pack/webdev/start/coc.nvim
-	url = https://github.com/neoclide/coc.nvim
-	branch = release
 [submodule "vim/pack/lua/start/vim-lua"]
 	path = vim/pack/lua/start/vim-lua
 	url = https://github.com/tbastos/vim-lua
 [submodule "vim/pack/general/start/vim-vinegar"]
 	path = vim/pack/general/start/vim-vinegar
 	url = https://github.com/tpope/vim-vinegar
+[submodule "vim/pack/webdev/start/LanguageClient-neovim"]
+	path = vim/pack/webdev/start/LanguageClient-neovim
+	url = https://github.com/autozimu/LanguageClient-neovim/
+[submodule "vim/pack/webdev/start/vim-prettier"]
+	path = vim/pack/webdev/start/vim-prettier
+	url = https://github.com/prettier/vim-prettier/
