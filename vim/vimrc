@@ -272,7 +272,9 @@ nnoremap <silent> <Leader>F :call fzf#run(fzf#wrap({
 let g:LanguageClient_serverCommands = {
       \ 'javascript': ['typescript-language-server', '--stdio'],
       \ 'javascript.jsx': ['typescript-language-server', '--stdio'],
+      \ 'javascriptreact': ['typescript-language-server', '--stdio'],
       \ 'typescript': ['typescript-language-server', '--stdio'],
+      \ 'typescriptreact': ['typescript-language-server', '--stdio'],
       \ 'typescript.tsx': ['typescript-language-server', '--stdio'],
       \ 'html': ['html-languageserver', '--stdio'],
       \ 'css': ['css-languageserver', '--stdio'],
@@ -285,15 +287,19 @@ let g:LanguageClient_serverCommands = {
 
 let g:LanguageClient_hoverPreview = "Always"
 
+if exists('nvim_open_win')
+  let g:LanguageClient_useFloatingHover = 1
+endif
+
 fun LC_maps()
   if has_key(g:LanguageClient_serverCommands, &filetype)
+    nmap <buffer> <silent> K <Plug>(lcn-hover)
     nmap <buffer> <silent> <leader>e <Plug>(lcn-menu)
-    nmap <buffer> <silent> <leader>i <Plug>(lcn-hover)
     nmap <buffer> <silent> <leader>r <Plug>(lcn-rename)
     xmap <buffer> <silent> <leader>a <Plug>(lcn-code-action)
     nmap <buffer> <silent> <leader>s <Plug>(lcn-symbols)
     nmap <buffer> <silent> <leader>h <Plug>(lcn-highlight)
-    nmap <buffer> <silent> gr <Plug>(lcn-symbols)
+    nmap <buffer> <silent> gr <Plug>(lcn-references)
     nmap <buffer> <silent> gd <Plug>(lcn-definition)
     nmap <buffer> <silent> gy <Plug>(lcn-type-definition)
     set completefunc=LanguageClient#complete

@@ -1,1 +1,1 @@
-command Fmt PrettierAsync
+command! Fmt PrettierAsync
