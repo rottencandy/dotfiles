@@ -269,46 +269,90 @@ nnoremap <silent> <Leader>F :call fzf#run(fzf#wrap({
 
 "Language server {{{
 
-let g:LanguageClient_serverCommands = {
-      \ 'javascript': ['typescript-language-server', '--stdio'],
-      \ 'javascript.jsx': ['typescript-language-server', '--stdio'],
-      \ 'javascriptreact': ['typescript-language-server', '--stdio'],
-      \ 'typescript': ['typescript-language-server', '--stdio'],
-      \ 'typescriptreact': ['typescript-language-server', '--stdio'],
-      \ 'typescript.tsx': ['typescript-language-server', '--stdio'],
-      \ 'html': ['html-languageserver', '--stdio'],
-      \ 'css': ['css-languageserver', '--stdio'],
-      \ 'scss': ['css-languageserver', '--stdio'],
-      \ 'json': ['json-languageserver', '--stdio'],
-      \ 'yaml': ['yaml-language-server', '--stdio'],
-      \ 'c': ['clangd'],
-      \ 'cpp': ['clangd'],
-      \ }
+let g:lsp_fold_enabled = 0
 
-let g:LanguageClient_hoverPreview = "Always"
-
-if exists('nvim_open_win')
-  let g:LanguageClient_useFloatingHover = 1
+if executable('typescript-language-server')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'typescript-language-server',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+        \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
+        \ 'whitelist': ['typescript', 'typescript.tsx'],
+        \ })
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'javascript support using typescript-language-server',
+        \ 'cmd': { server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+        \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_directory(lsp#utils#get_buffer_path(), '.git/..'))},
+        \ 'whitelist': ['javascript', 'javascript.jsx', 'javascriptreact']
+        \ })
 endif
 
-fun LC_maps()
-  if has_key(g:LanguageClient_serverCommands, &filetype)
-    nmap <buffer> <silent> K <Plug>(lcn-hover)
-    nmap <buffer> <silent> <leader>e <Plug>(lcn-menu)
-    nmap <buffer> <silent> <leader>r <Plug>(lcn-rename)
-    xmap <buffer> <silent> <leader>a <Plug>(lcn-code-action)
-    nmap <buffer> <silent> <leader>s <Plug>(lcn-symbols)
-    nmap <buffer> <silent> <leader>h <Plug>(lcn-highlight)
-    nmap <buffer> <silent> gr <Plug>(lcn-references)
-    nmap <buffer> <silent> gd <Plug>(lcn-definition)
-    nmap <buffer> <silent> gy <Plug>(lcn-type-definition)
-    set completefunc=LanguageClient#complete
-    set formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
-    nnoremap <buffer> <silent> <leader>a :call LanguageClient#setDiagnosticsList('Quickfix')<CR>
-  endif
+if executable('html-languageserver')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'html-languageserver',
+        \ 'cmd': {server_info->['html-languageserver --stdio']},
+        \ 'allowlist': ['html'],
+        \ })
+endif
+
+if executable('css-languageserver')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'css-languageserver',
+        \ 'cmd': {server_info->[&shell, &shellcmdflag, 'css-languageserver --stdio']},
+        \ 'whitelist': ['css', 'less', 'sass'],
+        \ })
+endif
+
+if executable('clangd')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'clangd',
+        \ 'cmd': {server_info->['clangd', '-background-index']},
+        \ 'allowlist': ['c', 'cpp', 'objc', 'objcpp'],
+        \ })
+endif
+
+if executable('yaml-language-server')
+  augroup LspYaml
+    autocmd!
+    autocmd User lsp_setup call lsp#register_server({
+          \ 'name': 'yaml-language-server',
+          \ 'cmd': {server_info->['yaml-language-server', '--stdio']},
+          \ 'allowlist': ['yaml', 'yaml.ansible'],
+          \ 'workspace_config': {
+          \   'yaml': {
+          \     'validate': v:true,
+          \     'hover': v:true,
+          \     'completion': v:true,
+          \     'customTags': [],
+          \     'schemas': {},
+          \     'schemaStore': { 'enable': v:true },
+          \   }
+          \ }
+          \})
+  augroup END
+endif
+
+fun! s:on_lsp_buffer_enabled() abort
+  setlocal omnifunc=lsp#complete
+  setlocal signcolumn=yes
+  set foldmethod=expr
+  set foldexpr=lsp#ui#vim#folding#foldexpr()
+  set foldtext=lsp#ui#vim#folding#foldtext()
+  if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+  nmap <buffer> K <plug>(lsp-hover)
+  nmap <buffer> gd <plug>(lsp-definition)
+  nmap <buffer> gr <plug>(lsp-references)
+  nmap <buffer> gi <plug>(lsp-implementation)
+  nmap <buffer> gt <plug>(lsp-type-definition)
+  nmap <buffer> <leader>r <plug>(lsp-rename)
+  nmap <buffer> <leader>a <Plug>(lsp-code-action)
+  nnoremap <buffer> Fold :LspDocumentFold<CR>
 endfun
 
-autocmd FileType * call LC_maps()
+augroup lsp_install
+  au!
+  " call s:on_lsp_buffer_enabled only for languages that has the server registered.
+  autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
 
 " }}}
 
