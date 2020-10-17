@@ -34,9 +34,6 @@
 [submodule "vim/pack/general/start/vim-vinegar"]
 	path = vim/pack/general/start/vim-vinegar
 	url = https://github.com/tpope/vim-vinegar
-[submodule "vim/pack/webdev/start/LanguageClient-neovim"]
-	path = vim/pack/webdev/start/LanguageClient-neovim
-	url = https://github.com/autozimu/LanguageClient-neovim/
 [submodule "vim/pack/webdev/start/vim-prettier"]
 	path = vim/pack/webdev/start/vim-prettier
 	url = https://github.com/prettier/vim-prettier/
