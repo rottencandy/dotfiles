@@ -4,9 +4,6 @@
 [submodule "vim/pack/general/start/vim-javascript"]
 	path = vim/pack/webdev/start/vim-javascript
 	url = https://github.com/pangloss/vim-javascript
-[submodule "vim/pack/general/start/vim-go"]
-	path = vim/pack/go/start/vim-go
-	url = https://github.com/fatih/vim-go
 [submodule "vim/pack/general/start/NrrwRgn"]
 	path = vim/pack/general/start/NrrwRgn
 	url = https://github.com/chrisbra/NrrwRgn
