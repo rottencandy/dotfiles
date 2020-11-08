@@ -11,7 +11,7 @@ local themes_path = gfs.get_themes_dir()
 
 local theme = {}
 
-theme.font = 'Hack Nerd Font Mono 9'
+theme.font = 'Hack Nerd Font Mono 10'
 
 theme.bg_normal     = '#222222'
 theme.bg_focus      = '#535d6c'
@@ -20,14 +20,14 @@ theme.bg_minimize   = '#444444'
 theme.bg_systray    = theme.bg_normal
 
 theme.fg_normal     = '#aaaaaa'
-theme.fg_focus      = '#ffffff'
-theme.fg_urgent     = '#ffffff'
+theme.fg_focus      = '#343434'
+theme.fg_urgent     = '#dd6666'
 theme.fg_minimize   = '#ffffff'
 
 theme.useless_gap   = dpi(10)
 theme.border_width  = dpi(5)
 theme.border_normal = '#000000'
-theme.border_focus  = '#535d6c'
+theme.border_focus  = '#cdcdcd'
 theme.border_marked = '#91231c'
 
 -- There are other variable sets

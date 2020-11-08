@@ -30,6 +30,8 @@ test -s "$NVM_DIR/bash_completion"  && \. "$NVM_DIR/bash_completion"
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
+# (found this in Debian's bashrc)
+
 # prompt
 BGREEN='\[\033[1;32m\]'
 GREEN='\[\033[0;32m\]'
@@ -229,16 +231,17 @@ alias \
     ll='lsd -l' \
     la='lsd -A' \
     l='ls -CF' \
-    tree="lsd --tree" \
+    tree='lsd --tree' \
     t='tmux' \
     v='vim' \
     nv='nvim' \
+    nb='cd ~/nb && nvim -c "exec \"normal 1 f\""' \
     gs='git status' \
     gd='git diff' \
     gr='cd ./$(git rev-parse --show-cdup)' \
     k='kubectl' \
-    yt="youtube-dl --add-metadata -i" \
-    yta="yt --add-metadata -x -f bestaudio" \
+    yt='youtube-dl --add-metadata -i' \
+    yta='yt --add-metadata -x -f bestaudio' \
     nc="ncmpcpp" \
     scrt='maim -g $(slop -q) scrt-screenshot-$(date +%s).png'
 
