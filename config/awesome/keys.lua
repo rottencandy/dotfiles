@@ -151,8 +151,8 @@ keys.globalkeys = gears.table.join(
     -- Terminal
     awful.key({ superkey, }, enter, function () awful.spawn(terminal) end,
         {description = 'spawn terminal', group = 'launcher'}),
-    -- Floating terminal
-    awful.key({ superkey, shift }, enter, function () awful.spawn(terminal, {floating = true}) end,
+    -- Tmux terminal
+    awful.key({ superkey, shift }, enter, function () awful.spawn(terminal .. ' -t st -e tmux', {floating = true}) end,
         {description = 'spawn floating terminal', group = 'launcher'}),
 
     -- Application launcher

@@ -6,21 +6,37 @@ case $- in
     *) return;;
 esac
 
+#if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
+#    tmux
+#fi
+
+
 # sources {{{
 #---------------------------------------------------------------------
+
+# If stuff here is commented it's because it's slow
+
 test -s /etc/bashrc          && . /etc/bashrc
 
 # FZF options
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 
-if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
-    . /usr/share/doc/fzf/examples/key-bindings.bash
+#if [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
+#    . /usr/share/doc/fzf/examples/key-bindings.bash
+#fi
+
+if ! shopt -oq posix; then
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        . /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
+        . /etc/bash_completion
+    fi
 fi
 
 # Node version manager
 export NVM_DIR="$HOME/.nvm"
-test -s "$NVM_DIR/nvm.sh"           && \. "$NVM_DIR/nvm.sh"
-test -s "$NVM_DIR/bash_completion"  && \. "$NVM_DIR/bash_completion"
+#test -s "$NVM_DIR/nvm.sh"           && \. "$NVM_DIR/nvm.sh"
+#test -s "$NVM_DIR/bash_completion"  && \. "$NVM_DIR/bash_completion"
 
 
 # }}}
@@ -58,14 +74,6 @@ shopt -s globstar
 shopt -s extglob
 shopt -s nullglob
 unset command_not_found_handle
-
-if ! shopt -oq posix; then
-    if [ -f /usr/share/bash-completion/bash_completion ]; then
-        . /usr/share/bash-completion/bash_completion
-    elif [ -f /etc/bash_completion ]; then
-        . /etc/bash_completion
-    fi
-fi
 
 # better less for non-text input files, see lesspipe(1)
 [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
@@ -193,21 +201,21 @@ nnnfiles () {
 function br {
     f=$(mktemp)
     (
-        set +e
-        broot --outcmd "$f" "$@"
-        code=$?
-        if [ "$code" != 0 ]; then
-            rm -f "$f"
-            exit "$code"
-        fi
-    )
+    set +e
+    broot --outcmd "$f" "$@"
     code=$?
     if [ "$code" != 0 ]; then
-        return "$code"
+        rm -f "$f"
+        exit "$code"
     fi
-    d=$(<"$f")
-    rm -f "$f"
-    eval "$d"
+)
+code=$?
+if [ "$code" != 0 ]; then
+    return "$code"
+fi
+d=$(<"$f")
+rm -f "$f"
+eval "$d"
 }
 
 # }}}

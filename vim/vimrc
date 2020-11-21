@@ -1,4 +1,7 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" ⡀⢀ ⠄ ⣀⣀  ⡀⣀ ⢀⣀
+" ⠱⠃ ⠇ ⠇⠇⠇ ⠏  ⠣⠤
+"
 "Appearance {{{
 
 " Set and configure the color scheme
@@ -162,14 +165,11 @@ let g:netrw_altv = 1
 
 "Key maps {{{
 
-" Save file with elevated permissions
-command W w !sudo tee % > /dev/null
-
-" cd to directory of current file
-command Fcd silent! lcd %:p:h
-
 " Start all searches in very magic mode
 nnoremap / /\v
+
+let mapleader = " "             " Leader key
+let maplocalleader = ";"        " Local leader key
 
 " Search for selected content
 fun! s:VSetSearch()
@@ -181,11 +181,13 @@ endfun
 vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR>
 vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
 
+" Yank to clipboard
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
+nnoremap <leader>Y gg"+yG
+
 " Map redraw-screen to also clear search highlights
 nnoremap <silent> <C-L> :nohl<CR>:mat<CR><C-L>
-
-let mapleader = " "             " Leader key
-let maplocalleader = ";"        " Local leader key
 
 " Quickly edit and reload vimrc
 nnoremap <leader>ev :edit $MYVIMRC<CR>
@@ -205,10 +207,32 @@ nnoremap <leader>l <C-W>l
 
 " }}}
 
+"Commands {{{
+
+" Save file with elevated permissions
+command W w !sudo tee % > /dev/null
+
+" cd to directory of current file
+command Fcd silent! lcd %:p:h
+
+" :Rename current buffer
+fun! s:rename_file(new_file_path)
+  execute 'saveas ' . a:new_file_path
+  call delete(expand('#:p'))
+  bd #
+endfun
+
+command! -nargs=1 -complete=file Rename call <SID>rename_file(<f-args>)
+
+" }}}
+
 "Plugins {{{
 
 " % jump to matching xml tags, if/else/endif, etc.
 packadd! matchit
+
+" Disable vim-markdown folds by default
+let g:vim_markdown_folding_disabled = 1
 
 " Vimkubectl configuration
 let g:vimkubectl_command = 'oc'
@@ -303,11 +327,21 @@ if executable('css-languageserver')
         \ })
 endif
 
-if executable('clangd')
+if executable('ccls')
   au User lsp_setup call lsp#register_server({
-        \ 'name': 'clangd',
-        \ 'cmd': {server_info->['clangd', '-background-index']},
-        \ 'allowlist': ['c', 'cpp', 'objc', 'objcpp'],
+        \ 'name': 'ccls',
+        \ 'cmd': {server_info->['ccls']},
+        \ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'compile_commands.json'))},
+        \ 'initialization_options': {'cache': {'directory': '/tmp/ccls/cache' }},
+        \ 'whitelist': ['c', 'cpp', 'objc', 'objcpp', 'cc'],
+        \ })
+endif
+
+if executable('rust-analyzer')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'rust-analyzer',
+        \ 'cmd': {server_info->['rust-analyzer']},
+        \ 'whitelist': ['rust'],
         \ })
 endif
 

@@ -1,2 +1,2 @@
 command! Fmt PrettierAsync
-inoreabbrev <buffer> clg console.log(
+inoreabbrev <buffer> clg console.log()<LEFT>
