@@ -33,12 +33,6 @@ if ! shopt -oq posix; then
     fi
 fi
 
-# Node version manager
-export NVM_DIR="$HOME/.nvm"
-#test -s "$NVM_DIR/nvm.sh"           && \. "$NVM_DIR/nvm.sh"
-#test -s "$NVM_DIR/bash_completion"  && \. "$NVM_DIR/bash_completion"
-
-
 # }}}
 
 # Prompt {{{
@@ -64,6 +58,7 @@ PS1="${BLUE}(${GREEN}\w${BLUE}) ${RED}\$ ${NORMAL}"
 
 # Shell options {{{
 #---------------------------------------------------------------------
+
 stty -ixon # Disable <C-s> & <C-q>
 shopt -s autocd # cd on dir name
 #shopt -s cdspell
@@ -264,6 +259,7 @@ test -s $HOME/go/bin              && PATH="$PATH:$HOME/go/bin"
 test -s $HOME/code/go/bin         && PATH="$PATH:$HOME/code/go/bin"
 test -s $HOME/.cargo/bin          && PATH="$PATH:$HOME/.cargo/bin"
 test -s $HOME/.gem/ruby/2.5.0/bin && PATH="$PATH:$HOME/.gem/ruby/2.5.0/bin"
+test -s $HOME/.node_caches/bin    && PATH="$PATH:$HOME/.node_caches/bin"
 
 export PATH
 
@@ -286,6 +282,8 @@ export LESS_TERMCAP_us=$'\e[01;37m'    # begin underline
 export LESS_TERMCAP_me=$'\e[0m'        # reset bold/blink
 export LESS_TERMCAP_se=$'\e[0m'        # reset reverse video
 export LESS_TERMCAP_ue=$'\e[0m'        # reset underline
+
+export LESS='--mouse --wheel-lines=3'  # mouse support for less
 export GROFF_NO_SGR=1                  # for konsole and gnome-terminal
 export MANPAGER='less -s -M +Gg'       # percentage FTW
 export PAGER=$MANPAGER
@@ -319,6 +317,9 @@ export GOROOT=$HOME/go
 # Wasmer
 export WASMER_DIR="$HOME/.wasmer"
 [ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"
+
+# n (https://github.com/tj/n)
+export N_PREFIX="$HOME/.node_caches"
 
 # }}}
 

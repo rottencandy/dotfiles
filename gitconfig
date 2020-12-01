@@ -1,3 +1,5 @@
+[core]
+	pager = delta
 [user]
 	email = md.saud020@gmail.com
 	name = Mohammed Saud
@@ -8,5 +10,13 @@
 	interactive = auto
 	ui = true
 	pager = true
+[diff]
+	colorMoved = default
 [credential] # cache credentials
 	helper = cache --timeout=3600
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	side-by-side = true
+	line-numbers = true
+	navigate = true

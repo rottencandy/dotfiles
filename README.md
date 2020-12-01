@@ -29,6 +29,7 @@ Dependencies
 - xbacklight
 - amixer
 - pactl
+- git-delta
 
 ### Good to have
 
