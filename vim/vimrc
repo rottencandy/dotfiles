@@ -6,6 +6,10 @@
 
 " Set and configure the color scheme
 colorscheme OceanicNext
+" Transparent background
+hi! Normal ctermbg=NONE guibg=NONE
+hi! NonText ctermbg=NONE guibg=NONE guifg=NONE ctermfg=NONE
+
 set background=dark
 set number              " Show line numbers
 set relativenumber      " Relative line numbering
