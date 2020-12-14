@@ -35,27 +35,6 @@ fi
 
 # }}}
 
-# Prompt {{{
-#---------------------------------------------------------------------
-# uncomment for a colored prompt, if the terminal has the capability; turned
-# off by default to not distract the user: the focus in a terminal window
-# should be on the output of commands, not on the prompt
-# (found this in Debian's bashrc)
-
-# prompt
-BGREEN='\[\033[1;32m\]'
-GREEN='\[\033[0;32m\]'
-BRED='\[\033[1;31m\]'
-RED='\[\033[0;31m\]'
-BBLUE='\[\033[1;34m\]'
-BLUE='\[\033[0;34m\]'
-CYAN='\[\033[0;36m\]'
-NORMAL='\[\033[00m\]'
-
-PS1="${BLUE}(${GREEN}\w${BLUE}) ${RED}\$ ${NORMAL}"
-
-# }}}
-
 # Shell options {{{
 #---------------------------------------------------------------------
 
@@ -236,7 +215,7 @@ alias \
     l='ls -CF' \
     tree='lsd --tree' \
     t='tmux' \
-    v='vim' \
+    v='vimx' \
     nv='nvim' \
     nb='cd ~/nb && nvim -c "exec \"normal 1 f\""' \
     gs='git status' \
@@ -335,6 +314,29 @@ export HISTFILESIZE=2000
 export HISTCONTROL=erasedups:ignorespace
 
 export SYSTEMD_PAGER=
+
+# }}}
+
+# Prompt {{{
+#---------------------------------------------------------------------
+# uncomment for a colored prompt, if the terminal has the capability; turned
+# off by default to not distract the user: the focus in a terminal window
+# should be on the output of commands, not on the prompt
+# (found this in Debian's bashrc)
+
+# prompt
+BGREEN='\[\033[1;32m\]'
+GREEN='\[\033[0;32m\]'
+BRED='\[\033[1;31m\]'
+RED='\[\033[0;31m\]'
+BBLUE='\[\033[1;34m\]'
+BLUE='\[\033[0;34m\]'
+CYAN='\[\033[0;36m\]'
+NORMAL='\[\033[00m\]'
+
+#PS1="${BLUE}(${GREEN}\w${BLUE}) ${RED}\$ ${NORMAL}"
+
+eval "$(starship init bash)"
 
 # }}}
 

@@ -22,14 +22,13 @@ Dependencies
 
 - st
 - i3lock
-- bspwm, sxhkd
-- i3
 - awesome
 - acpi
 - xbacklight
 - amixer
 - pactl
 - git-delta
+- starship
 
 ### Good to have
 

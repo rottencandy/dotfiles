@@ -7,8 +7,8 @@
 " Set and configure the color scheme
 colorscheme OceanicNext
 " Transparent background
-hi! Normal ctermbg=NONE guibg=NONE
-hi! NonText ctermbg=NONE guibg=NONE guifg=NONE ctermfg=NONE
+"autocmd vimenter * hi! Normal ctermbg=NONE guibg=NONE
+"autocmd vimenter * hi! NonText ctermbg=NONE guibg=NONE guifg=NONE ctermfg=NONE
 
 set background=dark
 set number              " Show line numbers
@@ -80,6 +80,7 @@ set shortmess+=c        " Do not pass messages to ins-completion-menu
 " Break line joins into multiple edits
 inoremap <C-U> <C-G>u<C-U>
 inoremap <C-W> <C-G>u<C-W>
+"inoremap <CR> <C-G>u<CR>
 
 " :h :mkview
 set sessionoptions-=options
