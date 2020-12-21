@@ -49,3 +49,6 @@
 [submodule "vim/pack/webdev/start/html5.vim"]
 	path = vim/pack/webdev/start/html5.vim
 	url = https://github.com/othree/html5.vim
+[submodule "vim/pack/general/start/vim-toml"]
+	path = vim/pack/general/start/vim-toml
+	url = https://github.com/cespare/vim-toml

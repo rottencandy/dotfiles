@@ -16,6 +16,7 @@ local alt = 'Mod1'
 local shift = 'Shift'
 local ctrl = 'Control'
 local enter = 'Return'
+local client_move_dist = 50
 
 local keys = {}
 
@@ -59,22 +60,6 @@ keys.globalkeys = gears.table.join(
         {description = 'focus left', group = 'client'}
         ),
     awful.key({ superkey, }, 'l',
-        function () awful.client.focus.bydirection('right') end,
-        {description = 'focus right', group = 'client'}
-        ),
-    awful.key({ superkey, }, 'Up',
-        function () awful.client.focus.bydirection('up') end,
-        {description = 'focus up', group = 'client'}
-        ),
-    awful.key({ superkey, }, 'Down',
-        function () awful.client.focus.bydirection('down') end,
-        {description = 'focus down', group = 'client'}
-        ),
-    awful.key({ superkey, }, 'Left',
-        function () awful.client.focus.bydirection('left') end,
-        {description = 'focus left', group = 'client'}
-        ),
-    awful.key({ superkey, }, 'Right',
         function () awful.client.focus.bydirection('right') end,
         {description = 'focus right', group = 'client'}
         ),
@@ -226,6 +211,22 @@ keys.globalkeys = gears.table.join(
 -- {{{ Clients
 
 keys.clientkeys = gears.table.join(
+    awful.key({ superkey, }, 'Up',
+        function (c) c:relative_move(0, -client_move_dist, 0, 0) end,
+        {description = 'Move client up', group = 'client'}
+        ),
+    awful.key({ superkey, }, 'Down',
+        function (c) c:relative_move(0, client_move_dist, 0, 0) end,
+        {description = 'Move client down', group = 'client'}
+        ),
+    awful.key({ superkey, }, 'Left',
+        function (c) c:relative_move(-client_move_dist, 0, 0, 0) end,
+        {description = 'Move client left', group = 'client'}
+        ),
+    awful.key({ superkey, }, 'Right',
+        function (c) c:relative_move(client_move_dist, 0, 0, 0) end,
+        {description = 'Move client right', group = 'client'}
+        ),
     awful.key({ superkey, }, 'f',
         function (c)
             c.fullscreen = not c.fullscreen

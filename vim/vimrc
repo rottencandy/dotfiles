@@ -317,14 +317,16 @@ let g:LanguageClient_serverCommands = {
       \ 'javascriptreact': ['typescript-language-server', '--stdio'],
       \ 'rust': ['rust-analyzer'],
       \ 'yaml': ['yaml-language-server', '--stdio'],
+      \ 'elm': ['elm-lanuage-server'],
       \ }
 
-"let g:LanguageClient_rootMarkers = {
 "      \ 'javascript': ['yarn.lock'],
 "      \ 'javascriptreact': ['yarn.lock'],
 "      \ 'typescript': ['yarn.lock'],
 "      \ 'typescriptreact': ['yarn.lock'],
-"      \ }
+let g:LanguageClient_rootMarkers = {
+      \ 'elm': ['elm.json'],
+      \ }
 
 let g:LanguageClient_hoverPreview = "Always"
 
