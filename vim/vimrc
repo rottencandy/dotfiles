@@ -317,7 +317,7 @@ let g:LanguageClient_serverCommands = {
       \ 'javascriptreact': ['typescript-language-server', '--stdio'],
       \ 'rust': ['rust-analyzer'],
       \ 'yaml': ['yaml-language-server', '--stdio'],
-      \ 'elm': ['elm-lanuage-server'],
+      \ 'elm': ['elm-language-server'],
       \ }
 
 "      \ 'javascript': ['yarn.lock'],
@@ -347,6 +347,7 @@ fun SetLSPShortcuts()
     nmap <buffer> <silent> <leader>r <Plug>(lcn-rename)
     nmap <buffer> <silent> <leader>e <Plug>(lcn-explain-error)
     nmap <buffer> <silent> <leader>s <Plug>(lcn-symbols)
+    nmap <buffer> <silent> <leader>= <Plug>(lcn-format)
   endif
 endfun
 
