@@ -10,7 +10,7 @@ img="$HOME/.cache/i3lock.png"
 
 #convert $img $icon -gravity center -composite $img
 
-i3lock -e -p default -i $img
+i3lock --ignore-empty-password --show-failed-attempts --tiling --pointer=default --image=$img
 
 sleep 2
 xset dpms force off

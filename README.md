@@ -29,6 +29,7 @@ Dependencies
 - pactl
 - git-delta
 - starship
+- arandr
 
 ### Good to have
 
@@ -44,6 +45,7 @@ Dependencies
 - mpd, ncmpcpp
 - Fcitx
 - KDE Connect
+- advcpmv
 
 AwesomeWM
 ---------

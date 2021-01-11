@@ -213,13 +213,15 @@ alias \
     ll='lsd -l' \
     la='lsd -A' \
     l='ls -CF' \
+    acp='cpg -g' \
+    amv='mvg -g' \
     tree='lsd --tree' \
     t='tmux' \
     v='vimx' \
     nv='nvim' \
     nb='cd ~/nb && nvim -c "exec \"normal 1 f\""' \
     gs='git status' \
-    gd='git diff' \
+    gd='DELTA_NAVIGATE=1 git diff' \
     gr='cd ./$(git rev-parse --show-cdup)' \
     k='kubectl' \
     yt='youtube-dl --add-metadata -i' \
@@ -248,9 +250,11 @@ export PATH
 #---------------------------------------------------------------------
 
 export EDITOR=vim
+export GIT_EDITOR=vim
+export SVN_EDITOR=vim
+export KUBE_EDITOR=vim
 export VISUAL=vim
 export BROWSER=/usr/bin/firefox
-export KUBE_EDITOR=vim
 
 # Colors with less
 # from: https://wiki.archlinux.org/index.php/Color_output_in_console#man

@@ -1,18 +1,16 @@
 local gears = require('gears')
+local wibox = require('wibox')
+local beautiful = require('beautiful')
+local naughty = require('naughty')
 local awful = require('awful')
 require('awful.autofocus')
 
-local wibox = require('wibox')
-local beautiful = require('beautiful')
-
-local naughty = require('naughty')
 
 -- Check for luarocks
 pcall(require, 'luarocks.loader')
 
--- Read Xresources config
-local xrdb = beautiful.xresources.get_current_theme()
-
+-- Make colors global
+x = require('colors')
 -- Setup event listeners
 require('notifs')
 -- Setup popups
@@ -46,7 +44,9 @@ end
 -- }}}
 
 -- {{{ Startup
+
 awful.spawn.with_shell(os.getenv('HOME') .. '/.config/awesome/startup.sh')
+
 -- }}}
 
 -- {{{ Global variable definitions
@@ -55,29 +55,6 @@ local config_dir = os.getenv('HOME') .. '/.config/awesome/'
 
 -- Make dpi function global
 dpi = beautiful.xresources.apply_dpi
-
--- Make xresources colors global
-x = {
-    --           xrdb variable      fallback
-    background = xrdb.background or "#1D1F28",
-    foreground = xrdb.foreground or "#FDFDFD",
-    color0     = xrdb.color0     or "#282A36",
-    color1     = xrdb.color1     or "#F37F97",
-    color2     = xrdb.color2     or "#5ADECD",
-    color3     = xrdb.color3     or "#F2A272",
-    color4     = xrdb.color4     or "#8897F4",
-    color5     = xrdb.color5     or "#C574DD",
-    color6     = xrdb.color6     or "#79E6F3",
-    color7     = xrdb.color7     or "#FDFDFD",
-    color8     = xrdb.color8     or "#414458",
-    color9     = xrdb.color9     or "#FF4971",
-    color10    = xrdb.color10    or "#18E3C8",
-    color11    = xrdb.color11    or "#FF8037",
-    color12    = xrdb.color12    or "#556FFF",
-    color13    = xrdb.color13    or "#B043D1",
-    color14    = xrdb.color14    or "#3FDCEE",
-    color15    = xrdb.color15    or "#BEBEC1",
-}
 
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(config_dir .. 'themes/lovelace/theme.lua')
@@ -122,27 +99,41 @@ local function set_wallpaper(s)
     end
 end
 
--- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
-screen.connect_signal('property::geometry', set_wallpaper)
+-- Reload config when geometry changes (e.g. different resolution)
+screen.connect_signal('property::geometry', awesome.restart)
+screen.connect_signal('screen::list', awesome.restart)
 
 local mybar = require('statusbar')
 
 awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
-    local names = { '一', '二', '三', '四', '五', '六', '七', '八', '九' }
-    local layouts = {
-        l.floating,
-        l.tile,
-        l.floating,
-        l.floating,
-        l.floating,
-        l.floating,
-        l.floating,
-        l.floating,
-        l.floating,
+    local names = {
+        { '一', '二', '三', '四', '五'},
+        {'一', '二', '三', '四', '五', '六', '七', '八', '九' }
     }
-    awful.tag(names, s, layouts)
+    local layouts = {{
+            l.floating,
+            l.tile,
+            l.floating,
+            l.floating,
+        }, {
+            l.floating,
+            l.tile,
+            l.floating,
+            l.floating,
+            l.floating,
+            l.floating,
+            l.floating,
+            l.floating,
+            l.floating,
+    }}
+
+    if screen.count() > 1 then
+        awful.tag(names[1], s, layouts[1])
+    else
+        awful.tag(names[2], s, layouts[2])
+    end
 
     mybar(s)
 end)
@@ -153,9 +144,11 @@ end)
 local keys = require('keys')
 
 root.keys(keys.globalkeys)
+
 -- }}}
 
 -- {{{ Rules
+
 -- Rules to apply to new clients (through the 'manage' signal).
 awful.rules.rules = {
     -- All clients will match this rule.
@@ -225,6 +218,7 @@ awful.rules.rules = {
     -- { rule = { class = 'Firefox' },
     --   properties = { screen = 1, tag = '2' } },
 }
+
 -- }}}
 
 -- {{{ Signals
@@ -286,5 +280,9 @@ client.connect_signal('focus', function(c) c.border_color = beautiful.border_foc
 client.connect_signal('unfocus', function(c) c.border_color = beautiful.border_normal end)
 
 -- }}}
+
+-- Garbage collection(for lower memory consumption)
+collectgarbage('setpause', 110)
+collectgarbage('setstepmul', 1000)
 
 -- vim: et:sw=4:fdm=marker:textwidth=80

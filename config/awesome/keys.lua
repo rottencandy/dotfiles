@@ -32,8 +32,8 @@ keys.globalkeys = gears.table.join(
     awful.key({ superkey, }, 's', hotkeys_popup.show_help,
         {description = 'show help', group='awesome'}),
 
-    awful.key({ superkey }, 'g', function() xrandr.xrandr() end,
-        {description='setup screns', group='screen'}),
+    --awful.key({ superkey }, 'g', function() xrandr.xrandr() end,
+    --    {description='setup screns', group='screen'}),
 
     -- }}}
 
