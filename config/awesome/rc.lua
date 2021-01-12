@@ -101,7 +101,7 @@ end
 
 -- Reload config when geometry changes (e.g. different resolution)
 screen.connect_signal('property::geometry', awesome.restart)
-screen.connect_signal('screen::list', awesome.restart)
+screen.connect_signal('list', awesome.restart)
 
 local mybar = require('statusbar')
 

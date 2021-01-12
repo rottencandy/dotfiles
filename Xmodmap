@@ -1,0 +1,12 @@
+! use `xev -event keyboard` to figure out keycodes
+
+! Print screen, menu key is right super key
+!keycode 107 = Super_R
+keysym Print = Super_R
+keysym Menu = Super_R
+
+! Swap caps lock and escape
+remove Lock = Caps_Lock
+keysym Escape = Caps_Lock
+keysym Caps_Lock = Escape
+add Lock = Caps_Lock
