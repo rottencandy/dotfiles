@@ -36,6 +36,46 @@ augroup BufFocus
   autocmd WinLeave * set nocursorline
 augroup END
 
+" {{{ Transparency
+
+"hi Normal ctermbg=NONE 
+"function! AdaptColorscheme()
+"  highlight clear CursorLine
+"  highlight Normal ctermbg=none
+"  highlight LineNr ctermbg=none
+"  highlight Folded ctermbg=none
+"  highlight NonText ctermbg=none
+"  highlight SpecialKey ctermbg=none
+"  highlight VertSplit ctermbg=none
+"  highlight SignColumn ctermbg=none
+"endfunction
+"autocmd ColorScheme * call AdaptColorscheme()
+"
+"hi Normal guibg=NONE ctermbg=NONE
+"hi CursorColumn cterm=NONE ctermbg=NONE ctermfg=NONE
+"hi CursorLine cterm=NONE ctermbg=NONE ctermfg=NONE
+"hi CursorLineNr cterm=NONE ctermbg=NONE ctermfg=NONE
+"hi clear SignColumn
+"highlight cursorline ctermbg=none
+"highlight cursorlineNR ctermbg=none
+"highlight clear LineNr
+"highlight clear SignColumn
+"
+"set cursorline
+"set noshowmode
+"" Enable CursorLine
+"set nocursorline
+"" Default Colors for CursorLine
+"hi CursorLine cterm=NONE ctermbg=NONE ctermfg=NONE
+"
+"" Change Color when entering Insert Mode
+"autocmd InsertEnter * set nocursorline
+"
+"" Revert Color to default when leaving Insert Mode
+"autocmd InsertLeave * set nocursorline
+
+" }}}
+
 " }}}
 
 "Behavior {{{
@@ -104,6 +144,15 @@ set foldtext=FoldText()
 
 " }}}
 
+"Filetype {{{
+
+" set filetypes as typescriptreact, for vim-jsx-typescript
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
+" Use phtml as ft for html files
+autocmd BufRead,BufNewFile *.html set ft=phtml
+
+" }}}
+
 "Status line {{{
 
 " 
@@ -160,11 +209,12 @@ set statusline+=%3p%%\            " percentage
 
 "netrw {{{
 
-let g:netrw_banner = 0          " Top banner
-let g:netrw_liststyle = 3       " Directory list view
-let g:netrw_browse_split = 0    " File open behaviour
-let g:netrw_preview = 1         " Open preview files vertically
-let g:netrw_altv = 1
+nnoremap - :Fern .<CR>
+"let g:netrw_banner = 0          " Top banner
+"let g:netrw_liststyle = 3       " Directory list view
+"let g:netrw_browse_split = 0    " File open behaviour
+"let g:netrw_preview = 1         " Open preview files vertically
+"let g:netrw_altv = 1
 "let g:netrw_winsize = 17        " Size of opened buffer
 
 " }}}
@@ -240,6 +290,8 @@ packadd! matchit
 
 let g:vim_markdown_folding_disabled = 1     " Disable vim-markdown folds by default
 let g:vim_markdown_frontmatter = 1          " Highlight YAML front matter
+let g:vim_markdown_conceal = 1
+let g:vim_markdown_conceal_code_blocks = 1
 
 " Vimkubectl configuration
 let g:vimkubectl_command = 'oc'
@@ -267,6 +319,10 @@ fun! s:buflist()
   return split(ls, '\n')
 endfun
 
+fun! s:bufnumber(bufline)
+  return matchstr(a:bufline, '^[ 0-9]*')
+endfun
+
 fun! s:bufopen(bufline)
   if len(a:bufline) != 2
     return
@@ -275,13 +331,27 @@ fun! s:bufopen(bufline)
         \ 'ctrl-v': 'vert sbuffer',
         \ 'ctrl-t': 'tabnew | buffer'},
         \ a:bufline[0], 'buffer')
-  execute cmd matchstr(a:bufline[1], '^[ 0-9]*')
+  execute cmd s:bufnumber(a:bufline[1])
+endfun
+
+fun! s:bufclose(buflines)
+  if len(a:buflines) == 0
+    return
+  endif
+  for each in a:buflines
+    execute 'bdelete ' . s:bufnumber(each)
+  endfor
 endfun
 
 nnoremap <silent> <Leader>b :call fzf#run(fzf#wrap({
       \   'source':  reverse(<sid>buflist()),
       \   'sink*':   function('<sid>bufopen'),
       \   'options': '--expect=ctrl-t,ctrl-v,ctrl-s',
+      \ }))<CR>
+
+nnoremap <silent> <Leader>B :call fzf#run(fzf#wrap({
+      \   'source':  reverse(<sid>buflist()),
+      \   'sink*': function('<sid>bufclose'),
       \ }))<CR>
 
 " Fuzzy directory selection
@@ -318,6 +388,7 @@ let g:LanguageClient_serverCommands = {
       \ 'rust': ['rust-analyzer'],
       \ 'yaml': ['yaml-language-server', '--stdio'],
       \ 'elm': ['elm-language-server'],
+      \ 'go': ['gopls'],
       \ }
 
 "      \ 'javascript': ['yarn.lock'],
@@ -328,7 +399,7 @@ let g:LanguageClient_rootMarkers = {
       \ 'elm': ['elm.json'],
       \ }
 
-let g:LanguageClient_hoverPreview = "Always"
+let g:LanguageClient_hoverPreview = 'Always'
 
 fun SetLSPShortcuts()
   if has_key(g:LanguageClient_serverCommands, &filetype)
@@ -348,6 +419,9 @@ fun SetLSPShortcuts()
     nmap <buffer> <silent> <leader>e <Plug>(lcn-explain-error)
     nmap <buffer> <silent> <leader>s <Plug>(lcn-symbols)
     nmap <buffer> <silent> <leader>= <Plug>(lcn-format)
+
+    nmap <buffer> <silent> <leader>n <Plug>(lcn-diagnostics-next)
+    nmap <buffer> <silent> <leader>N <Plug>(lcn-diagnostics-prev)
   endif
 endfun
 
