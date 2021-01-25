@@ -142,6 +142,11 @@ fun! FoldText()
 endfun
 set foldtext=FoldText()
 
+" Use ripgrep when available
+if executable('rg')
+  set grepprg=rg\ --vimgrep\ --hidden\ --glob\ '!.git'
+endif
+
 " }}}
 
 "Filetype {{{

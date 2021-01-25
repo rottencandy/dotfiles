@@ -34,9 +34,6 @@
 [submodule "vim/pack/webdev/start/vim-prettier"]
 	path = vim/pack/webdev/start/vim-prettier
 	url = https://github.com/prettier/vim-prettier/
-[submodule "vim/pack/webdev/start/vim-lsp"]
-	path = vim/pack/webdev/start/vim-lsp
-	url = https://github.com/prabirshrestha/vim-lsp
 [submodule "vim/pack/general/start/vim-markdown"]
 	path = vim/pack/general/start/vim-markdown
 	url = https://github.com/plasticboy/vim-markdown
