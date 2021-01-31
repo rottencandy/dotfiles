@@ -5,7 +5,9 @@
 "Appearance {{{
 
 " Set and configure the color scheme
-colorscheme OceanicNext
+colorscheme spacegray
+" Highlight embedded lua in .vim
+let g:vimsyn_embed = 'l'
 " Transparent background
 "autocmd vimenter * hi! Normal ctermbg=NONE guibg=NONE
 "autocmd vimenter * hi! NonText ctermbg=NONE guibg=NONE guifg=NONE ctermfg=NONE
@@ -151,10 +153,26 @@ endif
 
 "Filetype {{{
 
-" set filetypes as typescriptreact, for vim-jsx-typescript
-autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
-" Use phtml as ft for html files
-autocmd BufRead,BufNewFile *.html set ft=phtml
+augroup filetype_settings
+  autocmd!
+  " set filetypes as typescriptreact, for vim-jsx-typescript
+  autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
+
+  " JS/TS stuff
+  autocmd FileType javascript,typescript,javascriptreact,typescriptreact,javascript.jsx,typescript.tsx
+        \ command! -buffer Fmt PrettierAsync
+        \ inoreabbrev <buffer> clg console.log()<LEFT>
+
+  " Use phtml as ft for html files
+  autocmd BufRead,BufNewFile *.html set ft=phtml
+
+  " Lua stuff
+  autocmd Filetype lua
+        \ setlocal expandtab
+        \ setlocal tabstop=4
+        \ setlocal shiftwidth=4
+
+augroup END
 
 " }}}
 
@@ -190,23 +208,21 @@ let currentmode = {
 set statusline=
 set statusline+=%#DiffAdd#%{currentmode[mode()]}
 
-set statusline+=%#CursorLine#    " separator
 set statusline+=%#Cursor#
 set statusline+=\ %n\             " buffer number
 set statusline+=%{&paste?'\ PASTE\ ':''}
 set statusline+=%{&spell?'\ SPELL\ ':''}
 set statusline+=%R                " readonly flag
 set statusline+=%M                " modified [+] flag
-set statusline+=%#CursorLine#    " separator
+set statusline+=%#CursorLine#     " separator
 set statusline+=\ %f              " file name
 set statusline+=%=                " right align
 
-set statusline+=%Y\ \            " file type
-set statusline+=%#DiffAdd#        " color
+set statusline+=\ %Y\ \           " file type
+set statusline+=%#Folded#         " color
 set statusline+=%{FugitiveHead()}
 set statusline+=%#CursorLine#     " color
 set statusline+=\ %3l:%-2c        " line + column
-set statusline+=                 " separator
 set statusline+=%#Cursor#         " color
 set statusline+=%3p%%\            " percentage
 
@@ -289,6 +305,10 @@ command! -nargs=1 -complete=file Rename call <SID>rename_file(<f-args>)
 
 "Plugins {{{
 
+" Load plugins from non-std dirs
+set rtp+=~/apps/fzf
+set rtp+=~/code/vim/vimkubectl
+
 " % jump to matching xml tags, if/else/endif, etc.
 packadd! matchit
 
@@ -302,7 +322,6 @@ let g:vim_markdown_conceal_code_blocks = 1
 let g:vimkubectl_command = 'oc'
 
 " FZF configuration
-set rtp+=~/apps/fzf
 let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.7 } }
 let g:fzf_action = {
       \ 'ctrl-t': 'tab split',
@@ -381,6 +400,7 @@ set rtp+=~/code/vim/LanguageClient-neovim
 
 let g:LanguageClient_devel = 1 " Use rust debug build
 let g:LanguageClient_loggingLevel = 'INFO' " Optional, use higher logging level
+"let g:LanguageClient_loggingFile = expand('~/.vim/lspclient.log')
 
 let g:LanguageClient_serverCommands = {
       \ 'css': ['css-languageserver', '--stdio'],
