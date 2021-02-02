@@ -23,6 +23,8 @@ Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-fugitive'
 " Markdown support
 Plug 'plasticboy/vim-markdown'
+" Editorconfig
+Plug 'editorconfig/editorconfig-vim'
 " Prettier
 Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 " LSP
@@ -221,17 +223,15 @@ augroup filetype_settings
 
   " JS/TS stuff
   autocmd FileType javascript,typescript,javascriptreact,typescriptreact,javascript.jsx,typescript.tsx
-        \ command! -buffer Fmt PrettierAsync
-        \ inoreabbrev <buffer> clg console.log()<LEFT>
+        \ exec 'command! -buffer Fmt PrettierAsync' |
+        \ exec 'inoreabbrev <buffer> clg console.log()<LEFT>'
 
   " Use phtml as ft for html files
   autocmd BufRead,BufNewFile *.html set ft=phtml
 
   " Lua stuff
   autocmd Filetype lua
-        \ set expandtab
-        \ set tabstop=4
-        \ set shiftwidth=4
+        \ setlocal expandtab tabstop=4 shiftwidth=4
 
 augroup END
 
