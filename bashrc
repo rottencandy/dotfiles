@@ -192,6 +192,18 @@ rm -f "$f"
 eval "$d"
 }
 
+# Grab a password from the password store into the clipboard using fzf
+function getp() {
+    PASS_DIR=~/.password-store
+
+    selection=$(cd $PASS_DIR && fd --type f | fzf)
+
+    if [ -z $selection ]; then
+        return
+    fi
+    pass -c "${selection//.gpg/}"
+}
+
 # }}}
 
 # Aliases {{{
@@ -220,7 +232,6 @@ alias \
     v='vimx' \
     nv='nvim' \
     nb='cd ~/nb && nvim -c "exec \"normal 1 f\""' \
-    gs='git status' \
     gd='DELTA_NAVIGATE=1 git diff' \
     gr='cd ./$(git rev-parse --show-cdup)' \
     k='kubectl' \

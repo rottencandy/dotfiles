@@ -19,3 +19,16 @@
 [delta]
 	side-by-side = true
 	line-numbers = true
+[sendemail]
+	smtpEncryption = tls
+	smtpServer = smtp.gmail.com
+	smtpServerPort = 587
+	smtpUser = md.saud020@gmail.com
+[pull]
+	rebase = true
+[alias]
+	st = status
+	co = checkout
+	br = branch
+	last = log -1 HEAD
+	yoink = reset --hard

@@ -335,10 +335,10 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 nnoremap <leader>w :match Error /\v\s+$/<CR>
 
 " Navigate panes
-nnoremap <leader>h <C-W>h
-nnoremap <leader>j <C-W>j
-nnoremap <leader>k <C-W>k
-nnoremap <leader>l <C-W>l
+nnoremap <silent> <leader>h :wincmd h<CR>
+nnoremap <silent> <leader>j :wincmd j<CR>
+nnoremap <silent> <leader>k :wincmd k<CR>
+nnoremap <silent> <leader>l :wincmd l<CR>
 
 " Grep for word under cursor in cwd and open matched files in quickfix window
 "nnoremap <leader>g :silent execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<CR>:copen<CR>
@@ -536,7 +536,7 @@ EOF
 "nnoremap <leader>b <cmd>Telescope buffers<cr>
 nnoremap <leader>m <cmd>Telescope marks<cr>
 nnoremap <leader>q <cmd>Telescope quickfix<cr>
-nnoremap <leader>l <cmd>Telescope loclist<cr>
+"nnoremap <leader>L <cmd>Telescope loclist<cr>
 nnoremap gr <cmd>Telescope lsp_references<cr>
 nnoremap <leader>t <cmd>Telescope treesitter<cr>
 "nnoremap <leader>g <cmd>Telescope live_grep<cr>

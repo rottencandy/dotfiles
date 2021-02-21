@@ -36,8 +36,8 @@ Xcursor.theme: Hacked-White
 !*.color15:     #c1cdc1
 
 ! █▓▒░ spacegray
-*background:    #111314
-*foreground:    #B7BBB7
+*background:     #080808
+*foreground:     #B2B2B2
 *.color0:        #2C2F33
 *.color8:        #4B5056
 *.color1:        #B04C50

@@ -31,6 +31,7 @@ return function(s)
 
     -- System tray
     local mysystray = wibox.widget.systray()
+    mysystray.opacity = 0
 
     -- Time
     local time = wibox.widget.textclock('%l:%M')

@@ -168,9 +168,7 @@ augroup filetype_settings
 
   " Lua stuff
   autocmd Filetype lua
-        \ setlocal expandtab
-        \ setlocal tabstop=4
-        \ setlocal shiftwidth=4
+        \ setlocal expandtab tabstop=4 shiftwidth=4
 
 augroup END
 
@@ -274,10 +272,10 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 nnoremap <leader>w :match Error /\v\s+$/<CR>
 
 " Navigate panes
-nnoremap <leader>h <C-W>h
-nnoremap <leader>j <C-W>j
-nnoremap <leader>k <C-W>k
-nnoremap <leader>l <C-W>l
+nnoremap <silent> <leader>h :wincmd h<CR>
+nnoremap <silent> <leader>j :wincmd j<CR>
+nnoremap <silent> <leader>k :wincmd k<CR>
+nnoremap <silent> <leader>l :wincmd l<CR>
 
 " Grep for word under cursor in cwd and open matched files in quickfix window
 "nnoremap <leader>g :silent execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<CR>:copen<CR>
