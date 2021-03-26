@@ -227,7 +227,7 @@ augroup filetype_settings
         \ exec 'inoreabbrev <buffer> clg console.log()<LEFT>'
 
   " Use phtml as ft for html files
-  autocmd BufRead,BufNewFile *.html set ft=phtml
+  "autocmd BufRead,BufNewFile *.html set ft=phtml
 
   " Lua stuff
   autocmd Filetype lua
@@ -539,7 +539,7 @@ nnoremap <leader>q <cmd>Telescope quickfix<cr>
 "nnoremap <leader>L <cmd>Telescope loclist<cr>
 nnoremap gr <cmd>Telescope lsp_references<cr>
 nnoremap <leader>t <cmd>Telescope treesitter<cr>
-"nnoremap <leader>g <cmd>Telescope live_grep<cr>
+nnoremap <leader>S <cmd>Telescope live_grep<cr>
 "nnoremap <leader>h <cmd>Telescope help_tags<cr>
 
 " }}}
