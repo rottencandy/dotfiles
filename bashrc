@@ -6,6 +6,7 @@ case $- in
     *) return;;
 esac
 
+# Start with tmux
 #if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
 #    tmux
 #fi
