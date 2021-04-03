@@ -207,6 +207,43 @@ function getp() {
 
 # }}}
 
+# Mappings {{{
+
+# FZF + git
+is_in_git_repo() {
+  git rev-parse HEAD > /dev/null 2>&1
+}
+fzf-down() {
+  fzf --height 50% "$@" --border
+}
+
+_gb() {
+  is_in_git_repo || return
+  git branch -a --color=always | grep -v '/HEAD\s' | sort |
+  fzf-down --ansi --multi --tac --preview-window right:70% \
+    --preview 'git log --oneline --graph --date=short --color=always --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1)' |
+  sed 's/^..//' | cut -d' ' -f1 |
+  sed 's#^remotes/##'
+}
+bind '"\C-g\C-b": "$(_gb)\e\C-e\er"'
+
+_gt() {
+  is_in_git_repo || return
+  git tag --sort -version:refname |
+  fzf-down --multi --preview-window right:70% \
+    --preview 'git show --color=always {}'
+}
+bind '"\C-g\C-t": "$(_gt)\e\C-e\er"'
+
+_gs() {
+  is_in_git_repo || return
+  git stash list | fzf-down --reverse -d: --preview 'git show --color=always {1}' |
+  cut -d: -f1
+}
+bind '"\C-g\C-s": "$(_gs)\e\C-e\er"'
+
+# }}}
+
 # Aliases {{{
 #---------------------------------------------------------------------
 
