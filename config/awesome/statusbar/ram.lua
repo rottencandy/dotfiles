@@ -11,7 +11,7 @@ local ram_widget = wibox.widget {
 }
 
 awesome.connect_signal('notifs::ram', function(ram)
-    ram_widget.markup = prefix .. ram .. 'G'
+    ram_widget.markup = prefix .. ram
 end)
 
 return ram_widget

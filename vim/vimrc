@@ -5,7 +5,7 @@
 "Appearance {{{
 
 " Set and configure the color scheme
-colorscheme spacegray
+colorscheme moonfly
 " Highlight embedded lua in .vim
 let g:vimsyn_embed = 'l'
 " Transparent background

@@ -49,3 +49,6 @@
 [submodule "vim/pack/general/start/fern.vim"]
 	path = vim/pack/general/start/fern.vim
 	url = https://github.com/lambdalisue/fern.vim
+[submodule "vim/pack/general/start/vim-moonfly-colors"]
+	path = vim/pack/general/start/vim-moonfly-colors
+	url = https://github.com/bluz71/vim-moonfly-colors

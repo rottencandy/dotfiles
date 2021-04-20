@@ -32,3 +32,8 @@
 	br = branch
 	last = log -1 HEAD
 	yoink = reset --hard
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
