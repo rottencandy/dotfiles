@@ -18,10 +18,10 @@ error_symbol =   '[\$](bold red) '
 
 [[battery.display]]
 threshold = 30
-stype = 'bold yellow'
+style = 'bold yellow'
 [[battery.display]]
 threshold = 20
-stype = 'bold red'
+style = 'bold red'
 
 [directory]
 truncation_length = 4

@@ -41,7 +41,7 @@ fi
 
 stty -ixon # Disable <C-s> & <C-q>
 shopt -s autocd # cd on dir name
-#shopt -s cdspell
+#shopt -s cdspell # automatically correct minor typos with dir names
 shopt -s checkwinsize #update LINES and COLUMNS on window resize
 shopt -s cmdhist # combine multiline commands into one
 shopt -s histappend
@@ -194,7 +194,7 @@ eval "$d"
 }
 
 # Grab a password from the password store into the clipboard using fzf
-function getp() {
+getp() {
     PASS_DIR=~/.password-store
 
     selection=$(cd $PASS_DIR && fd --type f | fzf)
@@ -205,41 +205,66 @@ function getp() {
     pass -c "${selection//.gpg/}"
 }
 
+# https://gist.github.com/pcdv
+g() {
+    local HLP="Bookmark your favorite directories:
+    g         : list bookmarked dirs
+    g .       : add current dir to bookmarks
+    g -e      : edit bookmarks
+    g <num>   : jump to n-th dir
+    g <regex> : jump to 1st matching dir"
+    local D=_; local CFG="$HOME/.cdirs"
+
+    case $1 in
+        "") [ -f "$CFG" ] && nl "$CFG" || echo "$HLP" ;;
+        .) pwd >> "$CFG" ;;
+        -e) ${EDITOR:-vi} "$CFG" ;;
+        -*) echo "$HLP" ;;
+        [1-9]*) D=$(sed -ne "${1}p" "$CFG") ;;
+        *) D=$(grep "$1" "$CFG" | head -1) ;;
+    esac
+
+    if [ "$D" != _ ]; then 
+        [ -d "$D" ] && cd "$D" || echo "Not found"
+    fi
+}
+
 # }}}
 
 # Mappings {{{
 
 # FZF + git
 is_in_git_repo() {
-  git rev-parse HEAD > /dev/null 2>&1
+    git rev-parse HEAD > /dev/null 2>&1
 }
-fzf-down() {
-  fzf --height 50% "$@" --border
+
+_fzf_down() {
+    fzf --height 50% "$@" --border
 }
 
 _gb() {
-  is_in_git_repo || return
-  git branch -a --color=always | grep -v '/HEAD\s' | sort |
-  fzf-down --ansi --multi --tac --preview-window right:70% \
-    --preview 'git log --oneline --graph --date=short --color=always --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1)' |
-  sed 's/^..//' | cut -d' ' -f1 |
-  sed 's#^remotes/##'
-}
+    is_in_git_repo || return
+    git branch -a --color=always | grep -v '/HEAD\s' | sort |
+        _fzf_down --ansi --multi --tac --preview-window right:70% \
+        --preview 'git log --oneline --graph --date=short --color=always --pretty="format:%C(auto)%cd %h%d %s" $(sed s/^..// <<< {} | cut -d" " -f1)' |
+        sed 's/^..//' | cut -d' ' -f1 |
+        sed 's#^remotes/##'
+    }
 bind '"\C-g\C-b": "$(_gb)\e\C-e\er"'
 
 _gt() {
-  is_in_git_repo || return
-  git tag --sort -version:refname |
-  fzf-down --multi --preview-window right:70% \
-    --preview 'git show --color=always {}'
-}
+    is_in_git_repo || return
+    git tag --sort -version:refname |
+        _fzf_down --multi --preview-window right:70% \
+        --preview 'git show --color=always {}'
+    }
 bind '"\C-g\C-t": "$(_gt)\e\C-e\er"'
 
 _gs() {
-  is_in_git_repo || return
-  git stash list | fzf-down --reverse -d: --preview 'git show --color=always {1}' |
-  cut -d: -f1
-}
+    is_in_git_repo || return
+    git stash list | _fzf_down --reverse -d: --preview 'git show --color=always {1}' |
+        cut -d: -f1
+    }
 bind '"\C-g\C-s": "$(_gs)\e\C-e\er"'
 
 # }}}
@@ -260,23 +285,24 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 alias \
-    ll='lsd -l' \
-    la='lsd -A' \
-    l='ls -CF' \
     acp='cpg -g' \
     amv='mvg -g' \
-    tree='lsd --tree' \
-    t='tmux' \
-    v='vimx' \
-    nv='nvim' \
-    nb='cd ~/nb && nvim -c "exec \"normal 1 f\""' \
     gd='DELTA_NAVIGATE=1 git diff' \
     gr='cd ./$(git rev-parse --show-cdup)' \
     k='kubectl' \
-    yt='youtube-dl --add-metadata -i' \
-    yta='yt --add-metadata -x -f bestaudio' \
+    l='ls -CF' \
+    la='lsd -A' \
+    ll='lsd -l' \
+    nb='cd ~/nb && nvim -c "exec \"normal 1 f\""' \
     nc="ncmpcpp" \
-    scrt='maim -g $(slop -q) scrt-screenshot-$(date +%s).png'
+    nv='nvim' \
+    scrt='maim -g $(slop -q) scrt-screenshot-$(date +%s).png' \
+    t='tmux' \
+    tree='lsd --tree' \
+    ungr='gron --ungron' \
+    v='vimx' \
+    yt='youtube-dl --add-metadata -i' \
+    yta='yt --add-metadata -x -f bestaudio'
 
 # }}}
 
