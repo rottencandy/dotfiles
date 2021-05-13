@@ -19,10 +19,10 @@ inotifywait -e modify -m /sys/class/backlight/intel_backlight/brightness
 awful.spawn.easy_async_with_shell("ps x | rg \"inotifywait -e modify -m /sys/class/backlight/intel_backlight/brightness\" | rg -v rg | awk '{print $1}' | xargs kill", function()
 
     awful.spawn.with_line_callback(battery_script, {
-            stdout = function()
-                emit_brightness_info()
-            end
-        })
+        stdout = function()
+            emit_brightness_info()
+        end
+    })
 end
 )
 

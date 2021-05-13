@@ -5,16 +5,15 @@ local naughty = require('naughty')
 local awful = require('awful')
 require('awful.autofocus')
 
+require('notifs')
+require('popups')
+local mybar = require('statusbar')
+local keys = require('keys')
+-- Make colors global
+_G.x = require('colors')
 
 -- Check for luarocks
 pcall(require, 'luarocks.loader')
-
--- Make colors global
-x = require('colors')
--- Setup event listeners
-require('notifs')
--- Setup popups
-require('popups')
 
 -- {{{ Error handling
 
@@ -22,7 +21,7 @@ require('popups')
 -- another config (This code will only ever execute for the fallback config)
 if awesome.startup_errors then
     naughty.notify({ preset = naughty.config.presets.critical,
-            title = 'Oops, there were errors during startup!',
+        title = 'Oops, there were errors during startup!',
         text = awesome.startup_errors })
 end
 
@@ -35,7 +34,7 @@ do
         in_error = true
 
         naughty.notify({ preset = naughty.config.presets.critical,
-                title = 'Oops, an error happened!',
+            title = 'Oops, an error happened!',
             text = tostring(err) })
         in_error = false
     end)
@@ -47,21 +46,9 @@ end
 
 awful.spawn.with_shell(os.getenv('HOME') .. '/.config/awesome/startup.sh')
 
--- }}}
-
--- {{{ Global variable definitions
-
-local config_dir = os.getenv('HOME') .. '/.config/awesome/'
-
--- Make dpi function global
-dpi = beautiful.xresources.apply_dpi
-
 -- Themes define colours, icons, font and wallpapers.
+local config_dir = os.getenv('HOME') .. '/.config/awesome/'
 beautiful.init(config_dir .. 'themes/lovelace/theme.lua')
-
-terminal = 'st'
-editor = os.getenv('EDITOR') or 'vim'
-editor_cmd = terminal .. ' -e ' .. editor
 
 local l = awful.layout.suit
 awful.layout.layouts = {
@@ -85,6 +72,15 @@ awful.layout.layouts = {
 
 -- }}}
 
+-- {{{ Global variable definitions
+
+_G.terminal = 'st'
+_G.terminal_alt = 'alacritty'
+_G.editor = os.getenv('EDITOR') or 'vim'
+_G.editor_cmd = terminal .. ' -e ' .. editor
+
+-- }}}
+
 -- Screens setup {{{
 
 local function set_wallpaper(s)
@@ -103,53 +99,42 @@ end
 screen.connect_signal('property::geometry', awesome.restart)
 screen.connect_signal('list', awesome.restart)
 
-local mybar = require('statusbar')
-
 awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
-    local names = {
-        { '一', '二', '三', '四', '五'},
-        {'一', '二', '三', '四', '五', '六', '七', '八', '九' }
+    local names = { '一', '二', '三', '四', '五', '六', '七', '八', '九' }
+    local layouts = {
+        l.floating,
+        l.tile,
+        l.floating,
+        l.floating,
+        l.floating,
+        l.floating,
+        l.floating,
+        l.floating,
+        l.floating,
     }
-    local layouts = {{
-            l.floating,
-            l.tile,
-            l.floating,
-            l.floating,
-        }, {
-            l.floating,
-            l.tile,
-            l.floating,
-            l.floating,
-            l.floating,
-            l.floating,
-            l.floating,
-            l.floating,
-            l.floating,
-    }}
 
-    if screen.count() > 1 then
-        awful.tag(names[1], s, layouts[1])
-    else
-        awful.tag(names[2], s, layouts[2])
-    end
-
+    awful.tag(names, s, layouts)
     mybar(s)
 end)
+
 --- }}}
 
 -- {{{ Key bindings
-
-local keys = require('keys')
 
 root.keys(keys.globalkeys)
 
 -- }}}
 
--- {{{ Rules
+-- {{{ Client Rules
 
+-- Use `xprop | rg WM_CLASS` to find client class
 -- Rules to apply to new clients (through the 'manage' signal).
+
+-- Note that the name property shown in xprop might be set
+-- slightly after creation of the client and the name shown there
+-- might not match defined rules here.
 awful.rules.rules = {
     -- All clients will match this rule.
     {
@@ -166,7 +151,7 @@ awful.rules.rules = {
         }
     },
 
-    -- Floating clients.
+    -- Floating only clients
     {
         rule_any = {
             instance = {
@@ -179,24 +164,20 @@ awful.rules.rules = {
                 'Blueman-manager',
                 'Gpick',
                 'GNU Image Manipulation Program',
-                'Kruler',
-                'MessageWin',  -- kalarm.
-                'Sxiv',
+                'Gimp-2.10',
                 'Tor Browser', -- Needs a fixed window size to avoid fingerprinting by screen size.
-                'Wpa_gui',
-                'veromix',
-                'xtightvncviewer'
+                'xtightvncviewer',
+                'Lxappearance',
+                'Pavucontrol',
+                'mpv'
             },
-
-            -- Note that the name property shown in xprop might be set slightly after creation of the client
-            -- and the name shown there might not match defined rules here.
             name = {
-                'Event Tester',  -- xev.
+                'Event Tester',  -- xev
             },
             role = {
-                'AlarmWindow',  -- Thunderbird's calendar.
-                'ConfigManager',  -- Thunderbird's about:config.
-                'pop-up',       -- e.g. Google Chrome's (detached) Developer Tools.
+                'AlarmWindow',  -- Thunderbird's calendar
+                'ConfigManager',  -- Thunderbird's about:config
+                'pop-up',       -- e.g. Google Chrome's (detached) Developer Tools
             }
         },
         properties = { floating = true }
@@ -208,15 +189,13 @@ awful.rules.rules = {
         properties = { titlebars_enabled = true }
     },
 
-    -- Set terminal window to not have titlebar
+    -- Clients without titlebar
     {
-        rule = { name = terminal },
+        rule_any = {
+            class = { 'St', 'Alacritty', 'Firefox' }
+        },
         properties = { titlebars_enabled = false }
     },
-
-    -- Set Firefox to always map on the tag named '2' on screen 1.
-    -- { rule = { class = 'Firefox' },
-    --   properties = { screen = 1, tag = '2' } },
 }
 
 -- }}}
@@ -245,10 +224,10 @@ client.connect_signal('request::titlebars', function(c)
         c:emit_signal('request::activate', 'titlebar', {raise = true})
         awful.mouse.client.move(c)
     end),
-    awful.button({}, 3, function()
-        c:emit_signal('request::activate', 'titlebar', {raise = true})
-        awful.mouse.client.resize(c)
-    end))
+        awful.button({}, 3, function()
+            c:emit_signal('request::activate', 'titlebar', {raise = true})
+            awful.mouse.client.resize(c)
+        end))
 
     awful.titlebar(c) : setup {
         { -- Left

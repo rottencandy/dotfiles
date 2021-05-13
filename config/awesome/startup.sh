@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Run program only if it is not already running
-function run {
+run() {
     if ! pgrep $1 > /dev/null ;
     then
         $@&
@@ -12,6 +12,7 @@ xrdb ~/.Xresources
 
 xmodmap ~/.Xmodmap
 
+# https://askubuntu.com/questions/931761/how-to-fix-palm-rejection-on-ubuntu-16-04-lts
 xinput --set-prop "SynPS/2 Synaptics TouchPad"  "libinput Accel Speed" 0.6
 xinput --set-prop "SynPS/2 Synaptics TouchPad"  "libinput Natural Scrolling Enabled"    1
 #xinput --set-prop "SynPS/2 Synaptics TouchPad"  "libinput Disable While Typing Enabled" 1

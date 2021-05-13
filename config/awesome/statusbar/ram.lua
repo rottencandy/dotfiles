@@ -1,17 +1,18 @@
 local wibox = require('wibox')
 
-local prefix = '   '
+local prefix = ''
 
 -- TODO: add color
 local ram_widget = wibox.widget {
-    markup = prefix .. '-',
+    text = '...',
     align = 'left',
     valign = 'center',
+    font = 'Hack Nerd Font Mono 12',
     widget = wibox.widget.textbox,
 }
 
 awesome.connect_signal('notifs::ram', function(ram)
-    ram_widget.markup = prefix .. ram
+    ram_widget.text = prefix .. ram
 end)
 
 return ram_widget

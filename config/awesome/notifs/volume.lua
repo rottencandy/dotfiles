@@ -26,8 +26,8 @@ pactl subscribe 2> /dev/null | rg --line-buffered sink
 awful.spawn.easy_async_with_shell('pkill pactl', function()
 
     awful.spawn.with_line_callback(vol_script, {
-            stdout = function() emit_vol_info() end
-        })
+        stdout = function() emit_vol_info() end
+    })
 end
 )
 

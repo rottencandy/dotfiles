@@ -1,20 +1,35 @@
 local wibox = require('wibox')
 
-local prefix = '   '
+local MIN_BAT = 25
 
--- TODO: add color
-local bat_widget = wibox.widget {
-    markup = prefix .. ' -',
-    align = 'left',
+local contents = wibox.widget {
+    text = '...',
+    align = 'center',
     valign = 'center',
     widget = wibox.widget.textbox,
 }
 
+local bat_widget = wibox.widget {
+    contents,
+    min_value = 0,
+    max_value = 100,
+    value = 0,
+    bg = '#faf3f3',
+    colors = { '#4aa96c' },
+    thickness = 3,
+    forced_height = 35,
+    forced_width = 35,
+    widget = wibox.container.arcchart,
+}
+
 awesome.connect_signal('notifs::battery', function(percentage, charging)
-    if charging then
-        bat_widget.markup = prefix .. percentage .. '%(C) '
+    bat_widget.value = percentage
+    contents.text = percentage
+
+    if percentage > MIN_BAT then
+        bat_widget.colors = { '#4aa96c' }
     else
-        bat_widget.markup = prefix .. percentage .. '% '
+        bat_widget.colors = { '#f55c47' }
     end
 end)
 

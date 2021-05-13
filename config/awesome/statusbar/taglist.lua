@@ -16,7 +16,7 @@ local taglist_buttons = gears.table.join(
     end),
     awful.button({}, 4, function(t) awful.tag.viewnext(t.screen) end),
     awful.button({}, 5, function(t) awful.tag.viewprev(t.screen) end)
-    )
+)
 
 return function(s)
     return awful.widget.taglist {
