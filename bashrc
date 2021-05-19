@@ -98,8 +98,8 @@ s() {
 # open file using fzf with max recursive depth
 # fld [depth] [cmd]
 fld() {
-    fzfcmd="fd -Hd 1"
-    cmd=nvim
+    local fzfcmd="fd -Hd 1"
+    local cmd=nvim
     if [ $# -eq 1 ]
     then
         cmd=$1
@@ -108,7 +108,7 @@ fld() {
         fzfcmd="fd -Hd $1"
         cmd=$2
     fi
-    file=$($fzfcmd | fzf) || return
+    local file=$($fzfcmd | fzf) || return
     $cmd "$file"
 }
 
@@ -195,13 +195,9 @@ eval "$d"
 
 # Grab a password from the password store into the clipboard using fzf
 getp() {
-    PASS_DIR=~/.password-store
-
-    selection=$(cd $PASS_DIR && fd --type f | fzf)
-
-    if [ -z $selection ]; then
-        return
-    fi
+    local PASS_DIR=~/.password-store
+    local selection=$(cd $PASS_DIR && fd --type f | fzf)
+    if [ -z $selection ]; then return; fi
     pass -c "${selection//.gpg/}"
 }
 
@@ -227,6 +223,30 @@ g() {
     if [ "$D" != _ ]; then 
         [ -d "$D" ] && cd "$D" || echo "Not found"
     fi
+}
+
+installcmd() {
+    local HLP="Interactively download and install program from provided URL."
+    local tmpdir=~/temp_installcmd_dir
+    case $1 in
+        "") echo $HLP ;;
+        *.tar.gz)
+            local ARC=archive.tar.gz
+            mkdir -p $tmpdir && cd $tmpdir
+            #wget -L $1 -O $ARC || return 1
+            xh -d $1 -o $ARC || return 1
+            tar -xf $ARC
+            echo "Select cmd:"
+            local CMD=$(fzf)
+            if [ -z $CMD ]; then return; fi
+            echo "Installing..."
+            chmod +x $CMD
+            cp $CMD ~/bin
+            cd .. && rm -r $tmpdir
+            echo "Successfully installed and cleaned up"
+            ;;
+        *) echo "Unrecognized archive format"
+    esac
 }
 
 # }}}
@@ -311,6 +331,7 @@ alias \
 
 test -s $HOME/.local/bin          && PATH="$PATH:$HOME/.local/bin"
 test -s $HOME/bin                 && PATH="$PATH:$HOME/bin"
+test -s $HOME/.scripts            && PATH="$PATH:$HOME/.scripts"
 test -s $HOME/go/bin              && PATH="$PATH:$HOME/go/bin"
 test -s $HOME/code/go/bin         && PATH="$PATH:$HOME/code/go/bin"
 test -s $HOME/.cargo/bin          && PATH="$PATH:$HOME/.cargo/bin"

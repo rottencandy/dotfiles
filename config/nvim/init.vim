@@ -5,3 +5,5 @@ else
 	let &packpath = &runtimepath
 	source ~/.vim/vimrc
 endif
+
+" vim: fdm=marker:et:sw=2:

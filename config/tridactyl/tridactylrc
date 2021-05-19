@@ -1,0 +1,39 @@
+colorscheme shydactyl
+
+set searchurls.runnaroo https://runnaroo.com/first-rule-of-fightclub?term=%s
+set searchurls.g https://google.com/search?hl=en&q=%s
+set searchurls.d https://duckduckgo.com/?q=%s
+
+set searchengine runnaroo
+
+" I hate these sites
+blacklistadd ^https://mail.google.com
+blacklistadd ^https://docs.google.com
+blacklistadd ^https://meet.google.com
+blacklistadd ^https://bluejeans.com
+
+"autocontain youtube\.com Personal
+
+" Quickmarks
+quickmark m https://mail.google.com
+quickmark s https://coreos.slack.com
+
+" Create new window with tab
+bind gd tabdetach
+
+" Comment toggler for Reddit, Hacker News and Lobste.rs
+bind ;c hint -Jc [class*="expand"],[class="togg"],[class="comment_folder"]
+
+" Make gu take you back to subreddit from comments
+bindurl reddit.com gu urlparent 4
+
+" Git{Hub,Lab} git clone via SSH yank
+bind yg composite js "git clone " + document.location.href.replace(/https?:\/\//,"git@").replace("/",":").replace(/$/,".git") | clipboard yank
+
+" Suspend / discard all tabs (except currently active ones)
+command discardall jsb browser.tabs.query({}).then(ts => browser.tabs.discard(ts.map(t=>t.id)))
+
+" Always use old reddit
+autocmd DocStart ^http(s?)://www.reddit.com js tri.excmds.urlmodify("-t", "www", "old") 
+
+" vim: ft=vim:fdm=marker:et:sw=2:
