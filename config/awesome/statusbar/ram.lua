@@ -5,9 +5,8 @@ local prefix = ''
 -- TODO: add color
 local ram_widget = wibox.widget {
     text = '...',
-    align = 'left',
+    align = 'center',
     valign = 'center',
-    font = 'Hack Nerd Font Mono 12',
     widget = wibox.widget.textbox,
 }
 

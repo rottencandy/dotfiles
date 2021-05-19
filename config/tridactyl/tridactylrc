@@ -12,7 +12,7 @@ blacklistadd ^https://docs.google.com
 blacklistadd ^https://meet.google.com
 blacklistadd ^https://bluejeans.com
 
-"autocontain youtube\.com Personal
+"autocontain -s youtube\.com Personal
 
 " Quickmarks
 quickmark m https://mail.google.com

@@ -5,12 +5,14 @@ local naughty = require('naughty')
 local awful = require('awful')
 require('awful.autofocus')
 
+local HOME = os.getenv('HOME')
+local CONFIG_DIR = HOME .. '/.config/awesome/'
+beautiful.init(CONFIG_DIR .. 'themes/lovelace/theme.lua')
+
 require('notifs')
 require('popups')
 local mybar = require('statusbar')
 local keys = require('keys')
--- Make colors global
-_G.x = require('colors')
 
 -- Check for luarocks
 pcall(require, 'luarocks.loader')
@@ -44,11 +46,7 @@ end
 
 -- {{{ Startup
 
-awful.spawn.with_shell(os.getenv('HOME') .. '/.config/awesome/startup.sh')
-
--- Themes define colours, icons, font and wallpapers.
-local config_dir = os.getenv('HOME') .. '/.config/awesome/'
-beautiful.init(config_dir .. 'themes/lovelace/theme.lua')
+awful.spawn.with_shell(HOME .. '/.config/awesome/startup.sh')
 
 local l = awful.layout.suit
 awful.layout.layouts = {

@@ -1,4 +1,6 @@
-local wibox = require('wibox')
+local awful = require 'awful'
+local wibox = require 'wibox'
+local theme = require 'beautiful'.get()
 
 local MIN_BAT = 25
 
@@ -17,14 +19,21 @@ local bat_widget = wibox.widget {
     bg = '#faf3f3',
     colors = { '#4aa96c' },
     thickness = 3,
-    forced_height = 35,
-    forced_width = 35,
+    start_angle = 3 * math.pi / 2,
     widget = wibox.container.arcchart,
 }
+
+local tooltip = awful.tooltip { }
+tooltip:add_to_object(bat_widget)
 
 awesome.connect_signal('notifs::battery', function(percentage, charging)
     bat_widget.value = percentage
     contents.text = percentage
+    if charging then
+        tooltip.text = 'charging'
+    else
+        tooltip.text = 'discharging'
+    end
 
     if percentage > MIN_BAT then
         bat_widget.colors = { '#4aa96c' }

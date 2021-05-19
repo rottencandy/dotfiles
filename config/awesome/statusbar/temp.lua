@@ -5,9 +5,8 @@ local prefix = ''
 -- TODO: add unsafe temp color/notif
 local temp_widget = wibox.widget {
     text = '...',
-    align = 'left',
+    align = 'center',
     valign = 'center',
-    font = 'Hack Nerd Font Mono 12',
     widget = wibox.widget.textbox,
 }
 

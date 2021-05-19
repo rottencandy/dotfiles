@@ -27,9 +27,6 @@ return function(s)
     mysystray.opacity = 0
     --mysystray:set_screen(s)
 
-    -- Time
-    local time = wibox.widget.textclock('%l:%M')
-
     -- Calendar
     local calendar = wibox.widget.textclock(' %a')
     local popup = awful.widget.calendar_popup.month({ screen = s })
@@ -59,7 +56,7 @@ return function(s)
         -- Middle widgets
         {
             align = 'center',
-            widget = time,
+            widget = wibox.widget.textclock('%l:%M'),
         },
 
         -- Right widgets
