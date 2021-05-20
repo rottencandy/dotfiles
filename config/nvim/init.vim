@@ -1,9 +1,9 @@
 if has('nvim-0.5')
-	source ~/.config/nvim/nightly.vim
+  source ~/.config/nvim/nightly.vim
 else
-	set runtimepath^=~/.vim runtimepath+=~/.vim/after
-	let &packpath = &runtimepath
-	source ~/.vim/vimrc
+  set runtimepath^=~/.vim runtimepath+=~/.vim/after
+  let &packpath = &runtimepath
+  source ~/.vim/vimrc
 endif
 
 " vim: fdm=marker:et:sw=2:

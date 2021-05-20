@@ -18,35 +18,4 @@ bashdot install dotfiles
 Dependencies
 ----------
 
-### Necessary
-
-- st
-- i3lock
-- awesome
-- acpi
-- xbacklight
-- amixer
-- pactl
-- git-delta
-- starship
-- arandr
-
-### Good to have
-
-- fzf
-- rg
-- fd
-- tmux
-- nnn
-- broot
-- lsd
-- fbterm
-- slop, maim
-- mpd, ncmpcpp
-- Fcitx
-- KDE Connect
-- advcpmv
-
-AwesomeWM
----------
-Use `startup.sh` as init script. Has synaptics touchpad settings.
+TODO

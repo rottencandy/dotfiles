@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 
 NVIMDIR=~/code/vim/neovim
-VIMRUNTIME=$NVIMDIR/runtime $NVIMDIR/build/bin/nvim
+VIMRUNTIME=$NVIMDIR/runtime $NVIMDIR/build/bin/nvim "$@"
