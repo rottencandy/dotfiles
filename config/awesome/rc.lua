@@ -7,7 +7,8 @@ require('awful.autofocus')
 
 local HOME = os.getenv('HOME')
 local CONFIG_DIR = HOME .. '/.config/awesome/'
-beautiful.init(CONFIG_DIR .. 'themes/lovelace/theme.lua')
+beautiful.init(CONFIG_DIR .. 'theme.lua')
+local theme = beautiful.get()
 
 require('notifs')
 require('popups')
@@ -100,7 +101,7 @@ screen.connect_signal('list', awesome.restart)
 awful.screen.connect_for_each_screen(function(s)
     set_wallpaper(s)
 
-    local names = { '一', '二', '三', '四', '五', '六', '七', '八', '九' }
+    local names = theme.taglist_names or { '一', '二', '三', '四', '五', '六', '七', '八', '九' }
     local layouts = {
         l.floating,
         l.tile,

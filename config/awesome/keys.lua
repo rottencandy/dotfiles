@@ -13,6 +13,7 @@ local shift = 'Shift'
 local ctrl = 'Control'
 local enter = 'Return'
 local client_move_dist = 50
+local XIDLEHOOK_SOCKET = '/tmp/xidlehook.sock'
 
 local keys = {}
 
@@ -127,11 +128,18 @@ keys.globalkeys = gears.table.join(
     -- {{{ Programs
 
     -- Terminal
-    awful.key({ superkey, }, enter, function () awful.spawn(terminal) end,
+    awful.key({ superkey, }, enter, function() awful.spawn(terminal) end,
         { description = 'spawn terminal', group = 'launcher' }),
     -- Alt terminal
-    awful.key({ superkey, shift }, enter, function () awful.spawn(terminal_alt) end,
+    awful.key({ superkey, shift }, enter, function() awful.spawn(terminal_alt) end,
         { description = 'spawn alt terminal', group = 'launcher' }),
+
+    -- Screenshot
+    awful.key({ superkey, shift }, 's', function()
+        awful.spawn.with_shell('maim ~/screenshots/screenshot-$(date +%s).png 2> /dev/null')
+        naughty.notify({ title = 'Screenshot Saved', text = 'Screenshot saved!', timeout = 3 })
+    end,
+        { description = 'Capture screenshot', group = 'launcher' }),
 
     -- Application launcher
     awful.key({ superkey }, 'r', function () awful.spawn('rofi -show window') end,
@@ -237,13 +245,13 @@ keys.clientkeys = gears.table.join(
     --    {description = 'move to screen', group = 'client'}),
     awful.key({ superkey, }, 'i', function (c) c.ontop = not c.ontop end,
         {description = 'toggle keep on top', group = 'client'}),
-    awful.key({ superkey, }, 'n',
-        function (c)
-            -- The client currently has the input focus, so it cannot be
-            -- minimized, since minimized clients can't have the focus.
-            c.minimized = true
-        end,
-        {description = 'minimize', group = 'client'}),
+    --awful.key({ superkey, }, 'n',
+    --    function (c)
+    --        -- The client currently has the input focus, so it cannot be
+    --        -- minimized, since minimized clients can't have the focus.
+    --        c.minimized = true
+    --    end,
+    --    {description = 'minimize', group = 'client'}),
     awful.key({ superkey, }, 'm',
         function (c)
             c.maximized = not c.maximized

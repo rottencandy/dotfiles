@@ -1,56 +1,121 @@
----------------------------
--- Default awesome theme --
----------------------------
-
 local theme_assets = require('beautiful.theme_assets')
 local xresources = require('beautiful.xresources')
-local dpi = xresources.apply_dpi
-
+local gears = require('gears')
 local gfs = require('gears.filesystem')
-local themes_path = gfs.get_themes_dir()
 
-local theme = {}
+local dpi = xresources.apply_dpi
+local HOME = os.getenv('HOME')
+local CONFIG_DIR = HOME .. '/.config/awesome/'
+local ICON_DIR = CONFIG_DIR .. 'icons/'
 
-theme.font = 'Hack Nerd Font Mono 10'
+local T = {}
 
-theme.bg_normal     = '#222222'
-theme.bg_focus      = '#535d6c'
-theme.bg_urgent     = '#ff0000'
-theme.bg_minimize   = '#444444'
-theme.bg_systray    = theme.bg_normal
+-- Main {{{
 
-theme.fg_normal     = '#aaaaaa'
-theme.fg_focus      = '#343434'
-theme.fg_urgent     = '#dd6666'
-theme.fg_minimize   = '#ffffff'
+T.wallpaper = HOME .. '/Pictures/wall.jpg'
+T.font = 'Hack Nerd Font Mono 12'
 
-theme.useless_gap   = dpi(10)
-theme.border_width  = dpi(5)
-theme.border_normal = '#000000'
-theme.border_focus  = '#cdcdcd'
-theme.border_marked = '#91231c'
+-- }}}
 
--- There are other variable sets
--- overriding the default one when
--- defined, the sets are:
--- taglist_[bg|fg]_[focus|urgent|occupied|empty|volatile]
--- tasklist_[bg|fg]_[focus|urgent]
--- titlebar_[bg|fg]_[normal|focus]
+-- Windows {{{
+
+-- Borders {{{
+
+T.useless_gap   = dpi(7)
+T.border_radius = dpi(5)
+
+T.border_width  = dpi(2)
+T.border_normal = '#080808'
+T.border_focus  = '#aaccbb'
+T.border_marked = '#91231c'
+
+-- }}}
+
+-- Widgets {{{
+
+T.bg_normal     = '#080808'
+T.bg_focus      = '#465'
+T.bg_urgent     = '#a44'
+T.bg_minimize   = '#333'
+
+T.fg_normal     = '#bbb'
+T.fg_focus      = '#ccc'
+T.fg_urgent     = '#a44'
+T.fg_minimize   = '#aaa'
+
+-- }}}
+
+-- Tooltip {{{
+
 -- tooltip_[font|opacity|fg_color|bg_color|border_width|border_color]
--- mouse_finder_[color|timeout|animate_timeout|radius|factor]
--- prompt_[fg|bg|fg_cursor|bg_cursor|font]
--- hotkeys_[bg|fg|border_width|border_color|shape|opacity|modifiers_fg|label_bg|label_fg|group_margin|font|description_font]
--- Example:
---theme.taglist_bg_focus = '#ff0000'
 
--- Generate taglist squares:
-local taglist_square_size = dpi(4)
-theme.taglist_squares_sel = theme_assets.taglist_squares_sel(
-    taglist_square_size, theme.fg_normal
-    )
-theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
-    taglist_square_size, theme.fg_normal
-    )
+-- }}}
+
+-- Prompt {{{
+
+-- prompt_[fg|bg|fg_cursor|bg_cursor|font]
+
+-- }}}
+
+-- Titlebar {{{
+
+-- titlebar_[bg|fg]_[normal|focus]
+T.titlebar_bg_normal = '#080808'
+T.titlebar_bg_focus = '#333'
+
+-- }}}
+
+-- }}}
+
+-- Bar {{{
+
+T.wibar_fg = '#ddd'
+T.wibar_bg = '#5550'
+T.wibar_height = dpi(45)
+
+-- Taglist {{{
+
+-- taglist_[bg|fg]_[focus|urgent|occupied|empty|volatile]
+
+T.taglist_fg_focus = '#494'
+T.taglist_bg_focus = '#5550'
+T.taglist_fg_occupied = '#789'
+T.taglist_fg_urgent = '#a55'
+-- Symbols   
+T.taglist_names = { '', '', '', '', '', '', '', '', '' }
+T.taglist_spacing = dpi(5)
+
+-- Taglist squares:
+--local taglist_square_size = dpi(4)
+--T.taglist_squares_sel = theme_assets.taglist_squares_sel(taglist_square_size, T.fg_normal)
+--T.taglist_squares_unsel = theme_assets.taglist_squares_unsel(taglist_square_size, T.fg_normal)
+T.taglist_disable_icon = true
+
+-- }}}
+
+-- Tasklist {{{
+
+-- tasklist_[bg|fg]_[focus|urgent]
+
+-- }}}
+
+-- Systray {{{
+
+T.systray_icon_spacing = dpi(3)
+T.bg_systray    = '#13131300'
+
+-- }}}
+
+-- Calendar {{{
+
+T.calendar_spacing = dpi(5)
+T.calendar_long_weekdays = true
+
+-- }}}
+
+-- }}}
+
+-- Notifications {{{
 
 -- Variables set for theming notifications:
 -- notification_font
@@ -58,74 +123,464 @@ theme.taglist_squares_unsel = theme_assets.taglist_squares_unsel(
 -- notification_[width|height|margin]
 -- notification_[border_color|border_width|shape|opacity]
 
+-- }}}
+
+-- Menu {{{
+
 -- Variables set for theming the menu:
 -- menu_[bg|fg]_[normal|focus]
 -- menu_[border_color|border_width]
-theme.menu_submenu_icon = themes_path..'default/submenu.png'
-theme.menu_height = dpi(15)
-theme.menu_width  = dpi(100)
+T.menu_height = dpi(15)
+T.menu_width  = dpi(100)
 
--- You can add as many variables as
--- you wish and access them by using
--- beautiful.variable in your rc.lua
---theme.bg_widget = '#cc0000'
+-- }}}
 
--- Define the image to load
-theme.titlebar_close_button_normal = themes_path..'default/titlebar/close_normal.png'
-theme.titlebar_close_button_focus  = themes_path..'default/titlebar/close_focus.png'
+-- Icons {{{
 
-theme.titlebar_minimize_button_normal = themes_path..'default/titlebar/minimize_normal.png'
-theme.titlebar_minimize_button_focus  = themes_path..'default/titlebar/minimize_focus.png'
-
-theme.titlebar_ontop_button_normal_inactive = themes_path..'default/titlebar/ontop_normal_inactive.png'
-theme.titlebar_ontop_button_focus_inactive  = themes_path..'default/titlebar/ontop_focus_inactive.png'
-theme.titlebar_ontop_button_normal_active = themes_path..'default/titlebar/ontop_normal_active.png'
-theme.titlebar_ontop_button_focus_active  = themes_path..'default/titlebar/ontop_focus_active.png'
-
-theme.titlebar_sticky_button_normal_inactive = themes_path..'default/titlebar/sticky_normal_inactive.png'
-theme.titlebar_sticky_button_focus_inactive  = themes_path..'default/titlebar/sticky_focus_inactive.png'
-theme.titlebar_sticky_button_normal_active = themes_path..'default/titlebar/sticky_normal_active.png'
-theme.titlebar_sticky_button_focus_active  = themes_path..'default/titlebar/sticky_focus_active.png'
-
-theme.titlebar_floating_button_normal_inactive = themes_path..'default/titlebar/floating_normal_inactive.png'
-theme.titlebar_floating_button_focus_inactive  = themes_path..'default/titlebar/floating_focus_inactive.png'
-theme.titlebar_floating_button_normal_active = themes_path..'default/titlebar/floating_normal_active.png'
-theme.titlebar_floating_button_focus_active  = themes_path..'default/titlebar/floating_focus_active.png'
-
-theme.titlebar_maximized_button_normal_inactive = themes_path..'default/titlebar/maximized_normal_inactive.png'
-theme.titlebar_maximized_button_focus_inactive  = themes_path..'default/titlebar/maximized_focus_inactive.png'
-theme.titlebar_maximized_button_normal_active = themes_path..'default/titlebar/maximized_normal_active.png'
-theme.titlebar_maximized_button_focus_active  = themes_path..'default/titlebar/maximized_focus_active.png'
-
-theme.wallpaper = os.getenv('HOME') .. '/Pictures/wall.png'
-
--- You can use your own layout icons like this:
-theme.layout_fairh = themes_path..'default/layouts/fairhw.png'
-theme.layout_fairv = themes_path..'default/layouts/fairvw.png'
-theme.layout_floating  = themes_path..'default/layouts/floatingw.png'
-theme.layout_magnifier = themes_path..'default/layouts/magnifierw.png'
-theme.layout_max = themes_path..'default/layouts/maxw.png'
-theme.layout_fullscreen = themes_path..'default/layouts/fullscreenw.png'
-theme.layout_tilebottom = themes_path..'default/layouts/tilebottomw.png'
-theme.layout_tileleft   = themes_path..'default/layouts/tileleftw.png'
-theme.layout_tile = themes_path..'default/layouts/tilew.png'
-theme.layout_tiletop = themes_path..'default/layouts/tiletopw.png'
-theme.layout_spiral  = themes_path..'default/layouts/spiralw.png'
-theme.layout_dwindle = themes_path..'default/layouts/dwindlew.png'
-theme.layout_cornernw = themes_path..'default/layouts/cornernww.png'
-theme.layout_cornerne = themes_path..'default/layouts/cornernew.png'
-theme.layout_cornersw = themes_path..'default/layouts/cornersww.png'
-theme.layout_cornerse = themes_path..'default/layouts/cornersew.png'
+T.layout_floating  = ICON_DIR .. 'floating.png'
+T.layout_max = ICON_DIR .. 'max.png'
+T.layout_tile = ICON_DIR .. 'tile.png'
 
 -- Generate Awesome icon:
-theme.awesome_icon = theme_assets.awesome_icon(
-    theme.menu_height, theme.bg_focus, theme.fg_focus
-    )
+T.awesome_icon = theme_assets.awesome_icon(
+    T.menu_height, T.bg_focus, T.fg_focus
+)
 
--- Define the icon theme for application icons. If not set then the icons
--- from /usr/share/icons and /usr/share/icons/hicolor will be used.
-theme.icon_theme = nil
+-- }}}
 
-return theme
+-- Misc {{{
 
--- vim: expandtab:shiftwidth=4:tabstop=4:softtabstop=4:textwidth=80
+-- mouse_finder_[color|timeout|animate_timeout|radius|factor]
+-- hotkeys_[bg|fg|border_width|border_color|shape|opacity|modifiers_fg|label_bg|label_fg|group_margin|font|description_font]
+
+-- Edge snap
+T.snap_bg = '#cdcdcd'
+T.snap_border_width = dpi(1)
+
+-- }}}
+
+-- Defaults {{{
+
+-- arcchart\
+-- theme.arcchart\_border\_color = nil
+-- theme.arcchart\_color = nil
+-- theme.arcchart\_border\_width = nil
+-- theme.arcchart\_paddings = nil
+-- theme.arcchart\_thickness = nil
+
+-- awesome\
+-- theme.awesome\_icon = nil
+
+-- bg\
+-- theme.bg\_normal = nil
+-- theme.bg\_normal = nil
+-- theme.bg\_normal = nil
+-- theme.bg\_focus = nil
+-- theme.bg\_urgent = nil
+-- theme.bg\_minimize = nil
+-- theme.bg\_systray = nil
+-- theme.bg\_normal = nil
+-- theme.bg\_systray = nil
+
+-- border\
+-- theme.border\_marked = nil
+-- theme.border\_width = nil
+-- theme.border\_normal = nil
+-- theme.border\_focus = nil
+-- theme.border\_marked = nil
+-- theme.border\_focus = nil
+-- theme.border\_normal = nil
+-- theme.border\_width = nil
+
+-- calendar\
+-- theme.calendar\_style = nil
+-- theme.calendar\_font = nil
+-- theme.calendar\_spacing = nil
+-- theme.calendar\_week\_numbers = nil
+-- theme.calendar\_start\_sunday = nil
+-- theme.calendar\_long\_weekdays = nil
+
+-- checkbox\
+-- theme.checkbox\_border\_width = nil
+-- theme.checkbox\_bg = nil
+-- theme.checkbox\_border\_color = nil
+-- theme.checkbox\_check\_border\_color = nil
+-- theme.checkbox\_check\_border\_width = nil
+-- theme.checkbox\_check\_color = nil
+-- theme.checkbox\_shape = nil
+-- theme.checkbox\_check\_shape = nil
+-- theme.checkbox\_paddings = nil
+-- theme.checkbox\_color = nil
+
+-- column\
+-- theme.column\_count = nil
+
+-- cursor\
+-- theme.cursor\_mouse\_resize = nil
+-- theme.cursor\_mouse\_move = nil
+
+-- enable\
+-- theme.enable\_spawn\_cursor = nil
+
+-- fg\
+-- theme.fg\_normal = nil
+-- theme.fg\_normal = nil
+-- theme.fg\_normal = nil
+-- theme.fg\_focus = nil
+-- theme.fg\_urgent = nil
+-- theme.fg\_minimize = nil
+-- theme.fg\_normal = nil
+
+-- fullscreen\
+-- theme.fullscreen\_hide\_border = nil
+
+-- gap\
+-- theme.gap\_single\_client = nil
+
+-- graph\
+-- theme.graph\_bg = nil
+-- theme.graph\_fg = nil
+-- theme.graph\_border\_color = nil
+
+-- hotkeys\
+-- theme.hotkeys\_bg = nil
+-- theme.hotkeys\_fg = nil
+-- theme.hotkeys\_border\_width = nil
+-- theme.hotkeys\_border\_color = nil
+-- theme.hotkeys\_shape = nil
+-- theme.hotkeys\_modifiers\_fg = nil
+-- theme.hotkeys\_label\_bg = nil
+-- theme.hotkeys\_label\_fg = nil
+-- theme.hotkeys\_font = nil
+-- theme.hotkeys\_description\_font = nil
+-- theme.hotkeys\_group\_margin = nil
+
+-- icon\
+-- theme.icon\_theme = nil
+
+-- layout\
+-- theme.layout\_cornernw = nil
+-- theme.layout\_cornerne = nil
+-- theme.layout\_cornersw = nil
+-- theme.layout\_cornerse = nil
+-- theme.layout\_fairh = nil
+-- theme.layout\_fairv = nil
+-- theme.layout\_floating = nil
+-- theme.layout\_magnifier = nil
+-- theme.layout\_max = nil
+-- theme.layout\_fullscreen = nil
+-- theme.layout\_spiral = nil
+-- theme.layout\_dwindle = nil
+-- theme.layout\_tile = nil
+-- theme.layout\_tiletop = nil
+-- theme.layout\_tilebottom = nil
+-- theme.layout\_tileleft = nil
+
+-- layoutlist\
+-- theme.layoutlist\_fg\_normal = nil
+-- theme.layoutlist\_bg\_normal = nil
+-- theme.layoutlist\_fg\_selected = nil
+-- theme.layoutlist\_bg\_selected = nil
+-- theme.layoutlist\_disable\_icon = nil
+-- theme.layoutlist\_disable\_name = nil
+-- theme.layoutlist\_font = nil
+-- theme.layoutlist\_align = nil
+-- theme.layoutlist\_font\_selected = nil
+-- theme.layoutlist\_spacing = nil
+-- theme.layoutlist\_shape = nil
+-- theme.layoutlist\_shape\_border\_width = nil
+-- theme.layoutlist\_shape\_border\_color = nil
+-- theme.layoutlist\_shape\_selected = nil
+-- theme.layoutlist\_shape\_border\_width\_selected = nil
+-- theme.layoutlist\_shape\_border\_color\_selected = nil
+
+-- master\
+-- theme.master\_width\_factor = nil
+-- theme.master\_fill\_policy = nil
+-- theme.master\_count = nil
+
+-- maximized\
+-- theme.maximized\_honor\_padding = nil
+-- theme.maximized\_hide\_border = nil
+
+-- menu\
+-- theme.menu\_submenu\_icon = nil
+-- theme.menu\_font = nil
+-- theme.menu\_height = nil
+-- theme.menu\_width = nil
+-- theme.menu\_border\_color = nil
+-- theme.menu\_border\_width = nil
+-- theme.menu\_fg\_focus = nil
+-- theme.menu\_bg\_focus = nil
+-- theme.menu\_fg\_normal = nil
+-- theme.menu\_bg\_normal = nil
+-- theme.menu\_submenu = nil
+
+-- menubar\
+-- theme.menubar\_fg\_normal = nil
+-- theme.menubar\_bg\_normal = nil
+-- theme.menubar\_border\_width = nil
+-- theme.menubar\_border\_color = nil
+-- theme.menubar\_fg\_normal = nil
+-- theme.menubar\_bg\_normal = nil
+
+-- notification\
+-- theme.notification\_font = nil
+-- theme.notification\_bg = nil
+-- theme.notification\_fg = nil
+-- theme.notification\_border\_width = nil
+-- theme.notification\_border\_color = nil
+-- theme.notification\_shape = nil
+-- theme.notification\_opacity = nil
+-- theme.notification\_margin = nil
+-- theme.notification\_width = nil
+-- theme.notification\_height = nil
+-- theme.notification\_max\_width = nil
+-- theme.notification\_max\_height = nil
+-- theme.notification\_icon\_size = nil
+
+-- piechart\
+-- theme.piechart\_border\_color = nil
+-- theme.piechart\_border\_width = nil
+-- theme.piechart\_colors = nil
+
+-- progressbar\
+-- theme.progressbar\_bg = nil
+-- theme.progressbar\_fg = nil
+-- theme.progressbar\_shape = nil
+-- theme.progressbar\_border\_color = nil
+-- theme.progressbar\_border\_width = nil
+-- theme.progressbar\_bar\_shape = nil
+-- theme.progressbar\_bar\_border\_width = nil
+-- theme.progressbar\_bar\_border\_color = nil
+-- theme.progressbar\_margins = nil
+-- theme.progressbar\_paddings = nil
+
+-- prompt\
+-- theme.prompt\_fg\_cursor = nil
+-- theme.prompt\_bg\_cursor = nil
+-- theme.prompt\_font = nil
+-- theme.prompt\_fg = nil
+-- theme.prompt\_bg = nil
+
+-- radialprogressbar\
+-- theme.radialprogressbar\_border\_color = nil
+-- theme.radialprogressbar\_color = nil
+-- theme.radialprogressbar\_border\_width = nil
+-- theme.radialprogressbar\_paddings = nil
+
+-- separator\
+-- theme.separator\_thickness = nil
+-- theme.separator\_border\_color = nil
+-- theme.separator\_border\_width = nil
+-- theme.separator\_span\_ratio = nil
+-- theme.separator\_color = nil
+-- theme.separator\_shape = nil
+
+-- slider\
+-- theme.slider\_bar\_border\_width = nil
+-- theme.slider\_bar\_border\_color = nil
+-- theme.slider\_handle\_border\_color = nil
+-- theme.slider\_handle\_border\_width = nil
+-- theme.slider\_handle\_width = nil
+-- theme.slider\_handle\_color = nil
+-- theme.slider\_handle\_shape = nil
+-- theme.slider\_bar\_shape = nil
+-- theme.slider\_bar\_height = nil
+-- theme.slider\_bar\_margins = nil
+-- theme.slider\_handle\_margins = nil
+-- theme.slider\_bar\_color = nil
+
+-- snap\
+-- theme.snap\_bg = nil
+-- theme.snap\_border\_width = nil
+-- theme.snap\_shape = nil
+
+-- snapper\
+-- theme.snapper\_gap = nil
+
+-- systray\
+-- theme.systray\_icon\_spacing = nil
+
+-- taglist\
+-- theme.taglist\_fg\_focus = nil
+-- theme.taglist\_bg\_focus = nil
+-- theme.taglist\_fg\_urgent = nil
+-- theme.taglist\_bg\_urgent = nil
+-- theme.taglist\_bg\_occupied = nil
+-- theme.taglist\_fg\_occupied = nil
+-- theme.taglist\_bg\_empty = nil
+-- theme.taglist\_fg\_empty = nil
+-- theme.taglist\_bg\_volatile = nil
+-- theme.taglist\_fg\_volatile = nil
+-- theme.taglist\_squares\_sel = nil
+-- theme.taglist\_squares\_unsel = nil
+-- theme.taglist\_squares\_sel\_empty = nil
+-- theme.taglist\_squares\_unsel\_empty = nil
+-- theme.taglist\_squares\_resize = nil
+-- theme.taglist\_disable\_icon = nil
+-- theme.taglist\_font = nil
+-- theme.taglist\_spacing = nil
+-- theme.taglist\_shape = nil
+-- theme.taglist\_shape\_border\_width = nil
+-- theme.taglist\_shape\_border\_color = nil
+-- theme.taglist\_shape\_empty = nil
+-- theme.taglist\_shape\_border\_width\_empty = nil
+-- theme.taglist\_shape\_border\_color\_empty = nil
+-- theme.taglist\_shape\_focus = nil
+-- theme.taglist\_shape\_border\_width\_focus = nil
+-- theme.taglist\_shape\_border\_color\_focus = nil
+-- theme.taglist\_shape\_urgent = nil
+-- theme.taglist\_shape\_border\_width\_urgent = nil
+-- theme.taglist\_shape\_border\_color\_urgent = nil
+-- theme.taglist\_shape\_volatile = nil
+-- theme.taglist\_shape\_border\_width\_volatile = nil
+-- theme.taglist\_shape\_border\_color\_volatile = nil
+
+-- tasklist\
+-- theme.tasklist\_fg\_normal = nil
+-- theme.tasklist\_bg\_normal = nil
+-- theme.tasklist\_fg\_focus = nil
+-- theme.tasklist\_bg\_focus = nil
+-- theme.tasklist\_fg\_urgent = nil
+-- theme.tasklist\_bg\_urgent = nil
+-- theme.tasklist\_fg\_minimize = nil
+-- theme.tasklist\_bg\_minimize = nil
+-- theme.tasklist\_bg\_image\_normal = nil
+-- theme.tasklist\_bg\_image\_focus = nil
+-- theme.tasklist\_bg\_image\_urgent = nil
+-- theme.tasklist\_bg\_image\_minimize = nil
+-- theme.tasklist\_disable\_icon = nil
+-- theme.tasklist\_disable\_task\_name = nil
+-- theme.tasklist\_plain\_task\_name = nil
+-- theme.tasklist\_font = nil
+-- theme.tasklist\_align = nil
+-- theme.tasklist\_font\_focus = nil
+-- theme.tasklist\_font\_minimized = nil
+-- theme.tasklist\_font\_urgent = nil
+-- theme.tasklist\_spacing = nil
+-- theme.tasklist\_shape = nil
+-- theme.tasklist\_shape\_border\_width = nil
+-- theme.tasklist\_shape\_border\_color = nil
+-- theme.tasklist\_shape\_focus = nil
+-- theme.tasklist\_shape\_border\_width\_focus = nil
+-- theme.tasklist\_shape\_border\_color\_focus = nil
+-- theme.tasklist\_shape\_minimized = nil
+-- theme.tasklist\_shape\_border\_width\_minimized = nil
+-- theme.tasklist\_shape\_border\_color\_minimized = nil
+-- theme.tasklist\_shape\_urgent = nil
+-- theme.tasklist\_shape\_border\_width\_urgent = nil
+-- theme.tasklist\_shape\_border\_color\_urgent = nil
+
+-- titlebar\
+-- theme.titlebar\_fg\_normal = nil
+-- theme.titlebar\_bg\_normal = nil
+-- theme.titlebar\_bgimage\_normal = nil
+-- theme.titlebar\_fg = nil
+-- theme.titlebar\_bg = nil
+-- theme.titlebar\_bgimage = nil
+-- theme.titlebar\_fg\_focus = nil
+-- theme.titlebar\_bg\_focus = nil
+-- theme.titlebar\_bgimage\_focus = nil
+-- theme.titlebar\_floating\_button\_normal = nil
+-- theme.titlebar\_maximized\_button\_normal = nil
+-- theme.titlebar\_minimize\_button\_normal = nil
+-- theme.titlebar\_minimize\_button\_normal\_hover = nil
+-- theme.titlebar\_minimize\_button\_normal\_press = nil
+-- theme.titlebar\_close\_button\_normal = nil
+-- theme.titlebar\_close\_button\_normal\_hover = nil
+-- theme.titlebar\_close\_button\_normal\_press = nil
+-- theme.titlebar\_ontop\_button\_normal = nil
+-- theme.titlebar\_sticky\_button\_normal = nil
+-- theme.titlebar\_floating\_button\_focus = nil
+-- theme.titlebar\_maximized\_button\_focus = nil
+-- theme.titlebar\_minimize\_button\_focus = nil
+-- theme.titlebar\_minimize\_button\_focus\_hover = nil
+-- theme.titlebar\_minimize\_button\_focus\_press = nil
+-- theme.titlebar\_close\_button\_focus = nil
+-- theme.titlebar\_close\_button\_focus\_hover = nil
+-- theme.titlebar\_close\_button\_focus\_press = nil
+-- theme.titlebar\_ontop\_button\_focus = nil
+-- theme.titlebar\_sticky\_button\_focus = nil
+-- theme.titlebar\_floating\_button\_normal\_active = nil
+-- theme.titlebar\_floating\_button\_normal\_active\_hover = nil
+-- theme.titlebar\_floating\_button\_normal\_active\_press = nil
+-- theme.titlebar\_maximized\_button\_normal\_active = nil
+-- theme.titlebar\_maximized\_button\_normal\_active\_hover = nil
+-- theme.titlebar\_maximized\_button\_normal\_active\_press = nil
+-- theme.titlebar\_ontop\_button\_normal\_active = nil
+-- theme.titlebar\_ontop\_button\_normal\_active\_hover = nil
+-- theme.titlebar\_ontop\_button\_normal\_active\_press = nil
+-- theme.titlebar\_sticky\_button\_normal\_active = nil
+-- theme.titlebar\_sticky\_button\_normal\_active\_hover = nil
+-- theme.titlebar\_sticky\_button\_normal\_active\_press = nil
+-- theme.titlebar\_floating\_button\_focus\_active = nil
+-- theme.titlebar\_floating\_button\_focus\_active\_hover = nil
+-- theme.titlebar\_floating\_button\_focus\_active\_press = nil
+-- theme.titlebar\_maximized\_button\_focus\_active = nil
+-- theme.titlebar\_maximized\_button\_focus\_active\_hover = nil
+-- theme.titlebar\_maximized\_button\_focus\_active\_press = nil
+-- theme.titlebar\_ontop\_button\_focus\_active = nil
+-- theme.titlebar\_ontop\_button\_focus\_active\_hover = nil
+-- theme.titlebar\_ontop\_button\_focus\_active\_press = nil
+-- theme.titlebar\_sticky\_button\_focus\_active = nil
+-- theme.titlebar\_sticky\_button\_focus\_active\_hover = nil
+-- theme.titlebar\_sticky\_button\_focus\_active\_press = nil
+-- theme.titlebar\_floating\_button\_normal\_inactive = nil
+-- theme.titlebar\_floating\_button\_normal\_inactive\_hover = nil
+-- theme.titlebar\_floating\_button\_normal\_inactive\_press = nil
+-- theme.titlebar\_maximized\_button\_normal\_inactive = nil
+-- theme.titlebar\_maximized\_button\_normal\_inactive\_hover = nil
+-- theme.titlebar\_maximized\_button\_normal\_inactive\_press = nil
+-- theme.titlebar\_ontop\_button\_normal\_inactive = nil
+-- theme.titlebar\_ontop\_button\_normal\_inactive\_hover = nil
+-- theme.titlebar\_ontop\_button\_normal\_inactive\_press = nil
+-- theme.titlebar\_sticky\_button\_normal\_inactive = nil
+-- theme.titlebar\_sticky\_button\_normal\_inactive\_hover = nil
+-- theme.titlebar\_sticky\_button\_normal\_inactive\_press = nil
+-- theme.titlebar\_floating\_button\_focus\_inactive = nil
+-- theme.titlebar\_floating\_button\_focus\_inactive\_hover = nil
+-- theme.titlebar\_floating\_button\_focus\_inactive\_press = nil
+-- theme.titlebar\_maximized\_button\_focus\_inactive = nil
+-- theme.titlebar\_maximized\_button\_focus\_inactive\_hover = nil
+-- theme.titlebar\_maximized\_button\_focus\_inactive\_press = nil
+-- theme.titlebar\_ontop\_button\_focus\_inactive = nil
+-- theme.titlebar\_ontop\_button\_focus\_inactive\_hover = nil
+-- theme.titlebar\_ontop\_button\_focus\_inactive\_press = nil
+-- theme.titlebar\_sticky\_button\_focus\_inactive = nil
+-- theme.titlebar\_sticky\_button\_focus\_inactive\_hover = nil
+-- theme.titlebar\_sticky\_button\_focus\_inactive\_press = nil
+
+-- tooltip\
+-- theme.tooltip\_border\_color = nil
+-- theme.tooltip\_bg = nil
+-- theme.tooltip\_fg = nil
+-- theme.tooltip\_font = nil
+-- theme.tooltip\_border\_width = nil
+-- theme.tooltip\_opacity = nil
+-- theme.tooltip\_shape = nil
+-- theme.tooltip\_align = nil
+
+-- useless\
+-- theme.useless\_gap = nil
+
+-- wibar\
+-- theme.wibar\_stretch = nil
+-- theme.wibar\_border\_width = nil
+-- theme.wibar\_border\_color = nil
+-- theme.wibar\_ontop = nil
+-- theme.wibar\_cursor = nil
+-- theme.wibar\_opacity = nil
+-- theme.wibar\_type = nil
+-- theme.wibar\_width = nil
+-- theme.wibar\_height = nil
+-- theme.wibar\_bg = nil
+-- theme.wibar\_bgimage = nil
+-- theme.wibar\_fg = nil
+-- theme.wibar\_shape = nil
+
+-- }}}
+
+return T
+
+-- vim: et:sw=4:fdm=marker:textwidth=80

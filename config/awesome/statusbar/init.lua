@@ -24,7 +24,6 @@ return function(s)
 
     -- System tray
     local mysystray = wibox.widget.systray(true)
-    mysystray.opacity = 0
     --mysystray:set_screen(s)
 
     -- Calendar
