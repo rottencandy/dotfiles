@@ -212,7 +212,8 @@ g() {
     local D=_; local CFG="$HOME/.cdirs"
 
     case $1 in
-        "") [ -f "$CFG" ] && nl "$CFG" || echo "$HLP" ;;
+        #"") [ -f "$CFG" ] && nl "$CFG" || echo "$HLP" ;;
+        "") [ -f "$CFG" ] && D=$(cat "$CFG" | fzf) || D=_ ;;
         .) pwd >> "$CFG" ;;
         -e) ${EDITOR:-vi} "$CFG" ;;
         -*) echo "$HLP" ;;

@@ -228,7 +228,7 @@ set statusline+=%3p%%\            " percentage
 
 "netrw {{{
 
-nnoremap - :Fern .<CR>
+nnoremap - :Fern . -reveal=%<CR>
 "let g:netrw_banner = 0          " Top banner
 "let g:netrw_liststyle = 3       " Directory list view
 "let g:netrw_browse_split = 0    " File open behaviour
