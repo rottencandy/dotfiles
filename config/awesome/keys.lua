@@ -5,7 +5,7 @@ local hotkeys_popup = require('awful.hotkeys_popup')
 
 local menubar = require('menubar')
 -- Menubar configuration
-menubar.utils.terminal = terminal -- Set the terminal for applications that require it
+menubar.utils.terminal = TERMINAL -- Set the terminal for applications that require it
 
 local superkey = 'Mod4'
 local alt = 'Mod1'
@@ -113,25 +113,20 @@ keys.globalkeys = gears.table.join(
     awful.key({ superkey, alt }, 'j', function () awful.tag.incncol(-1, nil, true) end,
         { description = 'decrease the number of columns', group = 'layout' }),
 
-    awful.key({ superkey, ctrl }, 'n',
-        function ()
-            local c = awful.client.restore()
-            -- Focus restored client
-            if c then
-                c:emit_signal('request::activate', 'key.unminimize', {raise = true})
-            end
-        end,
-        {description = 'restore minimized', group = 'client'}),
+    awful.key({ superkey }, 'n', function()
+        awful.spawn.with_shell('cd ~/nb && ' .. TERMINAL .. ' -e nvim _temp.md')
+    end,
+        { description = 'useless shortcut', group = 'layout' }),
 
     -- }}}
 
     -- {{{ Programs
 
     -- Terminal
-    awful.key({ superkey, }, enter, function() awful.spawn(terminal) end,
+    awful.key({ superkey, }, enter, function() awful.spawn(TERMINAL) end,
         { description = 'spawn terminal', group = 'launcher' }),
     -- Alt terminal
-    awful.key({ superkey, shift }, enter, function() awful.spawn(terminal_alt) end,
+    awful.key({ superkey, shift }, enter, function() awful.spawn(TERMINAL_ALT) end,
         { description = 'spawn alt terminal', group = 'launcher' }),
 
     -- Screenshot
@@ -252,6 +247,16 @@ keys.clientkeys = gears.table.join(
     --        c.minimized = true
     --    end,
     --    {description = 'minimize', group = 'client'}),
+
+    --awful.key({ superkey, ctrl }, 'n',
+    --    function ()
+    --        local c = awful.client.restore()
+    --        -- Focus restored client
+    --        if c then
+    --            c:emit_signal('request::activate', 'key.unminimize', {raise = true})
+    --        end
+    --    end,
+    --    {description = 'restore minimized', group = 'client'}),
     awful.key({ superkey, }, 'm',
         function (c)
             c.maximized = not c.maximized

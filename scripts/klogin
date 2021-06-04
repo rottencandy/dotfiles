@@ -17,5 +17,3 @@ if [[ -z $2 ]]; then
 else
 	oc login -u kubeadmin -p $2 --insecure-skip-tls-verify=true $URL
 fi
-
-#source <(oc completion bash)

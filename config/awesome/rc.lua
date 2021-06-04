@@ -73,10 +73,10 @@ awful.layout.layouts = {
 
 -- {{{ Global variable definitions
 
-_G.terminal = 'st'
-_G.terminal_alt = 'alacritty'
-_G.editor = os.getenv('EDITOR') or 'vim'
-_G.editor_cmd = terminal .. ' -e ' .. editor
+_G.TERMINAL = 'st'
+_G.TERMINAL_ALT = 'alacritty'
+_G.EDITOR = os.getenv('EDITOR') or 'vim'
+_G.EDITOR_CMD = TERMINAL .. ' -e ' .. EDITOR
 
 -- }}}
 
@@ -168,7 +168,9 @@ awful.rules.rules = {
                 'xtightvncviewer',
                 'Lxappearance',
                 'Pavucontrol',
-                'mpv'
+                'feh',
+                'mpv',
+                'Dwarf_Fortress',
             },
             name = {
                 'Event Tester',  -- xev

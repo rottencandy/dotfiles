@@ -1,4 +1,7 @@
 #!/bin/sh
+HLP="
+Usage: open [file]
+"
 case "${1%%:*}" in
 	http|https)
 		exec firefox "$1"
@@ -8,6 +11,9 @@ case "${1%%:*}" in
 		;;
 	*.png|*.jpg|*.jpeg|*.svg)
 		exec feh "$1"
+		;;
+	-*)
+		echo $HLP
 		;;
 	*)
 		exec /usr/bin/xdg-open "$@"
