@@ -330,7 +330,7 @@ nnoremap <silent> <C-L> :nohl<CR>:mat<CR><C-L>
 
 " Quickly edit and reload vimrc
 nnoremap <leader>ev :edit $MYVIMRC<CR>
-nnoremap <leader>sv :source $MYVIMRC<CR>
+"nnoremap <leader>sv :source $MYVIMRC<CR>
 
 " Highlight trailing whitespace
 nnoremap <leader>w :match Error /\v\s+$/<CR>
@@ -391,7 +391,7 @@ let g:fzf_action = {
 "nnoremap <silent> <leader>f :FZF<CR>
 nnoremap <silent> <Leader>f :call fzf#run(fzf#wrap({
       \   'source':  'fd --type f',
-      \   'options': '--preview ''bat --style=plain {}''',
+      \   'options': '--preview "bat --style=plain --color=always {}"',
       \ }))<CR>
 
 " Select from open buffers using fzf
@@ -429,12 +429,13 @@ endfun
 nnoremap <silent> <Leader>b :call fzf#run(fzf#wrap({
       \   'source':  reverse(<sid>buflist()),
       \   'sink*':   function('<sid>bufopen'),
-      \   'options': '--expect=ctrl-t,ctrl-v,ctrl-s',
+      \   'options': '--expect=ctrl-t,ctrl-v,ctrl-s --delimiter \" --preview "bat --style=plain --color=always {2}"',
       \ }))<CR>
 
 nnoremap <silent> <Leader>B :call fzf#run(fzf#wrap({
       \   'source':  reverse(<sid>buflist()),
       \   'sink*': function('<sid>bufclose'),
+      \   'options': '--delimiter \" --preview "bat --style=plain --color=always {2}"'
       \ }))<CR>
 
 " Fuzzy directory selection
@@ -449,6 +450,21 @@ endfun
 nnoremap <silent> <Leader>F :call fzf#run(fzf#wrap({
       \   'source': 'fd --type d',
       \   'sink':   function('<sid>navigate'),
+      \ }))<CR>
+
+" Fuzzy text search
+fun! s:openFileAtLocation(result)
+  if len(a:result) == 0
+    return
+  endif
+  let filePos = split(a:result, ':')
+  exec 'edit +' . l:filePos[1] . ' ' . l:filePos[0]
+endfun
+
+nnoremap <silent> <Leader>s :call fzf#run(fzf#wrap({
+      \ 'source': 'rg --line-number ''.*''',
+      \ 'options': '--delimiter : --preview "bat --style=plain --color=always {1} -H {2}" --preview-window "+{2}/2"',
+      \ 'sink': function('<sid>openFileAtLocation'),
       \ }))<CR>
 
 " }}}

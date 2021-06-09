@@ -317,7 +317,7 @@ alias \
     nb='cd ~/nb && nvim -c "exec \"normal 1 f\""' \
     nc="ncmpcpp" \
     nv='nvim' \
-    scrt='maim -g $(slop -q) scrt-screenshot-$(date +%s).png' \
+    scrt='maim -g $(slop -q) scrt-screenshot-$(date +%s).png 2> /dev/null' \
     t='tmux' \
     tree='lsd --tree' \
     ungr='gron --ungron' \

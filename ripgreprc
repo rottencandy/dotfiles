@@ -1,4 +1,4 @@
 --smart-case
---hidden
+#--hidden
 --glob
 !.git
