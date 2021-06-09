@@ -163,8 +163,8 @@ awful.rules.rules = {
                 'Blueman-manager',
                 'Gpick',
                 'GNU Image Manipulation Program',
-                'Gimp-2.10',
-                'Tor Browser', -- Needs a fixed window size to avoid fingerprinting by screen size.
+                'Gimp',
+                'Tor Browser',
                 'xtightvncviewer',
                 'Lxappearance',
                 'Pavucontrol',
