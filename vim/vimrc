@@ -369,13 +369,13 @@ endfun
 nnoremap <silent> <Leader>b :call fzf#run(fzf#wrap({
       \   'source':  reverse(<sid>buflist()),
       \   'sink*':   function('<sid>bufopen'),
-      \   'options': '--expect=ctrl-t,ctrl-v,ctrl-s --delimiter \" --preview --color=always "bat --style=plain {2}"',
+      \   'options': '--expect=ctrl-t,ctrl-v,ctrl-s --delimiter \" --preview "bat --color=always --style=plain {2}"',
       \ }))<CR>
 
 nnoremap <silent> <Leader>B :call fzf#run(fzf#wrap({
       \   'source':  reverse(<sid>buflist()),
       \   'sink*': function('<sid>bufclose'),
-      \   'options': '--delimiter \" --preview --color=always "bat --style=plain {2}"'
+      \   'options': '--delimiter \" --preview "bat --color=always --style=plain {2}"'
       \ }))<CR>
 
 " Fuzzy directory selection
