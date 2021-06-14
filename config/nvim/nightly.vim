@@ -37,6 +37,8 @@ Plug 'nvim-telescope/telescope.nvim'
 Plug 'nvim-lua/completion-nvim'
 " vimkubectl
 set rtp+=~/code/vim/vimkubectl
+" fzf
+set rtp+=~/apps/fzf
 
 " Initialize plugin system
 call plug#end()
@@ -380,18 +382,19 @@ let g:vim_markdown_conceal_code_blocks = 1
 let g:vimkubectl_command = 'oc'
 
 " FZF configuration
-set rtp+=~/apps/fzf
 let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.7 } }
 let g:fzf_action = {
       \ 'ctrl-t': 'tab split',
       \ 'ctrl-x': 'split',
       \ 'ctrl-v': 'vsplit' }
 
+let FZF_BAT_CMD = 'bat --style=plain --color=always'
+
 " Open files under current dir using fzf
 "nnoremap <silent> <leader>f :FZF<CR>
 nnoremap <silent> <Leader>f :call fzf#run(fzf#wrap({
       \   'source':  'fd --type f',
-      \   'options': '--preview "bat --style=plain --color=always {}"',
+      \   'options': '--preview "' . FZF_BAT_CMD . ' {}"',
       \ }))<CR>
 
 " Select from open buffers using fzf
@@ -429,13 +432,13 @@ endfun
 nnoremap <silent> <Leader>b :call fzf#run(fzf#wrap({
       \   'source':  reverse(<sid>buflist()),
       \   'sink*':   function('<sid>bufopen'),
-      \   'options': '--expect=ctrl-t,ctrl-v,ctrl-s --delimiter \" --preview "bat --style=plain --color=always {2}"',
+      \   'options': '--expect=ctrl-t,ctrl-v,ctrl-s --delimiter \" --preview "' . FZF_BAT_CMD . ' {2}"',
       \ }))<CR>
 
 nnoremap <silent> <Leader>B :call fzf#run(fzf#wrap({
       \   'source':  reverse(<sid>buflist()),
       \   'sink*': function('<sid>bufclose'),
-      \   'options': '--delimiter \" --preview "bat --style=plain --color=always {2}"'
+      \   'options': '--delimiter \" --preview "' . FZF_BAT_CMD . ' {2}"'
       \ }))<CR>
 
 " Fuzzy directory selection
@@ -452,7 +455,7 @@ nnoremap <silent> <Leader>F :call fzf#run(fzf#wrap({
       \   'sink':   function('<sid>navigate'),
       \ }))<CR>
 
-" Fuzzy text search
+" Interactive fuzzy text search
 fun! s:openFileAtLocation(result)
   if len(a:result) == 0
     return
@@ -463,7 +466,12 @@ endfun
 
 nnoremap <silent> <Leader>s :call fzf#run(fzf#wrap({
       \ 'source': 'rg --line-number ''.*''',
-      \ 'options': '--delimiter : --preview "bat --style=plain --color=always {1} -H {2}" --preview-window "+{2}/2"',
+      \ 'options': '--delimiter : --preview "' . FZF_BAT_CMD . ' {1} -H {2}" --preview-window "+{2}/2"',
+      \ 'sink': function('<sid>openFileAtLocation'),
+      \ }))<CR>
+
+nnoremap <silent> <Leader>S :call fzf#run(fzf#wrap({
+      \ 'options': '--disabled --ansi --bind "ctrl-r:reload:rg -i --line-number {q} \|\| true" --delimiter : --preview "' . FZF_BAT_CMD . ' {1} -H {2}" --preview-window "+{2}/2"',
       \ 'sink': function('<sid>openFileAtLocation'),
       \ }))<CR>
 
@@ -558,7 +566,7 @@ nnoremap <leader>q <cmd>Telescope quickfix<cr>
 "nnoremap <leader>L <cmd>Telescope loclist<cr>
 nnoremap gr <cmd>Telescope lsp_references<cr>
 nnoremap <leader>t <cmd>Telescope treesitter<cr>
-nnoremap <leader>S <cmd>Telescope live_grep<cr>
+"nnoremap <leader>S <cmd>Telescope live_grep<cr>
 "nnoremap <leader>h <cmd>Telescope help_tags<cr>
 
 " }}}
