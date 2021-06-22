@@ -227,27 +227,36 @@ g() {
 }
 
 installcmd() {
-    local HLP="Interactively download and install program from provided URL."
-    local tmpdir=~/temp_installcmd_dir
+    local HLP="Interactively download, extract and install a binary from provided URL."
+    local TMPDIR=~/temp_installcmd_dir
+    mkdir -p $TMPDIR && cd $TMPDIR
     case $1 in
         "") echo $HLP ;;
         *.tar.gz)
             local ARC=archive.tar.gz
-            mkdir -p $tmpdir && cd $tmpdir
-            #wget -L $1 -O $ARC || return 1
             xh -d $1 -o $ARC || return 1
             tar -xf $ARC
-            echo "Select cmd:"
-            local CMD=$(fzf)
-            if [ -z $CMD ]; then return; fi
-            echo "Installing..."
-            chmod +x $CMD
-            cp $CMD ~/bin
-            cd .. && rm -r $tmpdir
-            echo "Successfully installed and cleaned up"
             ;;
-        *) echo "Unrecognized archive format"
+        *.zip)
+            local ARC=archive.zip
+            xh -d $1 -o $ARC || return 1
+            unzip $ARC
+            ;;
+        *) xh -d $1
     esac
+    if [ -z $(ls -A $TMPDIR) ]; then
+        # dir is empty, download didn't happen
+        cd .. && rm -r $TMPDIR
+        return;
+    fi
+    echo "Select binary:"
+    local BINARY=$(fzf)
+    if [ -z $BINARY ]; then return; fi
+    echo "Installing..."
+    chmod +x $BINARY
+    cp $BINARY ~/bin
+    cd .. && rm -r $TMPDIR
+    echo "Successfully installed and cleaned up"
 }
 
 # }}}
