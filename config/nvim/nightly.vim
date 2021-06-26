@@ -1,3 +1,5 @@
+set encoding=utf8
+scriptencoding utf-8
 set runtimepath^=~/.config/nvim/nightly runtimepath+=.config/nvim/nightly/after
 let &packpath = &runtimepath
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -167,7 +169,6 @@ set backspace=indent,eol,start
 set autoindent
 set wrap
 
-set encoding=utf8       " UTF-8 as default encoding
 set ffs=unix,dos,mac    " Standard file type as Unix
 set autoread            " automatically read when file is changed from outside
 set wildmenu            " Completion dropdown-thing
@@ -309,8 +310,8 @@ nnoremap - :Fern . -reveal=%<CR>
 " Start all searches in very magic mode
 nnoremap / /\v
 
-let mapleader = " "             " Leader key
-let maplocalleader = ";"        " Local leader key
+let mapleader = ' '             " Leader key
+let maplocalleader = ';'        " Local leader key
 
 " Search for selected content
 fun! s:VSetSearch()

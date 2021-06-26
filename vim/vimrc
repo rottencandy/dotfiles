@@ -1,3 +1,5 @@
+set encoding=utf8
+scriptencoding utf-8
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " ⡀⢀ ⠄ ⣀⣀  ⡀⣀ ⢀⣀
 " ⠱⠃ ⠇ ⠇⠇⠇ ⠏  ⠣⠤
@@ -98,7 +100,6 @@ set backspace=indent,eol,start
 set autoindent
 set wrap
 
-set encoding=utf8       " UTF-8 as default encoding
 set ffs=unix,dos,mac    " Standard file type as Unix
 set autoread            " automatically read when file is changed from outside
 set wildmenu            " Completion dropdown-thing
@@ -244,8 +245,8 @@ nnoremap - :Fern . -reveal=%<CR>
 " Start all searches in very magic mode
 nnoremap / /\v
 
-let mapleader = " "             " Leader key
-let maplocalleader = ";"        " Local leader key
+let mapleader = ' '             " Leader key
+let maplocalleader = ';'        " Local leader key
 
 " Search for selected content
 fun! s:VSetSearch()
@@ -418,63 +419,81 @@ nnoremap <silent> <Leader>S :call fzf#run(fzf#wrap({
 
 "LSP {{{
 
-set rtp+=~/code/vim/LanguageClient-neovim
+if executable('typescript-language-server')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'typescript-language-server',
+        \ 'cmd': { server_info->['typescript-language-server', '--stdio'] },
+        \ 'root_uri': { server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), '.git/..')) },
+        \ 'allowlist': ['javascript', 'javascriptreact', 'typescript', 'typescriptreact'],
+        \ })
+endif
 
-let g:LanguageClient_devel = 1 " Use rust debug build
-let g:LanguageClient_loggingLevel = 'INFO' " Optional, use higher logging level
-"let g:LanguageClient_loggingFile = expand('~/.vim/lspclient.log')
+if executable('rust-analyzer')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'rust-analyzer',
+        \ 'cmd': { server_info->['rust-analyzer'] },
+        \ 'allowlist': ['rust'],
+        \ })
+  autocmd! BufWritePre *.rs call LspDocumentFormatSync
+endif
 
-let g:LanguageClient_serverCommands = {
-      \ 'css': ['css-languageserver', '--stdio'],
-      \ 'scss': ['css-languageserver', '--stdio'],
-      \ 'html': ['html-languageserver', '--stdio'],
-      \ 'typescript': ['typescript-language-server', '--stdio'],
-      \ 'typescriptreact': ['typescript-language-server', '--stdio'],
-      \ 'javascript': ['typescript-language-server', '--stdio'],
-      \ 'javascriptreact': ['typescript-language-server', '--stdio'],
-      \ 'rust': ['rust-analyzer'],
-      \ 'yaml': ['yaml-language-server', '--stdio'],
-      \ 'elm': ['elm-language-server'],
-      \ 'go': ['gopls'],
-      \ }
+if executable('gopls')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'gopls',
+        \ 'cmd': { server_info->['gopls'] },
+        \ 'allowlist': ['go'],
+        \ })
+  autocmd! BufWritePre *.go call LspDocumentFormatSync
+endif
 
-"      \ 'javascript': ['yarn.lock'],
-"      \ 'javascriptreact': ['yarn.lock'],
-"      \ 'typescript': ['yarn.lock'],
-"      \ 'typescriptreact': ['yarn.lock'],
-let g:LanguageClient_rootMarkers = {
-      \ 'elm': ['elm.json'],
-      \ }
+if executable('html-languageserver')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'html-languageserver',
+        \ 'cmd': { server_info->['html-languageserver', '--stdio'] },
+        \ 'allowlist': ['html'],
+        \ })
+endif
 
-let g:LanguageClient_hoverPreview = 'Always'
+if executable('css-languageserver')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'css-languageserver',
+        \ 'cmd': { server_info->['css-languageserver', '--stdio'] },
+        \ 'allowlist': ['css', 'scss', 'sass'],
+        \ })
+endif
 
-fun SetLSPShortcuts()
-  if has_key(g:LanguageClient_serverCommands, &filetype)
-    set formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
-    set completefunc=LanguageClient#complete
+if executable('yaml-language-server')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'yaml-language-server',
+        \ 'cmd': { server_info->['yaml-language-server', '--stdio'] },
+        \ 'allowlist': ['yaml'],
+        \ 'workspace-config': {},
+        \ })
+endif
 
-    nmap <buffer> <silent> K <Plug>(lcn-hover)
-    nmap <buffer> <silent> gd <Plug>(lcn-definition)
-    nmap <buffer> <silent> gt <Plug>(lcn-type-definition)
-    nmap <buffer> <silent> gr <Plug>(lcn-references)
+fun! s:on_lsp_buf_enabled() abort
+  setlocal omnifunc=lsp#complete
+  setlocal signcolumn=yes
+  if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+  nmap <buffer> gd <plug>(lsp-definition)
+  nmap <buffer> gs <plug>(lsp-document-symbol-search)
+  nmap <buffer> gS <plug>(lsp-workspace-symbol-search)
+  nmap <buffer> gr <plug>(lsp-references)
+  nmap <buffer> gi <plug>(lsp-implementation)
+  nmap <buffer> gt <plug>(lsp-type-definition)
+  nmap <buffer> <leader>r <plug>(lsp-rename)
+  nmap <buffer> [g <plug>(lsp-previous-diagnostic)
+  nmap <buffer> ]g <plug>(lsp-next-diagnostic)
+  nmap <buffer> K <plug>(lsp-hover)
+  inoremap <buffer> <expr><c-f> lsp#scroll(+4)
+  inoremap <buffer> <expr><c-d> lsp#scroll(-4)
 
-    nmap <buffer> <silent> <leader>A <Plug>(lcn-code-lens-action)
-    nmap <buffer> <silent> <leader>a <Plug>(lcn-code-action)
-    vmap <buffer> <silent> <leader>a <Plug>(lcn-code-action)
-
-    nmap <buffer> <silent> <leader>r <Plug>(lcn-rename)
-    nmap <buffer> <silent> <leader>e <Plug>(lcn-explain-error)
-    nmap <buffer> <silent> <leader>s <Plug>(lcn-symbols)
-    nmap <buffer> <silent> <leader>= <Plug>(lcn-format)
-
-    nmap <buffer> <silent> <leader>n <Plug>(lcn-diagnostics-next)
-    nmap <buffer> <silent> <leader>N <Plug>(lcn-diagnostics-prev)
-  endif
+  let g:lsp_format_sync_timeout = 1000
 endfun
 
-augroup LSP
-  autocmd!
-  autocmd FileType * call SetLSPShortcuts()
+augroup lsp_install
+  au!
+  autocmd User lsp_buffer_enabled call s:on_lsp_buf_enabled()
 augroup END
 
 " }}}

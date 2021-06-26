@@ -52,3 +52,6 @@
 [submodule "vim/pack/general/start/vim-moonfly-colors"]
 	path = vim/pack/general/start/vim-moonfly-colors
 	url = https://github.com/bluz71/vim-moonfly-colors
+[submodule "vim/pack/general/start/vim-lsp"]
+	path = vim/pack/general/start/vim-lsp
+	url = https://github.com/prabirshrestha/vim-lsp
