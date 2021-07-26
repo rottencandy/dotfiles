@@ -387,7 +387,7 @@ export NNN_CONTEXT_COLORS='2674'
 
 # FZF
 export FZF_DEFAULT_COMMAND='fd --type f'
-export FZF_DEFAULT_OPTS='--multi --cycle --height 16 --color=dark --layout=reverse --prompt=" "'
+export FZF_DEFAULT_OPTS='--multi --cycle --height 16 --color=dark --layout=reverse --prompt=" " --bind "ctrl-k:toggle-preview"'
 
 # Android SDK
 #export ANDROID_HOME=/usr/lib/android-sdk
