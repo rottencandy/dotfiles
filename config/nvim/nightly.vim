@@ -14,7 +14,7 @@ let &packpath = &runtimepath
 call plug#begin('~/.config/nvim/nightly/plugged')
 
 " Treeshitter
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', { 'branch': '0.5-compat', 'do': ':TSUpdate' }
 " Colorschemes
 Plug 'bluz71/vim-moonfly-colors'
 " File explorer

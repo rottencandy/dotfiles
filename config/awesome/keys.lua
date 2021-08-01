@@ -145,7 +145,7 @@ keys.globalkeys = gears.table.join(
     -- Lock screen
     awful.key({ superkey }, 'p',
         function()
-            awful.spawn.with_shell(os.getenv('HOME') .. '/.config/sxhkd/lock.sh')
+            awful.spawn.with_shell(os.getenv('HOME') .. '/.scripts/lockscreen')
         end,
         { description = 'Lock screen', group = 'awesome' }),
 
@@ -166,29 +166,29 @@ keys.globalkeys = gears.table.join(
 
     -- Volume
     awful.key({}, "XF86AudioLowerVolume", function ()
-        awful.spawn("amixer -q -D pulse sset Master 5%-", false)
+        awful.spawn("amixer -q set Master 5%-", false)
     end,
         { description = 'Lower volume', group = 'volume' }),
     awful.key({}, "XF86AudioRaiseVolume", function ()
-        awful.spawn("amixer -q -D pulse sset Master 5%+", false)
+        awful.spawn("amixer -q set Master 5%+", false)
     end,
         { description = 'Raise volume', group = 'volume' }),
     awful.key({}, "XF86AudioMute", function ()
-        awful.spawn("amixer -D pulse set Master 1+ toggle", false)
+        awful.spawn("amixer -q set Master 1+ toggle", false)
     end,
         { description = 'toggle volume', group = 'volume' }),
 
     -- For non-media keyboards
     awful.key({ superkey }, "F1", function ()
-        awful.spawn("amixer -q -D pulse sset Master 5%+", false)
+        awful.spawn("amixer -q set Master 5%+", false)
     end,
         { description = 'Raise volume', group = 'volume' }),
     awful.key({ superkey }, "F2", function ()
-        awful.spawn("amixer -q -D pulse sset Master 5%-", false)
+        awful.spawn("amixer -q set Master 5%-", false)
     end,
         { description = 'Lower volume', group = 'volume' }),
     awful.key({ superkey }, "F3", function ()
-        awful.spawn("amixer -D pulse set Master 1+ toggle", false)
+        awful.spawn("amixer -q set Master 1+ toggle", false)
     end,
         { description = 'toggle volume', group = 'volume' }),
 
