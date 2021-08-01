@@ -20,3 +20,7 @@ i3lock \
 	--tiling \
 	--pointer=default \
 	--image=$img
+
+# will be handled through xidlehook in startup script
+#sleep 2
+#xset dpms force off
