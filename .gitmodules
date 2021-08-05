@@ -55,3 +55,9 @@
 [submodule "vim/pack/general/start/vim-lsp"]
 	path = vim/pack/general/start/vim-lsp
 	url = https://github.com/prabirshrestha/vim-lsp
+[submodule "vim/pack/general/start/oceanic-next"]
+	path = vim/pack/general/start/oceanic-next
+	url = https://github.com/mhartington/oceanic-next
+[submodule "vim/pack/general/start/everforest"]
+	path = vim/pack/general/start/everforest
+	url = https://github.com/sainnhe/everforest

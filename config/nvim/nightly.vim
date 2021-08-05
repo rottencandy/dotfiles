@@ -17,6 +17,8 @@ call plug#begin('~/.config/nvim/nightly/plugged')
 Plug 'nvim-treesitter/nvim-treesitter', { 'branch': '0.5-compat', 'do': ':TSUpdate' }
 " Colorschemes
 Plug 'bluz71/vim-moonfly-colors'
+Plug 'mhartington/oceanic-next'
+Plug 'sainnhe/everforest'
 " File explorer
 Plug 'lambdalisue/fern.vim'
 " Closing brackets/quotes/... insertion
@@ -48,6 +50,11 @@ call plug#end()
 " }}}
 
 "Appearance {{{
+
+" Enable 24-bit RGB color
+if (has('termguicolors'))
+  set termguicolors
+endif
 
 " Set and configure the color scheme
 syntax enable           " enable syntax highlighting

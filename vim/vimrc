@@ -6,6 +6,15 @@ scriptencoding utf-8
 "
 "Appearance {{{
 
+" Enable 24-bit RGB color
+if (has('termguicolors'))
+  set termguicolors
+endif
+" Some terminals also need this for truecolor support
+" https://stackoverflow.com/a/62703167/7683374
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+
 " Set and configure the color scheme
 colorscheme moonfly
 " Highlight embedded lua in .vim
