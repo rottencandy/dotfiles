@@ -58,6 +58,3 @@
 [submodule "vim/pack/general/start/oceanic-next"]
 	path = vim/pack/general/start/oceanic-next
 	url = https://github.com/mhartington/oceanic-next
-[submodule "vim/pack/general/start/everforest"]
-	path = vim/pack/general/start/everforest
-	url = https://github.com/sainnhe/everforest

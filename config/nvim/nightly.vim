@@ -18,7 +18,6 @@ Plug 'nvim-treesitter/nvim-treesitter', { 'branch': '0.5-compat', 'do': ':TSUpda
 " Colorschemes
 Plug 'bluz71/vim-moonfly-colors'
 Plug 'mhartington/oceanic-next'
-Plug 'sainnhe/everforest'
 " File explorer
 Plug 'lambdalisue/fern.vim'
 " Closing brackets/quotes/... insertion
