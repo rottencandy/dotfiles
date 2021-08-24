@@ -123,10 +123,11 @@ keys.globalkeys = gears.table.join(
     -- {{{ Programs
 
     -- Terminal
-    awful.key({ superkey, }, enter, function() awful.spawn(TERMINAL) end,
+    -- Spawning with variable due to alacritty quirk: https://github.com/alacritty/alacritty/issues/3792,1339
+    awful.key({ superkey, }, enter, function() awful.spawn.with_shell('WINIT_X11_SCALE_FACTOR=1 alacritty') end,
         { description = 'spawn terminal', group = 'launcher' }),
     -- Alt terminal
-    awful.key({ superkey, shift }, enter, function() awful.spawn(TERMINAL_ALT) end,
+    awful.key({ superkey, shift }, enter, function() awful.spawn(TERMINAL) end,
         { description = 'spawn alt terminal', group = 'launcher' }),
 
     -- Screenshot

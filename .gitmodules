@@ -58,3 +58,6 @@
 [submodule "vim/pack/general/start/oceanic-next"]
 	path = vim/pack/general/start/oceanic-next
 	url = https://github.com/mhartington/oceanic-next
+[submodule "vim/pack/general/start/vim-glsl"]
+	path = vim/pack/general/start/vim-glsl
+	url = https://github.com/tikhomirov/vim-glsl

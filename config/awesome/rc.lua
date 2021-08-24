@@ -74,7 +74,6 @@ awful.layout.layouts = {
 -- {{{ Global variable definitions
 
 _G.TERMINAL = 'st'
-_G.TERMINAL_ALT = 'alacritty'
 _G.EDITOR = os.getenv('EDITOR') or 'vim'
 _G.EDITOR_CMD = TERMINAL .. ' -e ' .. EDITOR
 
@@ -95,11 +94,12 @@ local function set_wallpaper(s)
 end
 
 -- Reload config when geometry changes (e.g. different resolution)
-screen.connect_signal('property::geometry', awesome.restart)
-screen.connect_signal('list', awesome.restart)
+--screen.connect_signal('property::geometry', awesome.restart)
+--screen.connect_signal('list', awesome.restart)
 
 awful.screen.connect_for_each_screen(function(s)
-    set_wallpaper(s)
+    -- Set using feh in startup script
+    --set_wallpaper(s)
 
     local names = theme.taglist_names or { '一', '二', '三', '四', '五', '六', '七', '八', '九' }
     local layouts = {

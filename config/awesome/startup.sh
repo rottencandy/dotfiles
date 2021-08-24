@@ -20,9 +20,11 @@ runonce fcitx -d
 
 runonce kdeconnect-indicator
 
-# Run inside function because runonce has problems with multiline commands
-idlehookrunner() {
-	xidlehook \
+feh --bg-scale ~/Pictures/wall.jpg
+
+# Run separately because runonce has problems with multiline commands
+if ! pgrep xidlehook > /dev/null ; then
+	~/.cargo/bin/xidlehook \
 		--not-when-fullscreen \
 		--not-when-audio \
 		--detect-sleep \
@@ -35,9 +37,7 @@ idlehookrunner() {
 		'' \
 		--timer 3600 \
 		'systemctl suspend' \
-		''
-	}
-
-runonce idlehookrunner
+		'' &
+fi
 
 #runonce picom --ex

@@ -230,19 +230,19 @@ installcmd() {
     local HLP="Interactively download, extract and install a binary from provided URL."
     local TMPDIR=~/temp_installcmd_dir
     mkdir -p $TMPDIR && cd $TMPDIR
-    case $1 in
+    case "$1" in
         "") echo $HLP ;;
         *.tar.gz)
             local ARC=archive.tar.gz
-            xh -d $1 -o $ARC || return 1
+            xh -d "$1" -o $ARC || return 1
             tar -xf $ARC
             ;;
         *.zip)
             local ARC=archive.zip
-            xh -d $1 -o $ARC || return 1
+            xh -d "$1" -o $ARC || return 1
             unzip $ARC
             ;;
-        *) xh -d $1
+        *) xh -d "$1"
     esac
     if [ -z $(ls -A $TMPDIR) ]; then
         # dir is empty, download didn't happen

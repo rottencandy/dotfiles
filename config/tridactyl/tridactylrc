@@ -30,6 +30,9 @@ bindurl reddit.com gu urlparent 4
 " Git{Hub,Lab} git clone via SSH yank
 bind yg composite js "git clone " + document.location.href.replace(/https?:\/\//,"git@").replace("/",":").replace(/$/,".git") | clipboard yank
 
+" Video id yank
+bind yt composite js document.location.href.split('=')[1] | clipboard yank
+
 " Suspend / discard all tabs (except currently active ones)
 command discardall jsb browser.tabs.query({}).then(ts => browser.tabs.discard(ts.map(t=>t.id)))
 

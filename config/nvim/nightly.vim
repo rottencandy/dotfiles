@@ -26,6 +26,8 @@ Plug 'Raimondi/delimitMate'
 Plug 'tpope/vim-fugitive'
 " Markdown support
 Plug 'plasticboy/vim-markdown'
+" GLSL support
+Plug 'tikhomirov/vim-glsl'
 " Editorconfig
 Plug 'editorconfig/editorconfig-vim'
 " Prettier
@@ -231,6 +233,10 @@ augroup filetype_settings
   " set filetypes as typescriptreact, for vim-jsx-typescript
   autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 
+  " GLSL
+  autocmd BufNewFile,BufRead *.glslx
+        \ set ft=glsl
+
   " JS/TS stuff
   autocmd FileType javascript,typescript,javascriptreact,typescriptreact,javascript.jsx,typescript.tsx
         \ exec 'command! -buffer Fmt PrettierAsync' |
@@ -363,14 +369,14 @@ command W w !sudo tee % > /dev/null
 " cd to directory of current file
 command Fcd silent! lcd %:p:h
 
-" :Rename current buffer
-fun! s:rename_file(new_file_path)
+" :Move rename/move current buffer
+fun! s:move_file(new_file_path)
   execute 'saveas ' . a:new_file_path
   call delete(expand('#:p'))
   bd #
 endfun
 
-command! -nargs=1 -complete=file Rename call <SID>rename_file(<f-args>)
+command! -nargs=1 -complete=file Move call <SID>move_file(<f-args>)
 
 " }}}
 
@@ -494,11 +500,24 @@ local on_attach = function(client, bufnr)
 
   buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
+  -- peek definition
+  local function preview_location_callback(_, _, result)
+    if result == nil or vim.tbl_isempty(result) then
+      return nil
+    end
+    vim.lsp.util.preview_location(result[1])
+  end
+  function PeekDefinition()
+    local params = vim.lsp.util.make_position_params()
+    return vim.lsp.buf_request(0, 'textDocument/definition', params, preview_location_callback)
+  end
+
   -- Mappings.
   local opts = { noremap=true, silent=true }
-  buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', '<leader>K', '<cmd>lua PeekDefinition()<CR>', opts)
   buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
   --buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
   --buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
@@ -508,7 +527,7 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<leader>r', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', '<leader>a', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('v', '<leader>a', '<cmd>lua vim.lsp.buf.range_code_action()<CR>', opts)
-  --buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
   buf_set_keymap('n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
   buf_set_keymap('n', '<leader>n', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
   buf_set_keymap('n', '<leader>N', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
@@ -571,7 +590,7 @@ EOF
 nnoremap <leader>m <cmd>Telescope marks<cr>
 nnoremap <leader>q <cmd>Telescope quickfix<cr>
 "nnoremap <leader>L <cmd>Telescope loclist<cr>
-nnoremap gr <cmd>Telescope lsp_references<cr>
+"nnoremap gr <cmd>Telescope lsp_references<cr>
 nnoremap <leader>t <cmd>Telescope treesitter<cr>
 "nnoremap <leader>S <cmd>Telescope live_grep<cr>
 "nnoremap <leader>h <cmd>Telescope help_tags<cr>

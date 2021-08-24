@@ -169,6 +169,10 @@ augroup filetype_settings
   " set filetypes as typescriptreact, for vim-jsx-typescript
   autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 
+  " GLSL
+  autocmd BufNewFile,BufRead *.glslx
+        \ set ft=glsl
+
   " JS/TS stuff
   autocmd FileType javascript,typescript,javascriptreact,typescriptreact,javascript.jsx,typescript.tsx
         \ command! -buffer Fmt PrettierAsync
@@ -301,14 +305,14 @@ command W w !sudo tee % > /dev/null
 " cd to directory of current file
 command Fcd silent! lcd %:p:h
 
-" :Rename current buffer
-fun! s:rename_file(new_file_path)
+" :Move rename/move current buffer
+fun! s:move_file(new_file_path)
   execute 'saveas ' . a:new_file_path
   call delete(expand('#:p'))
   bd #
 endfun
 
-command! -nargs=1 -complete=file Rename call <SID>rename_file(<f-args>)
+command! -nargs=1 -complete=file Move call <SID>move_file(<f-args>)
 
 " }}}
 
@@ -495,6 +499,7 @@ fun! s:on_lsp_buf_enabled() abort
   nmap <buffer> <leader>N <plug>(lsp-next-diagnostic)
   nmap <buffer> <leader>a <plug>(lsp-code-action)
   nmap <buffer> K <plug>(lsp-hover)
+  nmap <buffer> <leader>K <plug>(lsp-peek-definition)
   inoremap <buffer> <expr><c-f> lsp#scroll(+4)
   inoremap <buffer> <expr><c-d> lsp#scroll(-4)
 
