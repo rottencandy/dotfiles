@@ -32,7 +32,20 @@
 	br = branch
 	last = log -1 HEAD
 	yoink = reset --hard
+
+	# All unmerged commits after fetch
+	lc = log ORIG_HEAD.. --stat --no-merges
+
+	# log in local time
+	llog = log --date=local
+
+	# Fetch PR from upstream
+	pr = "!f() { git fetch upstream pull/${1}/head:pr${1}; }; f"
+
+	# Pretty log
+	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 [filter "lfs"]
+
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
