@@ -1,4 +1,4 @@
-colorscheme shydactyl
+colorscheme shydactyl-dark
 
 set searchurls.runnaroo https://runnaroo.com/first-rule-of-fightclub?term=%s
 set searchurls.g https://google.com/search?hl=en&q=%s
