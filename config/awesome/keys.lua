@@ -26,7 +26,7 @@ keys.globalkeys = gears.table.join(
     awful.key({ superkey, shift }, 'Escape', awesome.quit,
         { description = 'quit awesome', group = 'awesome' }),
 
-    awful.key({ superkey, }, 'q', hotkeys_popup.show_help,
+    awful.key({ superkey, }, 'w', hotkeys_popup.show_help,
         { description = 'show help', group = 'awesome' }),
 
     -- }}}

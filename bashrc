@@ -331,6 +331,7 @@ alias \
     ungr='gron --ungron' \
     v='vimx' \
     yt='youtube-dl --add-metadata -i' \
+    ytb='youtube-dl --add-metadata -i -f bestvideo+bestaudio' \
     yta='yt --add-metadata -x -f bestaudio'
 
 # }}}
