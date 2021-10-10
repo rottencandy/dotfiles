@@ -187,6 +187,10 @@ augroup filetype_settings
         \ exec 'command! -buffer Fmt PrettierAsync' |
         \ exec 'inoreabbrev <buffer> clg console.log()<LEFT>'
 
+  " Web stuff
+  autocmd FileType json,yaml,css,scss
+        \ exec 'command! -buffer Fmt PrettierAsync'
+
   " Use phtml as ft for html files
   "autocmd BufRead,BufNewFile *.html set ft=phtml
 
@@ -237,7 +241,7 @@ set statusline+=%{&spell?'\ SPELL\ ':''}
 set statusline+=%R                " readonly flag
 set statusline+=%M                " modified [+] flag
 set statusline+=%#CursorLine#     " separator
-set statusline+=\ %f              " file name
+set statusline+=\ %{ShortFile()}  " file name
 set statusline+=%=                " right align
 
 set statusline+=\ %Y\ \          " file type
@@ -262,6 +266,29 @@ nnoremap - :Fern . -reveal=%<CR>
 
 " }}}
 
+" Utils {{{
+
+" Runs callback with visually selected text as string argument
+fun! s:withSelection(callback)
+  let temp = @@
+  norm! gvy
+  call a:callback(@@)
+  let @@ = temp
+endfun
+
+" Shortened file path
+fun! ShortFile()
+  return pathshorten(fnamemodify(expand('%:p'), ':~:.'))
+endfun
+
+" Shortened CWD path
+fun! ShortPath()
+  let short = pathshorten(fnamemodify(getcwd(), ':~:.'))
+  return empty(short) ? '~/' : short . (short =~ '/$' ? '' : '/')
+endfun
+
+" }}}
+
 "Key maps {{{
 
 " Start all searches in very magic mode
@@ -271,14 +298,11 @@ let mapleader = ' '             " Leader key
 let maplocalleader = ';'        " Local leader key
 
 " Search for selected content
-fun! s:VSetSearch()
-  let temp = @@
-  norm! gvy
-  let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
-  let @@ = temp
+fun! s:VSetSearch(text)
+  let @/ = '\V' . substitute(escape(a:text, '\'), '\n', '\\n', 'g')
 endfun
-vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR>
-vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR>
+vnoremap * :<C-u>call <SID>withSelection(function('<SID>VSetSearch'))<CR>//<CR>
+vnoremap # :<C-u>call <SID>withSelection(function('<SID>VSetSearch'))<CR>??<CR>
 
 " Yank to clipboard
 nnoremap <leader>y "+y
@@ -332,21 +356,17 @@ let g:vimkubectl_command = 'oc'
 
 " FZF configuration
 let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.7 } }
-let g:fzf_action = {
-      \ 'ctrl-t': 'tab split',
-      \ 'ctrl-x': 'split',
-      \ 'ctrl-v': 'vsplit' }
+let g:fzf_action = { 'ctrl-t': 'tab split', 'ctrl-x': 'split', 'ctrl-v': 'vsplit' }
 
-let FZF_BAT_CMD = 'bat --style=plain --color=always'
+let BAT_CMD = 'bat --style=plain --color=always'
+let BAT_CMD_SHORT = BAT_CMD . ' --line-range :500'
+let BASIC_PREVIEW = '--preview "' . BAT_CMD_SHORT . ' {}"'
+let BUFLINE_PREVIEW = '--delimiter \" --preview "' . BAT_CMD_SHORT . ' {2}"'
+let RG_PREVIEW = '--delimiter
+      \ : --preview "' . BAT_CMD . ' {1} --highlight-line {2}"
+      \ --preview-window "+{2}/2"'
 
-" Open files under current dir using fzf
-"nnoremap <silent> <leader>f :FZF<CR>
-nnoremap <silent> <Leader>f :call fzf#run(fzf#wrap({
-      \   'source':  'fd --type f',
-      \   'options': '--preview "' . FZF_BAT_CMD . ' {}"',
-      \ }))<CR>
-
-" Select from open buffers using fzf
+" List open buffers
 fun! s:buflist()
   redir => ls
   silent ls
@@ -354,10 +374,12 @@ fun! s:buflist()
   return split(ls, '\n')
 endfun
 
+" Get bufno from bufline
 fun! s:bufnumber(bufline)
   return matchstr(a:bufline, '^[ 0-9]*')
 endfun
 
+" Open buffer
 fun! s:bufopen(bufline)
   if len(a:bufline) != 2
     return
@@ -369,6 +391,7 @@ fun! s:bufopen(bufline)
   execute cmd s:bufnumber(a:bufline[1])
 endfun
 
+" Close buffer
 fun! s:bufclose(buflines)
   if len(a:buflines) == 0
     return
@@ -378,19 +401,7 @@ fun! s:bufclose(buflines)
   endfor
 endfun
 
-nnoremap <silent> <Leader>b :call fzf#run(fzf#wrap({
-      \   'source':  reverse(<sid>buflist()),
-      \   'sink*':   function('<sid>bufopen'),
-      \   'options': '--expect=ctrl-t,ctrl-v,ctrl-s --delimiter \" --preview "' . FZF_BAT_CMD . ' {2}"',
-      \ }))<CR>
-
-nnoremap <silent> <Leader>B :call fzf#run(fzf#wrap({
-      \   'source':  reverse(<sid>buflist()),
-      \   'sink*': function('<sid>bufclose'),
-      \   'options': '--delimiter \" --preview "' . FZF_BAT_CMD . ' {2}"'
-      \ }))<CR>
-
-" Fuzzy directory selection
+" Move to dir
 fun! s:navigate(dir)
   if len(a:dir) == 0
     return
@@ -399,12 +410,7 @@ fun! s:navigate(dir)
   echo a:dir
 endfun
 
-nnoremap <silent> <Leader>F :call fzf#run(fzf#wrap({
-      \   'source': 'fd --type d',
-      \   'sink':   function('<sid>navigate'),
-      \ }))<CR>
-
-" Interactive fuzzy text search
+" Open file
 fun! s:openFileAtLocation(result)
   if len(a:result) == 0
     return
@@ -413,16 +419,70 @@ fun! s:openFileAtLocation(result)
   exec 'edit +' . l:filePos[1] . ' ' . l:filePos[0]
 endfun
 
-nnoremap <silent> <Leader>s :call fzf#run(fzf#wrap({
-      \ 'source': 'rg --line-number ''.*''',
-      \ 'options': '--delimiter : --preview "' . FZF_BAT_CMD . ' {1} -H {2}" --preview-window "+{2}/2"',
-      \ 'sink': function('<sid>openFileAtLocation'),
+fun! s:startFuzzySearch(initialQuery)
+  " VimL can't do var scopes smh... :/
+  let BAT_CMD = 'bat --style=plain --color=always'
+  let RG_PREVIEW = '--delimiter
+        \ : --preview "' . BAT_CMD . ' {1} --highlight-line {2}"
+        \ --preview-window "+{2}/2"'
+  let opts = {}
+  let opts.source = 'rg --line-number ''.*'''
+  let opts.sink = function('<sid>openFileAtLocation')
+  let opts.options = '--query "' . a:initialQuery . '" ' . RG_PREVIEW
+  call fzf#run(fzf#wrap(opts))
+endfun
+
+fun! s:RgWithFzf(initialQuery)
+  " VimL can't do var scopes smh... :/
+  let BAT_CMD = 'bat --style=plain --color=always'
+  let RG_PREVIEW = '--delimiter
+        \ : --preview "' . BAT_CMD . ' {1} --highlight-line {2}"
+        \ --preview-window "+{2}/2"'
+  let opts = {}
+  let opts.options = '--disabled
+        \ --ansi
+        \ --bind "ctrl-r:reload:rg -i --line-number {q} || true"
+        \ --query "' . a:initialQuery . '"
+        \ --header="Run search with CTRL+r"
+        \ ' . RG_PREVIEW
+  let opts.sink = function('<sid>openFileAtLocation')
+  call fzf#run(fzf#wrap(opts))
+endfun
+
+" Open files
+nnoremap <silent> <Leader>f :call fzf#run(fzf#wrap({
+      \   'source':  'fd --type f',
+      \   'options': BASIC_PREVIEW,
+      \ }))<CR>
+"nnoremap <silent> <leader>f :FZF<CR>
+
+" Select from open buffers
+nnoremap <silent> <Leader>b :call fzf#run(fzf#wrap({
+      \   'source':  reverse(<sid>buflist()),
+      \   'sink*':   function('<sid>bufopen'),
+      \   'options': '--expect=ctrl-t,ctrl-v,ctrl-s ' . BUFLINE_PREVIEW,
       \ }))<CR>
 
-nnoremap <silent> <Leader>S :call fzf#run(fzf#wrap({
-      \ 'options': '--disabled --ansi --bind "ctrl-r:reload:rg -i --line-number {q} \|\| true" --delimiter : --preview "' . FZF_BAT_CMD . ' {1} -H {2}" --preview-window "+{2}/2"',
-      \ 'sink': function('<sid>openFileAtLocation'),
+" Close buffers
+nnoremap <silent> <Leader>B :call fzf#run(fzf#wrap({
+      \   'source':  reverse(<sid>buflist()),
+      \   'sink*': function('<sid>bufclose'),
+      \   'options': BUFLINE_PREVIEW,
       \ }))<CR>
+
+" Directory selection
+nnoremap <silent> <Leader>F :call fzf#run(fzf#wrap({
+      \   'source': 'fd --type d',
+      \   'sink':   function('<sid>navigate'),
+      \ }))<CR>
+
+" Interactive fuzzy text search
+nnoremap <silent> <Leader>s :call <SID>startFuzzySearch('')<CR>
+vnoremap <silent> <Leader>s :call <SID>withSelection(function('<SID>startFuzzySearch'))<CR>
+
+" Use fzf as frontend for ripgrep
+nnoremap <silent> <Leader>S :call <SID>RgWithFzf('')<CR>
+vnoremap <silent> <Leader>S :call <SID>withSelection(function('<SID>RgWithFzf'))<CR>
 
 " }}}
 

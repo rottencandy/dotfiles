@@ -5,7 +5,7 @@ if [[ -z $1 ]]; then
 	exit 1
 fi
 
-URL=$(echo $1 | sed -E 's/^.*apps/api/; s/\/?$/:6443/')
+URL=$(echo $1 | sed -E 's/^.*openshift-console\.apps/api/; s/\/?$/:6443/')
 # Alternate regex
 # echo $1 | sed -E 's_^.*apps(.*)/?$_api\1_'
 
