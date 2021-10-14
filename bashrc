@@ -229,10 +229,10 @@ g() {
 installcmd() {
     local HLP="Interactively download, extract and install a binary from provided URL."
     local TMPDIR=~/temp_installcmd_dir
-    mkdir -p $TMPDIR && cd $TMPDIR
+    mkdir -p $TMPDIR && pushd $TMPDIR
     case "$1" in
         "") echo $HLP ;;
-        *.tar.gz)
+        *.tar.gz | *.tbz)
             local ARC=archive.tar.gz
             xh -d "$1" -o $ARC || return 1
             tar -xf $ARC
@@ -246,7 +246,7 @@ installcmd() {
     esac
     if [ -z $(ls -A $TMPDIR) ]; then
         # dir is empty, download didn't happen
-        cd .. && rm -r $TMPDIR
+        popd && rm -r $TMPDIR
         return;
     fi
     echo "Select binary:"
@@ -255,7 +255,7 @@ installcmd() {
     echo "Installing..."
     chmod +x $BINARY
     cp $BINARY ~/bin
-    cd .. && rm -r $TMPDIR
+    popd && rm -r $TMPDIR
     echo "Successfully installed and cleaned up"
 }
 

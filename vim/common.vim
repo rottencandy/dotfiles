@@ -352,9 +352,13 @@ command! -nargs=1 -complete=file Move call <SID>move_file(<f-args>)
 "Plugin configs {{{
 
 " Vimkubectl configuration
+" ----------
+
 let g:vimkubectl_command = 'oc'
 
 " FZF configuration
+" ----------
+
 let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.7 } }
 let g:fzf_action = { 'ctrl-t': 'tab split', 'ctrl-x': 'split', 'ctrl-v': 'vsplit' }
 
@@ -410,8 +414,8 @@ fun! s:navigate(dir)
   echo a:dir
 endfun
 
-" Open file
-fun! s:openFileAtLocation(result)
+" Open file from grep result line
+fun! OpenFileAtLocation(result)
   if len(a:result) == 0
     return
   endif
@@ -427,7 +431,7 @@ fun! s:startFuzzySearch(initialQuery)
         \ --preview-window "+{2}/2"'
   let opts = {}
   let opts.source = 'rg --line-number ''.*'''
-  let opts.sink = function('<sid>openFileAtLocation')
+  let opts.sink = function('OpenFileAtLocation')
   let opts.options = '--query "' . a:initialQuery . '" ' . RG_PREVIEW
   call fzf#run(fzf#wrap(opts))
 endfun
@@ -445,7 +449,7 @@ fun! s:RgWithFzf(initialQuery)
         \ --query "' . a:initialQuery . '"
         \ --header="Run search with CTRL+r"
         \ ' . RG_PREVIEW
-  let opts.sink = function('<sid>openFileAtLocation')
+  let opts.sink = function('OpenFileAtLocation')
   call fzf#run(fzf#wrap(opts))
 endfun
 
@@ -483,6 +487,30 @@ vnoremap <silent> <Leader>s :call <SID>withSelection(function('<SID>startFuzzySe
 " Use fzf as frontend for ripgrep
 nnoremap <silent> <Leader>S :call <SID>RgWithFzf('')<CR>
 vnoremap <silent> <Leader>S :call <SID>withSelection(function('<SID>RgWithFzf'))<CR>
+
+" Fern config
+" ----------
+
+" Disable all default mappings and define them manually
+let g:fern#disable_default_mappings = 1
+
+fun! s:init_fern() abort
+  nnoremap  <buffer>  q      :q<CR>
+  nmap      <buffer>  h      <Plug>(fern-action-collapse)
+  nmap      <buffer>  l      <Plug>(fern-action-open-or-expand)
+  nmap      <buffer>  .      <Plug>(fern-action-hidden)
+  nmap      <buffer>  <C-H>  <Plug>(fern-action-leave)
+  nmap      <buffer>  <C-L>  <Plug>(fern-action-redraw)
+  nmap      <buffer>  <CR>   <Plug>(fern-action-open-or-enter)
+  nmap      <buffer>  t      <Plug>(fern-action-terminal)
+  nmap      <buffer>  y      <Plug>(fern-action-yank)
+  nmap      <buffer>  z      <Plug>(fern-action-zoom)
+endfun
+
+augroup my-fern
+  autocmd! *
+  autocmd FileType fern call s:init_fern()
+augroup END
 
 " }}}
 
