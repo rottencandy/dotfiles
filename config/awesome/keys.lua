@@ -113,8 +113,8 @@ keys.globalkeys = gears.table.join(
     awful.key({ superkey, alt }, 'j', function () awful.tag.incncol(-1, nil, true) end,
         { description = 'decrease the number of columns', group = 'layout' }),
 
-    awful.key({ superkey }, 'n', function()
-        awful.spawn.with_shell('cd ~/nb && ' .. TERMINAL .. ' -e nvim _temp.md')
+    awful.key({ superkey }, 'n', function ()
+        awful.spawn.with_shell('cd ~/nb && WINIT_X11_SCALE_FACTOR=1 alacritty -e nvim _temp.md')
     end,
         { description = 'useless shortcut', group = 'layout' }),
 
@@ -124,14 +124,14 @@ keys.globalkeys = gears.table.join(
 
     -- Terminal
     -- Spawning with variable due to alacritty quirk: https://github.com/alacritty/alacritty/issues/3792,1339
-    awful.key({ superkey, }, enter, function() awful.spawn.with_shell('WINIT_X11_SCALE_FACTOR=1 alacritty') end,
+    awful.key({ superkey, }, enter, function () awful.spawn.with_shell('WINIT_X11_SCALE_FACTOR=1 alacritty') end,
         { description = 'spawn terminal', group = 'launcher' }),
     -- Alt terminal
-    awful.key({ superkey, shift }, enter, function() awful.spawn(TERMINAL) end,
+    awful.key({ superkey, shift }, enter, function () awful.spawn(TERMINAL) end,
         { description = 'spawn alt terminal', group = 'launcher' }),
 
     -- Screenshot
-    awful.key({ superkey, shift }, 's', function()
+    awful.key({ superkey, shift }, 's', function ()
         awful.spawn.with_shell('maim ~/screenshots/screenshot-$(date +%s).png 2> /dev/null')
         naughty.notify({ title = 'Screenshot Saved', text = 'Screenshot saved!', timeout = 3 })
     end,
