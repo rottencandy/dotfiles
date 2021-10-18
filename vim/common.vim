@@ -366,6 +366,7 @@ let BAT_CMD = 'bat --style=plain --color=always'
 let BAT_CMD_SHORT = BAT_CMD . ' --line-range :500'
 let BASIC_PREVIEW = '--preview "' . BAT_CMD_SHORT . ' {}"'
 let BUFLINE_PREVIEW = '--delimiter \" --preview "' . BAT_CMD_SHORT . ' {2}"'
+let EXPECT_BINDS = '--expect=ctrl-t,ctrl-v,ctrl-s'
 let RG_PREVIEW = '--delimiter
       \ : --preview "' . BAT_CMD . ' {1} --highlight-line {2}"
       \ --preview-window "+{2}/2"'
@@ -384,25 +385,25 @@ fun! s:bufnumber(bufline)
 endfun
 
 " Open buffer
-fun! s:bufopen(bufline)
-  if len(a:bufline) != 2
+fun! s:bufopen(result)
+  if len(a:result) < 2
     return
   endif
+
   let cmd = get({'ctrl-s': 'sbuffer',
         \ 'ctrl-v': 'vert sbuffer',
         \ 'ctrl-t': 'tabnew | buffer'},
-        \ a:bufline[0], 'buffer')
-  execute cmd s:bufnumber(a:bufline[1])
+        \ a:result[0], 'buffer')
+  let buffers = a:result[1:]
+
+  for each in buffers
+    execute cmd s:bufnumber(each)
+  endfor
 endfun
 
 " Close buffer
-fun! s:bufclose(buflines)
-  if len(a:buflines) == 0
-    return
-  endif
-  for each in a:buflines
-    execute 'bdelete ' . s:bufnumber(each)
-  endfor
+fun! s:bufclose(result)
+  execute 'bdelete ' . s:bufnumber(a:result)
 endfun
 
 " Move to dir
@@ -414,29 +415,40 @@ fun! s:navigate(dir)
   echo a:dir
 endfun
 
-" Open file from grep result line
-fun! OpenFileAtLocation(result)
-  if len(a:result) == 0
+" Open file(s) from ripgrep result line
+fun! OpenFilesAtLocation(result)
+  if len(a:result) < 2
     return
   endif
-  let filePos = split(a:result, ':')
-  exec 'edit +' . l:filePos[1] . ' ' . l:filePos[0]
+
+  let cmd = get({'ctrl-s': 'split',
+        \ 'ctrl-v': 'vsplit',
+        \ 'ctrl-t': 'tabedit'},
+        \ a:result[0], 'edit')
+  let buffers = a:result[1:]
+
+  for each in buffers
+    let filePos = split(each, ':')
+    echom 'cmd: ' cmd . ' +' . l:filePos[1] . ' ' . l:filePos[0]
+    exec cmd . ' +' . l:filePos[1] . ' ' . l:filePos[0]
+  endfor
 endfun
 
-fun! s:startFuzzySearch(initialQuery)
+fun! s:FuzzyContentSearch(initialQuery)
   " VimL can't do var scopes smh... :/
   let BAT_CMD = 'bat --style=plain --color=always'
   let RG_PREVIEW = '--delimiter
         \ : --preview "' . BAT_CMD . ' {1} --highlight-line {2}"
         \ --preview-window "+{2}/2"'
+  let EXPECT_BINDS = '--expect=ctrl-t,ctrl-v,ctrl-s'
   let opts = {}
   let opts.source = 'rg --line-number ''.*'''
-  let opts.sink = function('OpenFileAtLocation')
-  let opts.options = '--query "' . a:initialQuery . '" ' . RG_PREVIEW
+  let opts['sink*'] = function('OpenFilesAtLocation')
+  let opts.options = '--query "' . a:initialQuery . '" ' . RG_PREVIEW . ' ' . EXPECT_BINDS
   call fzf#run(fzf#wrap(opts))
 endfun
 
-fun! s:RgWithFzf(initialQuery)
+fun! s:FuzzyRgBackend(initialQuery)
   " VimL can't do var scopes smh... :/
   let BAT_CMD = 'bat --style=plain --color=always'
   let RG_PREVIEW = '--delimiter
@@ -448,8 +460,8 @@ fun! s:RgWithFzf(initialQuery)
         \ --bind "ctrl-r:reload:rg -i --line-number {q} || true"
         \ --query "' . a:initialQuery . '"
         \ --header="Run search with CTRL+r"
-        \ ' . RG_PREVIEW
-  let opts.sink = function('OpenFileAtLocation')
+        \ ' . RG_PREVIEW . ' ' . EXPECT_BINDS
+  let opts['sink*'] = function('OpenFilesAtLocation')
   call fzf#run(fzf#wrap(opts))
 endfun
 
@@ -464,13 +476,13 @@ nnoremap <silent> <Leader>f :call fzf#run(fzf#wrap({
 nnoremap <silent> <Leader>b :call fzf#run(fzf#wrap({
       \   'source':  reverse(<sid>buflist()),
       \   'sink*':   function('<sid>bufopen'),
-      \   'options': '--expect=ctrl-t,ctrl-v,ctrl-s ' . BUFLINE_PREVIEW,
+      \   'options': EXPECT_BINDS . ' ' . BUFLINE_PREVIEW,
       \ }))<CR>
 
 " Close buffers
 nnoremap <silent> <Leader>B :call fzf#run(fzf#wrap({
       \   'source':  reverse(<sid>buflist()),
-      \   'sink*': function('<sid>bufclose'),
+      \   'sink': function('<sid>bufclose'),
       \   'options': BUFLINE_PREVIEW,
       \ }))<CR>
 
@@ -478,15 +490,16 @@ nnoremap <silent> <Leader>B :call fzf#run(fzf#wrap({
 nnoremap <silent> <Leader>F :call fzf#run(fzf#wrap({
       \   'source': 'fd --type d',
       \   'sink':   function('<sid>navigate'),
+      \   'options': '+m',
       \ }))<CR>
 
 " Interactive fuzzy text search
-nnoremap <silent> <Leader>s :call <SID>startFuzzySearch('')<CR>
-vnoremap <silent> <Leader>s :call <SID>withSelection(function('<SID>startFuzzySearch'))<CR>
+nnoremap <silent> <Leader>s :call <SID>FuzzyContentSearch('')<CR>
+vnoremap <silent> <Leader>s :call <SID>withSelection(function('<SID>FuzzyContentSearch'))<CR>
 
 " Use fzf as frontend for ripgrep
-nnoremap <silent> <Leader>S :call <SID>RgWithFzf('')<CR>
-vnoremap <silent> <Leader>S :call <SID>withSelection(function('<SID>RgWithFzf'))<CR>
+nnoremap <silent> <Leader>S :call <SID>FuzzyRgBackend('')<CR>
+vnoremap <silent> <Leader>S :call <SID>withSelection(function('<SID>FuzzyRgBackend'))<CR>
 
 " Fern config
 " ----------
@@ -504,7 +517,7 @@ fun! s:init_fern() abort
   nmap      <buffer>  <CR>   <Plug>(fern-action-open-or-enter)
   nmap      <buffer>  t      <Plug>(fern-action-terminal)
   nmap      <buffer>  y      <Plug>(fern-action-yank)
-  nmap      <buffer>  z      <Plug>(fern-action-zoom)
+  nmap      <buffer>  Z      <Plug>(fern-action-zoom)
 endfun
 
 augroup my-fern
