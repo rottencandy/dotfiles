@@ -1,8 +1,12 @@
+/* vim:ft=css:fdm=marker:et:sw=2
+*/
+
 * {
   text-color: #eee;
 }
 
 window {
+  font: "Hurmit Nerd Font Mono 11";
   width: 50%;
   height: 60%;
   border-radius: 2%;
@@ -12,14 +16,14 @@ window {
 
 mainbox {
   padding: 15;
-  background-color: #0000;
+  background-color: transparent;
   children: [ inputbar, listview, mode-switcher ];
 }
 
 listview {
   columns: 3;
   padding: 10;
-  background-color: #4440;
+  background-color: transparent;
   layout: vertical;
   spacing: 20;
 }
@@ -27,8 +31,13 @@ listview {
 element {
   padding: 10;
   border-radius: 50%;
-  background-color: #4440;
+  background-color: transparent;
   orientation: horizontal;
+}
+
+element-text, element-icon {
+  color: #eee;
+  background-color: transparent;
 }
 
 element.selected {
@@ -36,7 +45,7 @@ element.selected {
 }
 
 inputbar {
-  background-color: #4440;
+  background-color: transparent;
   spacing: 0;
   children: [ prompt, entry ];
 }
@@ -60,11 +69,9 @@ button {
   padding: 10;
   border-radius: 30%;
   background-color: inherit;
-  background-color: #0000;
+  background-color: transparent;
 }
 
 button.selected {
   background-color: #ccc5;
 }
-
-/* vim:ft=css:fdm=marker:et:sw=2
