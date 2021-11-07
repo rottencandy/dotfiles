@@ -237,6 +237,11 @@ installcmd() {
             xh -d "$1" -o $ARC || return 1
             tar -xf $ARC
             ;;
+        *.gz)
+            local ARC=archive.gz
+            xh -d "$1" -o $ARC || return 1
+            gunzip $ARC
+            ;;
         *.zip)
             local ARC=archive.zip
             xh -d "$1" -o $ARC || return 1
@@ -409,6 +414,10 @@ export WASMER_DIR="$HOME/.wasmer"
 
 # n (https://github.com/tj/n)
 export N_PREFIX="$HOME/.node_caches"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$PATH:$BUN_INSTALL/bin"
 
 # }}}
 
