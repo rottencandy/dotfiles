@@ -454,6 +454,7 @@ fun! s:FuzzyRgBackend(initialQuery)
   let RG_PREVIEW = '--delimiter
         \ : --preview "' . BAT_CMD . ' {1} --highlight-line {2}"
         \ --preview-window "+{2}/2"'
+  let EXPECT_BINDS = '--expect=ctrl-t,ctrl-v,ctrl-s'
   let opts = {}
   let opts.options = '--disabled
         \ --ansi
