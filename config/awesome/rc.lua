@@ -16,7 +16,7 @@ local mybar = require('statusbar')
 local keys = require('keys')
 
 -- Check for luarocks
-pcall(require, 'luarocks.loader')
+--pcall(require, 'luarocks.loader')
 
 -- {{{ Error handling
 
@@ -264,5 +264,11 @@ client.connect_signal('unfocus', function(c) c.border_color = beautiful.border_n
 -- Garbage collection(for lower memory consumption)
 collectgarbage('setpause', 110)
 collectgarbage('setstepmul', 1000)
+
+-- load fennel
+local fennel = require('fennel')
+fennel.path = fennel.path .. ';.config/awesome/?.fnl'
+table.insert(package.loaders or package.searchers, fennel.searcher)
+require('cfg')
 
 -- vim: et:sw=4:fdm=marker:textwidth=80

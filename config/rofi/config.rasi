@@ -29,5 +29,5 @@ configuration {
   kb-remove-to-eol: "Control+p";
   kb-accept-entry: "Control+n,Control+m,Return,KP_Enter";
 
-  theme: "Monokai";
+  theme: "theme.rasi";
 }

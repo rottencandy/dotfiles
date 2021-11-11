@@ -15,6 +15,11 @@ local enter = 'Return'
 local client_move_dist = 50
 local XIDLEHOOK_SOCKET = '/tmp/xidlehook.sock'
 
+-- `pactl list sinks short` to list sinks
+local VOLUME_UP = "sh -c 'pactl set-sink-mute 45 false ; pactl set-sink-volume 45 +5%'"
+local VOLUME_DOWN = "sh -c 'pactl set-sink-mute 45 false ; pactl set-sink-volume 45 -5%'"
+local VOLUME_TOGGLE = "pactl set-sink-mute 45 toggle"
+
 local keys = {}
 
 keys.globalkeys = gears.table.join(
@@ -166,30 +171,32 @@ keys.globalkeys = gears.table.join(
     -- {{{ Misc controls
 
     -- Volume
-    awful.key({}, "XF86AudioLowerVolume", function ()
-        awful.spawn("amixer -q set Master 5%-", false)
-    end,
-        { description = 'Lower volume', group = 'volume' }),
     awful.key({}, "XF86AudioRaiseVolume", function ()
-        awful.spawn("amixer -q set Master 5%+", false)
+        awful.spawn(VOLUME_UP, false)
     end,
         { description = 'Raise volume', group = 'volume' }),
+
+    awful.key({}, "XF86AudioLowerVolume", function ()
+        awful.spawn(VOLUME_DOWN, false)
+    end,
+        { description = 'Lower volume', group = 'volume' }),
+
     awful.key({}, "XF86AudioMute", function ()
-        awful.spawn("amixer -q set Master 1+ toggle", false)
+        awful.spawn(VOLUME_TOGGLE, false)
     end,
         { description = 'toggle volume', group = 'volume' }),
 
     -- For non-media keyboards
     awful.key({ superkey }, "F1", function ()
-        awful.spawn("amixer -q set Master 5%+", false)
+        awful.spawn(VOLUME_UP, false)
     end,
         { description = 'Raise volume', group = 'volume' }),
     awful.key({ superkey }, "F2", function ()
-        awful.spawn("amixer -q set Master 5%-", false)
+        awful.spawn(VOLUME_DOWN, false)
     end,
         { description = 'Lower volume', group = 'volume' }),
     awful.key({ superkey }, "F3", function ()
-        awful.spawn("amixer -q set Master 1+ toggle", false)
+        awful.spawn(VOLUME_TOGGLE, false)
     end,
         { description = 'toggle volume', group = 'volume' }),
 
