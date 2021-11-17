@@ -12,6 +12,9 @@ case "${1%%:*}" in
 	*.png|*.jpg|*.jpeg|*.svg)
 		exec feh "$1"
 		;;
+	*.mp3|*.mp4)
+		exec mpv "$1"
+		;;
 	-*)
 		echo $HLP
 		;;

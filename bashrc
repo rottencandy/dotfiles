@@ -390,6 +390,7 @@ export NNN_PLUG='e:-_vim $nnn*;n:-_vim notes*;f:fzcd;u:-getplugs;r:-launch'
 export NNN_BMS='v:~/Videos;d:~/Documents;D:~/Downloads'
 export NNN_CONTEXT_COLORS='2674'
 [ -n "$NNNLVL" ] && PS1="N$NNNLVL $PS1"
+export NNN_OPENER="open"
 
 # FZF
 export FZF_DEFAULT_COMMAND='fd --type f'
