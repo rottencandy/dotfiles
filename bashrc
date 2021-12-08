@@ -55,7 +55,7 @@ unset command_not_found_handle
 
 #}}}
 
-# Custom functions {{{
+# Functions {{{
 #---------------------------------------------------------------------
 
 # nnn with cd on quit
@@ -264,6 +264,23 @@ installcmd() {
     echo "Successfully installed and cleaned up"
 }
 
+# Clean up merged git branches, local & remote
+cleanupbranches() {
+    local BRANCHES=$(git branch --merged | grep -v master)
+    echo Deleting branches:
+    echo
+    for branch in $BRANCHES; do
+        echo $branch
+    done
+    echo
+    read -p "Proceed? (y/n): " ANS
+    echo
+    if [ "$ANS" =~ "^[Yy]$" ]; then
+        git branch --delete $BRANCHES
+        git push --delete origin $BRANCHES
+    fi
+}
+
 # }}}
 
 # Mappings {{{
@@ -335,8 +352,8 @@ alias \
     tree='lsd --tree' \
     ungr='gron --ungron' \
     v='vimx' \
-    yt='youtube-dl --add-metadata -i' \
-    ytb='youtube-dl --add-metadata -i -f bestvideo+bestaudio' \
+    yt='yt-dlp --add-metadata -i' \
+    ytb='yt-dlp --add-metadata -i -f bestvideo+bestaudio' \
     yta='yt --add-metadata -x -f bestaudio'
 
 # }}}
