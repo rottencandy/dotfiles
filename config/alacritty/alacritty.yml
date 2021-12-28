@@ -165,71 +165,105 @@ font:
 # Colors (Tomorrow Night)
 
 schemes:
-  moonfly: &moonfly
+  # Colors (Jellybeans)
+  jellybeans: &jellybeans
+    # Default colors
     primary:
-      background:        '#080808'
-      foreground:        '#b2b2b2'
-      bright_foreground: '#eeeeee'
-    # Cursor colors
+      background: '#161616'
+      foreground: '#e4e4e4'
+  
+    # Cursor volors
     cursor:
-      text:   '#080808'
-      cursor: '#9e9e9e'
-    # Selection colors
-    selection:
-      text:       '#080808'
-      background: '#b2ceee'
+      text: '#feffff'
+      cursor: '#ffb472'
+  
     # Normal colors
     normal:
-      black:   '#323437'
-      red:     '#ff5454'
-      green:   '#8cc85f'
-      yellow:  '#e3c78a'
-      blue:    '#80a0ff'
-      magenta: '#d183e8'
-      cyan:    '#79dac8'
-      white:   '#c6c6c6'
+      black:   '#a3a3a3'
+      red:     '#e98885'
+      green:   '#a3c38b'
+      yellow:  '#ffc68d'
+      blue:    '#a6cae2'
+      magenta: '#e7cdfb'
+      cyan:    '#00a69f'
+      white:   '#e4e4e4'
+  
     # Bright colors
     bright:
-      black:   '#949494'
-      red:     '#ff5189'
-      green:   '#36c692'
-      yellow:  '#bfbf97'
-      blue:    '#74b2ff'
-      magenta: '#ae81ff'
-      cyan:    '#85dc85'
-      white:   '#dadada'
+      black:   '#c8c8c8'
+      red:     '#ffb2b0'
+      green:   '#c8e2b9'
+      yellow:  '#ffe1af'
+      blue:    '#bddff7'
+      magenta: '#fce2ff'
+      cyan:    '#0bbdb6'
+      white:   '#feffff'
+  
+    # Selection colors
+    selection:
+      text: '#5963a2'
+      background: '#f6f6f6'
 
-      # Colors (Material Theme)
-  material: &material
-    colors:
-      # Default colors
-      primary:
-        background: '#263238'
-        foreground: '#eeffff'
-    
-      # Normal colors
-      normal:
-        black:   '#000000'  # Arbitrary
-        red:     '#e53935'
-        green:   '#91b859'
-        yellow:  '#ffb62c'
-        blue:    '#6182b8'
-        magenta: '#ff5370'  # Dark pink of the original material theme
-        cyan:    '#39adb5'
-        white:   '#a0a0a0'  # Arbitrary
-    
-      # Bright colors
-      bright:
-        black:   '#4e4e4e'  # Arbitrary
-        red:     '#ff5370'
-        green:   '#c3e88d'
-        yellow:  '#ffcb6b'
-        blue:    '#82aaff'
-        magenta: '#f07178'  # Pink of the original material theme
-        cyan:    '#89ddff'
-        white:   '#ffffff'  # Arbitrary
+  # Colors (Gruvbox dark)
+  grubbox: &gruvbox
+    primary:
+      # hard contrast background - '#1d2021'
+      background:        &gruvbox_dark_bg '#282828'
+      # soft contrast background - '#32302f'
+      foreground:        '#ebdbb2'
+      bright_foreground: '#fbf1c7'
+      dim_foreground:    '#a89984'
+    cursor:
+      text:   CellBackground
+      cursor: CellForeground
+    vi_mode_cursor:
+      text:   CellBackground
+      cursor: CellForeground
+    # search:
+    #   matches:
+    #     foreground: '#000000'
+    #     background: '#ffffff'
+    #   focused_match:
+    #    foreground: CellBackground
+    #    background: CellForeground
+    #   bar:
+    #     background: ''
+    #     foreground: ''
+    # line_indicator:
+    #   foreground: None
+    #   background: None
+    selection:
+      text:       CellBackground
+      background: CellForeground
+    bright:
+      black:   '#928374'
+      red:     '#fb4934'
+      green:   '#b8bb26'
+      yellow:  '#fabd2f'
+      blue:    '#83a598'
+      magenta: '#d3869b'
+      cyan:    '#8ec07c'
+      white:   '#ebdbb2'
+    normal:
+      black:   *gruvbox_dark_bg
+      red:     '#cc241d'
+      green:   '#98971a'
+      yellow:  '#d79921'
+      blue:    '#458588'
+      magenta: '#b16286'
+      cyan:    '#689d6a'
+      white:   '#a89984'
+    dim:
+      black:   '#32302f'
+      red:     '#9d0006'
+      green:   '#79740e'
+      yellow:  '#b57614'
+      blue:    '#076678'
+      magenta: '#8f3f71'
+      cyan:    '#427b58'
+      white:   '#928374'
 
-colors: *material
+colors: *gruvbox
   # Default colors
   #primary:
   #  background: '#1d1f21'

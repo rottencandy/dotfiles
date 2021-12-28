@@ -347,6 +347,9 @@ endfun
 
 command! -nargs=1 -complete=file Move call <SID>move_file(<f-args>)
 
+" Close buffer without messing up splits
+command Bd bp|bd #
+
 " }}}
 
 "Plugin configs {{{

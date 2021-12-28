@@ -28,6 +28,6 @@ configuration {
   kb-row-down: "Down,Control+j";
   kb-remove-to-eol: "Control+p";
   kb-accept-entry: "Control+n,Control+m,Return,KP_Enter";
-
-  theme: "theme.rasi";
 }
+
+@theme "theme.rasi"

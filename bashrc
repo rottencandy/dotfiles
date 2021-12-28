@@ -247,7 +247,10 @@ installcmd() {
             xh -d "$1" -o $ARC || return 1
             unzip $ARC
             ;;
-        *) xh -d "$1"
+        *)
+            xh -d "$1"
+            # xh adds .bin to downloaded files by default
+            for i in ./*.bin ; do mv "$i" "${i%.*}" ; done
     esac
     if [ -z $(ls -A $TMPDIR) ]; then
         # dir is empty, download didn't happen
