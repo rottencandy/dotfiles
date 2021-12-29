@@ -9,7 +9,8 @@ runonce() {
 
 xrdb ~/.Xresources
 
-xmodmap ~/.Xmodmap
+# Replaced by keyd
+#xmodmap ~/.Xmodmap
 
 # https://askubuntu.com/questions/931761/how-to-fix-palm-rejection-on-ubuntu-16-04-lts
 xinput --set-prop "SynPS/2 Synaptics TouchPad"  "libinput Accel Speed" 0.6
