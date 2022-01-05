@@ -20,10 +20,13 @@ set $term alacritty
 # on the original workspace that the command was run on.
 set $menu dmenu_path | dmenu | xargs swaymsg exec --
 
+gaps inner 10
+smart_gaps on
+
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg ~/Pictures/wall.png fill
+output * bg ~/Pictures/wall.jpg fill
 #
 # Example configuration:
 #
