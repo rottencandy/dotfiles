@@ -18,8 +18,9 @@
     "Ternary operator, `condition ? x : y` "
     (or (and condition x) y))
 
-  :notify (fn [msg]
-    (naughty.notify { :title "Info" :text msg }))
+  :notify (fn [title msg]
+    "Create quick notification"
+    (naughty.notify { :title title :text msg }))
 
   })
 

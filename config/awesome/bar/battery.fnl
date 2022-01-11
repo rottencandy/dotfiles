@@ -15,6 +15,7 @@
   :min_value 0
   :max_value 100
   :value 0
+  ; TODO: move all colors to theme file
   :bg "#faf3f3"
   :colors [ "#4aa96c" ]
   :thickness 3

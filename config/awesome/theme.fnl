@@ -29,7 +29,7 @@
 ;; Widgets {{{
 
 (set T.bg_normal "#080808")
-(set T.bg_focus "#465")
+(set T.bg_focus "#446655")
 (set T.bg_urgent "#a44")
 (set T.bg_minimize "#333")
 (set T.fg_normal "#bbb")
@@ -84,6 +84,9 @@
 (set T.layout_floating (.. ICON_DIR "/floating.png"))
 (set T.layout_max (.. ICON_DIR "/max.png"))
 (set T.layout_tile (.. ICON_DIR "/tile.png"))
+(set T.brightness-icon (.. ICON_DIR "/brightness.png"))
+(set T.volume-icon (.. ICON_DIR "/volume.png"))
+(set T.volume-mute-icon (.. ICON_DIR "/volume-mute.png"))
 
 ;; Generate awesome icon
 (set T.awesome_icon
@@ -94,7 +97,7 @@
 ;; Misc {{{
 
 ;; Edge snap
-(set T.snap_bg "#ccc")
+(set T.snap_bg "#cccccc")
 (set T.snap_border_width (dpi 1))
 
 ;; }}}

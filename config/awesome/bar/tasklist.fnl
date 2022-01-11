@@ -24,6 +24,7 @@
         :forced_width 5
         :forced_height 24
         :thickness 1
+        ; TODO: move all colors to theme file
         :color "#777"
         :widget wibox.widget.separator
       }
