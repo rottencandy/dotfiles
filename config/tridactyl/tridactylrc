@@ -44,7 +44,7 @@ bind ;c hint -Jc [class*="expand"],[class="togg"],[class="comment_folder"]
 bindurl reddit.com gu urlparent 4
 
 " Video id yank
-bind yt composite js document.location.href.split('=')[1] | clipboard yank
+bindurl youtube.com yt composite js document.location.href.split('=')[1] | clipboard yank
 
 "autocontain -s youtube\.com Personal
 
@@ -63,8 +63,8 @@ autocmd DocStart ^http(s?)://www.reddit.com js tri.excmds.urlmodify("-t", "www",
 " Ignored sites {{{
 
 "blacklistadd ^https://mail.google.com
-blacklistadd ^https://docs.google.com
 blacklistadd ^https://meet.google.com
+blacklistadd ^https://docs.google.com
 blacklistadd ^https://bluejeans.com
 
 " }}}

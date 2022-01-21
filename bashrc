@@ -238,7 +238,7 @@ installcmd() {
             tar -xf $ARC
             ;;
         *.gz)
-            local ARC=archive.gz
+            local ARC="${2:-archive.gz}"
             xh -d "$1" -o $ARC || return 1
             gunzip $ARC
             ;;

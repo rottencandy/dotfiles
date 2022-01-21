@@ -16,6 +16,8 @@ set rtp+=~/apps/fzf
 " % jump to matching xml tags, if/else/endif, etc.
 packadd! matchit
 
+" Sensible defaults (loads $VIMRUNTIME/defaults.vim )
+"runtime! defaults.vim
 
 let g:vim_markdown_folding_disabled = 1     " Disable vim-markdown folds by default
 let g:vim_markdown_frontmatter = 1          " Highlight YAML front matter
@@ -138,7 +140,7 @@ set splitbelow          " New split goes below
 set splitright          " and to right
 set foldenable          " Enable code folding
 set foldnestmax=10      " Max 10 nested folds
-set foldlevel=0         " Close all folds by default
+set foldlevel=99         " Do not close folds by default
 set formatoptions+=j    " Delete comment character when joining commented lines
 set shortmess+=c        " Do not pass messages to ins-completion-menu
 
@@ -498,12 +500,12 @@ nnoremap <silent> <Leader>F :call fzf#run(fzf#wrap({
       \ }))<CR>
 
 " Interactive fuzzy text search
-nnoremap <silent> <Leader>s :call <SID>FuzzyContentSearch('')<CR>
-vnoremap <silent> <Leader>s :call <SID>withSelection(function('<SID>FuzzyContentSearch'))<CR>
+nnoremap <silent> <Leader>S :call <SID>FuzzyContentSearch('')<CR>
+vnoremap <silent> <Leader>S :call <SID>withSelection(function('<SID>FuzzyContentSearch'))<CR>
 
 " Use fzf as frontend for ripgrep
-nnoremap <silent> <Leader>S :call <SID>FuzzyRgBackend('')<CR>
-vnoremap <silent> <Leader>S :call <SID>withSelection(function('<SID>FuzzyRgBackend'))<CR>
+nnoremap <silent> <Leader>s :call <SID>FuzzyRgBackend('')<CR>
+vnoremap <silent> <Leader>s :call <SID>withSelection(function('<SID>FuzzyRgBackend'))<CR>
 
 " Fern config
 " ----------
@@ -529,6 +531,14 @@ augroup my-fern
   autocmd FileType fern call s:init_fern()
 augroup END
 
+" Indent guides
+" ----------
+
+let g:indentguides_ignorelist = [ 'text', 'help', 'fern', 'fugitive' ]
+let g:indentguides_toggleListMode = 0
+"let g:indentguides_spacechar = '❘'
+"let g:indentguides_tabchar = '⋅'
+
 " }}}
 
-" vim: fdm=marker:et:sw=2:
+" vim: fdm=marker:fdl=0:et:sw=2:

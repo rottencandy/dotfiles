@@ -21,7 +21,9 @@ Plug 'mhartington/oceanic-next'
 Plug 'lambdalisue/fern.vim'
 " Closing brackets/quotes/... insertion
 Plug 'Raimondi/delimitMate'
-" Fugitive
+" Indent guides
+Plug 'thaerkh/vim-indentguides'
+" Git
 Plug 'tpope/vim-fugitive'
 " Markdown support
 Plug 'plasticboy/vim-markdown'
@@ -54,10 +56,10 @@ require('nvim-treesitter.configs').setup {
   incremental_selection = {
     enable = true,
     keymaps = {
-      init_selection = "gnn",
-      node_incremental = "grn",
-      scope_incremental = "grc",
-      node_decremental = "grm",
+      init_selection = "gsi",
+      node_incremental = "gsn",
+      scope_incremental = "gsc",
+      node_decremental = "gsd",
     },
   },
   indent = {
@@ -67,8 +69,8 @@ require('nvim-treesitter.configs').setup {
 EOF
 
 " Treesitter based folding
-"set foldmethod=expr
-"set foldexpr=nvim_treesitter#foldexpr()
+set foldmethod=expr
+set foldexpr=nvim_treesitter#foldexpr()
 
 " }}}
 
@@ -136,8 +138,6 @@ local on_attach = function(client, bufnr)
     ]], false)
   end
 
-  -- Set up completion
-  require('completion').on_attach()
   vim.api.nvim_exec([[
     " Use <Tab> and <S-Tab> to navigate through popup menu
     inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -165,4 +165,4 @@ EOF
 
 " }}}
 
-" vim: fdm=marker:et:sw=2:
+" vim: fdm=marker:fdl=0:et:sw=2:

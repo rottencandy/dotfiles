@@ -98,6 +98,9 @@ fun! s:on_lsp_buf_enabled() abort
   nmap <buffer> <leader>K <plug>(lsp-peek-definition)
   inoremap <buffer> <expr><c-f> lsp#scroll(+4)
   inoremap <buffer> <expr><c-d> lsp#scroll(-4)
+  setlocal foldmethod=expr
+        \ foldexpr=lsp#ui#vim#folding#foldexpr()
+        \ foldtext=lsp#ui#vim#folding#foldtext()
 
   let g:lsp_format_sync_timeout = 1000
 endfun
@@ -109,4 +112,4 @@ augroup END
 
 " }}}
 
-" vim: fdm=marker:et:sw=2:
+" vim: fdm=marker:fdl=0:et:sw=2:

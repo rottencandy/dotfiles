@@ -18,10 +18,11 @@
 (local enter :Return)
 (local client-move-dist 50)
 (local XIDLEHOOK_SOCKET "/tmp/xidlehook.sock")
-;; `pactl list sinks short` to list sinks
+;; `pactl list [sinks|sources] short` to list sinks or sources
 (local VOLUME_UP "sh -c 'pactl set-sink-mute 45 false ; pactl set-sink-volume 45 +5%'")
 (local VOLUME_DOWN "sh -c 'pactl set-sink-mute 45 false ; pactl set-sink-volume 45 -5%'")
 (local VOLUME_TOGGLE "pactl set-sink-mute 45 toggle")
+(local MIC_TOGGLE "pactl set-source-mute 46 toggle")
 (local APPS "rofi -show drun")
 (local RUNNING-APPS "rofi -show window")
 
@@ -181,6 +182,9 @@
   (awful.key [] :XF86AudioMute
     (fn [] (awful.spawn VOLUME_TOGGLE false))
     {:description "Toggle volume" :group "hardware" })
+  (awful.key [] :XF86AudioMicMute
+    (fn [] (awful.spawn MIC_TOGGLE false))
+    {:description "Toggle mic" :group "hardware" })
 
   ;; Non-media keyboards
   (awful.key [superkey] :F1
@@ -192,6 +196,9 @@
   (awful.key [superkey] :F3
     (fn [] (awful.spawn VOLUME_TOGGLE false))
     {:description "Toggle volume" :group "hardware" })
+  (awful.key [superkey] :F4
+    (fn [] (awful.spawn MIC_TOGGLE false))
+    {:description "Toggle mic" :group "hardware" })
 
   ;; Brightness
   (awful.key [] :XF86MonBrightnessUp
