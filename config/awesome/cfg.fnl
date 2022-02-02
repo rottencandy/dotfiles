@@ -26,7 +26,7 @@
 (root.buttons keys.mousebuttons)
 (awful.spawn.with_shell (.. _G.HOME "/.config/startup.sh"))
 
-(set awful.layout.layouts [L.floating L.tile L.max])
+(set awful.layout.layouts [L.floating L.tile])
 ;; All layouts:
 ;; floating, tile, max, fair, tile.left, tile.bottom, tile.top,
 ;; fair.horizontal, spiral, spiral.dwindle, max.fullscreen, magnifier,
@@ -84,7 +84,8 @@
   (let [wall (match (type beautiful.wallpaper)
                "function" (beautiful.wallpaper s)
                "string" beautiful.wallpaper)]
-    (if wall (gears.wallpaper.maximized wall s true))))
+    (if wall
+      (gears.wallpaper.maximized wall s true))))
 
 ;; }}}
 
@@ -204,4 +205,4 @@
 
 ;; }}}
 
-;; vim: et:sw=2:fdm=marker:tw=80
+;; vim: et:sw=2:fdm=marker:fdl=0:tw=80

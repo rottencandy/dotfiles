@@ -19,10 +19,10 @@
 (local client-move-dist 50)
 (local XIDLEHOOK_SOCKET "/tmp/xidlehook.sock")
 ;; `pactl list [sinks|sources] short` to list sinks or sources
-(local VOLUME_UP "sh -c 'pactl set-sink-mute 45 false ; pactl set-sink-volume 45 +5%'")
-(local VOLUME_DOWN "sh -c 'pactl set-sink-mute 45 false ; pactl set-sink-volume 45 -5%'")
-(local VOLUME_TOGGLE "pactl set-sink-mute 45 toggle")
-(local MIC_TOGGLE "pactl set-source-mute 46 toggle")
+(local VOLUME_UP "sh -c 'pactl set-sink-mute 43 false ; pactl set-sink-volume 43 +5%'")
+(local VOLUME_DOWN "sh -c 'pactl set-sink-mute 45 false ; pactl set-sink-volume 43 -5%'")
+(local VOLUME_TOGGLE "pactl set-sink-mute 43 toggle")
+(local MIC_TOGGLE "pactl set-source-mute 44 toggle")
 (local APPS "rofi -show drun")
 (local RUNNING-APPS "rofi -show window")
 
