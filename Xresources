@@ -218,3 +218,31 @@ st.alpha: 0.95
 !! Set a default font and font size as below:
 !st.font: Hack-10;
 st.font: SauceCodePro Nerd Font Mono-11;
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!Zutty config
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+Zutty.fontsize: 14
+Zutty.fontpath: /home/msaud/.fonts
+Zutty.font: Fira Code Medium Nerd Font Complete Mono
+!Zutty.dwfont: Fira Code Medium Nerd Font Complete Mono
+Zutty.title: Zutty Terminal
+Zutty.border: 10
+!! Srcery: https://srcery-colors.github.io
+Zutty.color0:   #1c1b19
+Zutty.color1:   #ef2f27
+Zutty.color2:   #519f50
+Zutty.color3:   #fbb829
+Zutty.color4:   #2c78bf
+Zutty.color5:   #e02c6d
+Zutty.color6:   #0aaeb3
+Zutty.color7:   #d0bfa1
+Zutty.color8:   #918175
+Zutty.color9:   #f75341
+Zutty.color10:  #98bc37
+Zutty.color11:  #fed06e
+Zutty.color12:  #68a8e4
+Zutty.color13:  #ff5c8f
+Zutty.color14:  #53fde9
+Zutty.color15:  #fce8c3

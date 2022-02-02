@@ -480,4 +480,4 @@ eval "$(starship init bash)"
 
 # }}}
 
-# vim: ts=4 sw=4 sts=4 et fdm=marker:
+# vim: ts=4 sw=4 sts=4 et fdm=marker fdl=0:

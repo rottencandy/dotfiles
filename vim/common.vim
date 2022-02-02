@@ -51,6 +51,7 @@ set showmatch           " Highlight matching [{()}]
 set hlsearch            " Highlight search matches
 set scrolloff=0         " Scroll offset
 set conceallevel=2      " Enable text conceal (for vim-markdown)
+set concealcursor=nc    " Text is not concealed when in insert mode
 
 " Disable all error bells
 set noerrorbells
