@@ -1,0 +1,30 @@
+#!/bin/bash
+
+
+wifi_list() {
+	#local WIFI_LIST='nmcli -f SSID,BARS,SECURITY,IN-USE'
+	local WIFI_LIST='nmcli -f SSID device wifi'
+	local SSID=$($WIFI_LIST | awk 'NR!=1')
+
+	echo "$SSID"
+}
+export -f wifi_list
+
+SSID=$(printf "$(wifi_list)" |\
+	fzf\
+	--bind 'ctrl-r:reload(nmcli device wifi rescan; printf "$(wifi_list)")'\
+	--header 'Refresh with CTRL-R'\
+)
+
+if [ -z "$SSID" ]; then
+	exit
+fi
+
+RESULT=$(nmcli device wifi connect $SSID)
+if [ -z "$(echo $RESULT | grep Error)" ]; then
+	echo Successfully connected to $SSID
+	exit
+fi
+
+echo Attempting to provide credentials.
+nmcli device wifi connect $SSID --ask
