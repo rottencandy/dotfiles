@@ -1,1 +1,34 @@
+# Need to manually add each file/dir in here
+# so that I don't accidentally commit private files before cleaning then up first
+
 *
+!*/
+!startup.sh
+!srandrd_script.sh
+!picom.conf
+!redshift.conf
+!greenclip.toml
+!starship.toml
+
+!/bottom/*
+!/broot/*
+!/btop/*
+!/cava/*
+!/mpd/*
+!/slop/*
+!/wtf/*
+
+!/alacritty/*
+!/conky/*
+!/dunst/*
+!/kitty/*
+!/nvim/*
+!/polybar/*
+!/rofi/*
+!/sakura/*
+
+!/awesome/*
+!/bspwm/*
+!/sway/*
+!/sxhkd/*
+!/tridactyl/*
