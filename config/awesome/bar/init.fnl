@@ -7,6 +7,7 @@
 (local ram (require "bar/ram"))
 (local battery (require "bar/battery"))
 (local temp (require "bar/temp"))
+(local wifi (require "bar/wifi"))
 
 (fn [s]
   ;; tag list widget
@@ -45,12 +46,13 @@
     }
     ;; right
     3 {
-      1 calendar
-      2 ram
-      3 temp
-      4 battery
-      5 systray
-      6 layout-icon
+      1 wifi
+      2 calendar
+      3 ram
+      4 temp
+      5 battery
+      6 systray
+      7 layout-icon
       :spacing 15
       :layout wibox.layout.fixed.horizontal
     }

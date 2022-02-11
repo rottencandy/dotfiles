@@ -3,7 +3,7 @@
 (local interval 30)
 ;; watch charger file
 (local temp-script "
-sh -c \"sensors | rg Package | awk '{printf \\\"%f\\\", \\$4}'\"
+sh -c \"sensors | rg Package | awk '{printf \\\"%f\\\", $4}'\"
 ")
 
 (awful.widget.watch temp-script interval (fn [widget stdout]

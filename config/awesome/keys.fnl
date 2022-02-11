@@ -24,6 +24,7 @@
 (local VOLUME_TOGGLE "pactl set-sink-mute 43 toggle")
 (local MIC_TOGGLE "pactl set-source-mute 44 toggle")
 (local APPS "rofi -show drun")
+(local EXECUTABLES "rofi -show run")
 (local RUNNING-APPS "rofi -show window")
 
 ;; }}}
@@ -156,6 +157,9 @@
   (awful.key [superkey] :r
     (fn [] (awful.spawn RUNNING-APPS))
     {:description "App selector(rofi)" :group "programs" })
+  (awful.key [superkey] :e
+    (fn [] (awful.spawn EXECUTABLES))
+    {:description "Executable runner(rofi)" :group "programs" })
 
   ;; Lock
   (awful.key [superkey] :p
@@ -315,4 +319,4 @@
 
 keys
 
-;; vim: et:sw=2:fdm=marker:tw=80
+;; vim: et:sw=2:fdm=marker:fdl=0:tw=80

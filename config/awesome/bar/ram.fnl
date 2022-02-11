@@ -7,7 +7,6 @@
   :text "..."
   :align "center"
   :valign "center"
-  :font "Hack Nerd Font Mono 12"
   :widget wibox.widget.textbox
 }))
 

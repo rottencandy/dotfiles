@@ -24,8 +24,9 @@
   :widget wibox.container.arcchart
 }))
 
-(local tooltip (awful.tooltip []))
-(tooltip:add_to_object bat-widget)
+(local tooltip (awful.tooltip {
+  :objects [ bat-widget ]
+}))
 
 (awesome.connect_signal "signal::battery" (fn [percentage charging]
   (set bat-widget.value percentage)

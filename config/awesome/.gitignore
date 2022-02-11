@@ -1,0 +1,7 @@
+# Need to manually add each file/dir in here
+# so that I don't accidentally commit private files before cleaning then up first
+
+!/bar/*
+!/icons/*
+!/popup/*
+!/signals/*
