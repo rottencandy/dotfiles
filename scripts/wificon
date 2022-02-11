@@ -3,7 +3,7 @@
 
 wifi_list() {
 	#local WIFI_LIST='nmcli -f SSID,BARS,SECURITY,IN-USE'
-	local WIFI_LIST='nmcli -f SSID device wifi'
+	local WIFI_LIST='nmcli -f IN-USE,SSID device wifi'
 	local SSID=$($WIFI_LIST | awk 'NR!=1')
 
 	echo "$SSID"
@@ -14,6 +14,7 @@ SSID=$(printf "$(wifi_list)" |\
 	fzf\
 	--bind 'ctrl-r:reload(nmcli device wifi rescan; printf "$(wifi_list)")'\
 	--header 'Refresh with CTRL-R'\
+	| sed 's/^\*//g' # trim the in-use character
 )
 
 if [ -z "$SSID" ]; then
