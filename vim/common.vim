@@ -52,6 +52,7 @@ set hlsearch            " Highlight search matches
 set scrolloff=0         " Scroll offset
 set conceallevel=2      " Enable text conceal (for vim-markdown)
 set concealcursor=nc    " Text is not concealed when in insert mode
+set colorcolumn=80      " Show column at 80 chars
 
 " Disable all error bells
 set noerrorbells
@@ -174,7 +175,7 @@ endif
 
 " }}}
 
-"Filetype {{{
+"Autocmds {{{
 
 augroup filetype_settings
   autocmd!
@@ -185,22 +186,36 @@ augroup filetype_settings
   autocmd BufNewFile,BufRead *.glslx
         \ set ft=glsl
 
-  " JS/TS stuff
+  " JS/TS
   autocmd FileType javascript,typescript,javascriptreact,typescriptreact,javascript.jsx,typescript.tsx
         \ exec 'command! -buffer Fmt PrettierAsync' |
         \ exec 'inoreabbrev <buffer> clg console.log()<LEFT>'
 
-  " Web stuff
+  " Web
   autocmd FileType json,yaml,css,scss
         \ exec 'command! -buffer Fmt PrettierAsync'
 
-  " Use phtml as ft for html files
-  "autocmd BufRead,BufNewFile *.html set ft=phtml
+  " markdown
+  " Note: Slack hates the text/html type, routing it through firefox for now
+  " exec 'command! -buffer -range=% HTMLCopy w !pandoc -f markdown -t html | xclip -sel c -t text/html'
+  autocmd FileType markdown
+        \ exec 'command! -buffer PRfmt   %s/\vhttps:\/\/github(\w|-|\.|\/)*pull\/(\d*)/[#\2](&)/g' |
+        \ exec 'command! -buffer Jirafmt %s/\vhttps:\/\/issue(\w|-|\.|\/)*browse\/((\w|-)*)/[\2](&)/g' |
+        \ exec 'command! -buffer BZfmt   %s/\vhttps:\/\/bugz(\w|\.|\/)*\?id\=(\d*)/[#\2](&)/g' |
 
-  " Lua stuff
+        \ exec 'command! -buffer -range=% HTMLOpen w !pandoc -f markdown -t html > /tmp/firemd.html; firefox /tmp/firemd.html'
+
+  " Lua
   autocmd Filetype lua
         \ setlocal expandtab tabstop=4 shiftwidth=4
 
+augroup END
+
+augroup quickfix_settings
+  autocmd!
+  " Open quickfix window if getexpr is run
+  autocmd QuickFixCmdPost cgetexpr cwindow
+  autocmd QuickFixCmdPost lgetexpr lwindow
 augroup END
 
 " }}}
@@ -269,7 +284,7 @@ nnoremap - :Fern . -reveal=%<CR>
 
 " }}}
 
-" Utils {{{
+"Utils {{{
 
 " Runs callback with visually selected text as string argument
 fun! s:withSelection(callback)
@@ -328,6 +343,20 @@ nnoremap <silent> <leader>j :wincmd j<CR>
 nnoremap <silent> <leader>k :wincmd k<CR>
 nnoremap <silent> <leader>l :wincmd l<CR>
 
+" Navigate quickfix list
+nnoremap [q :cprevious<CR>
+nnoremap ]q :cnext<CR>
+nnoremap [Q :cfirst<CR>
+nnoremap ]Q :clast<CR>
+nnoremap [<C-Q> :cpfile<CR>
+nnoremap ]<C-Q> :cnfile<CR>
+
+" Navigate buffer list
+nnoremap [b :bprev<CR>
+nnoremap ]b :bnext<CR>
+nnoremap [B :bfirst<CR>
+nnoremap ]B :brewind<CR>
+
 " Grep for word under cursor in cwd and open matched files in quickfix window
 "nnoremap <leader>g :silent execute "grep! -R " . shellescape(expand("<cWORD>")) . " ."<CR>:copen<CR>
 
@@ -352,6 +381,18 @@ command! -nargs=1 -complete=file Move call <SID>move_file(<f-args>)
 
 " Close buffer without messing up splits
 command Bd bp|bd #
+
+" Grep raw output for use with cgetexpr
+" https://gist.github.com/romainl/56f0c28ef953ffc157f36cc495947ab3
+fun! Grep(...)
+  return system(join([&grepprg] + [join(a:000, ' ')], ' '))
+endfun
+
+command -nargs=+ -complete=file_in_path Grep  cgetexpr Grep(<f-args>)
+command -nargs=+ -complete=file_in_path LGrep lgetexpr Grep(<f-args>)
+
+" :grep is :Grep
+cnoreabbrev <expr> grep (getcmdtype() ==# ':' && getcmdline() ==# 'grep') ? 'Grep' : 'grep'
 
 " }}}
 

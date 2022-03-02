@@ -29,6 +29,8 @@ Plug 'tpope/vim-fugitive'
 Plug 'plasticboy/vim-markdown'
 " GLSL support
 Plug 'tikhomirov/vim-glsl'
+" Gdscript support
+Plug 'calviken/vim-gdscript3'
 " Editorconfig
 Plug 'editorconfig/editorconfig-vim'
 " Prettier
@@ -36,10 +38,20 @@ Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 " LSP
 Plug 'neovim/nvim-lspconfig'
 " Completion
-Plug 'nvim-lua/completion-nvim'
+Plug 'ms-jpq/coq_nvim', { 'branch': 'coq' }
+Plug 'ms-jpq/coq.artifacts', { 'branch': 'artifacts' }
+"Copilot, disabled by default
+Plug 'github/copilot.vim', { 'on': [] }
+command! LoadCopilot call plug#load('copilot.vim')
+" Parinfer https://shaunlebron.github.io/parinfer, disabled by default
+Plug 'eraserhd/parinfer-rust', { 'on': [] }
+command! LoadParinfer call plug#load('parinfer-rust')
 
 " Initialize plugin system
 call plug#end()
+
+" Neovide :)
+let g:neovide_cursor_vfx_mode = 'railgun'
 
 " }}}
 
@@ -62,9 +74,9 @@ require('nvim-treesitter.configs').setup {
       node_decremental = "gsd",
     },
   },
-  indent = {
-    enable = true
-  },
+  --indent = {
+  --  enable = true
+  --},
 }
 EOF
 
@@ -78,6 +90,7 @@ set foldexpr=nvim_treesitter#foldexpr()
 
 lua << EOF
 local nvim_lsp = require('lspconfig')
+local coq = require('coq')
 local on_attach = function(client, bufnr)
   local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
   local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
@@ -112,10 +125,10 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<leader>a', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
   buf_set_keymap('v', '<leader>a', '<cmd>lua vim.lsp.buf.range_code_action()<CR>', opts)
   buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '<leader>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
-  buf_set_keymap('n', '<leader>n', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<leader>N', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  --buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  buf_set_keymap('n', '<leader>e', '<cmd>lua vim.diagnostic.get()<CR>', opts)
+  buf_set_keymap('n', '<leader>n', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '<leader>N', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
+  --buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
 
   -- Set some keybinds conditional on server capabilities
   if client.resolved_capabilities.document_formatting then
@@ -140,8 +153,8 @@ local on_attach = function(client, bufnr)
 
   vim.api.nvim_exec([[
     " Use <Tab> and <S-Tab> to navigate through popup menu
-    inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-    inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+    "inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+    "inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
     " Set completeopt to have a better completion experience
     set completeopt=menuone,noinsert,noselect
@@ -151,17 +164,19 @@ local on_attach = function(client, bufnr)
   ]], false)
 end
 
-nvim_lsp.tsserver.setup {
+nvim_lsp.tsserver.setup(coq.lsp_ensure_capabilities({
   on_attach = on_attach,
   root_dir = nvim_lsp.util.root_pattern('.git')
-}
+}))
 -- Use a loop to conveniently both setup defined servers 
 -- and map buffer local keybindings when the language server attaches
-local servers = { 'ccls', 'cssls', 'gopls', 'html', 'jsonls', 'rust_analyzer', 'yamlls', 'eslint' }
+local servers = { 'ccls', 'cssls', 'gopls', 'html', 'jsonls', 'rust_analyzer', 'yamlls', 'eslint', 'gdscript' }
 for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup { on_attach = on_attach }
+  nvim_lsp[lsp].setup(coq.lsp_ensure_capabilities({ on_attach = on_attach }))
 end
 EOF
+
+"let g:coq_settings = {'keymap.repeat': '.'}
 
 " }}}
 

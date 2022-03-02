@@ -7,6 +7,8 @@ set searchurls.g https://google.com/search?hl=en&q=%s
 set searchurls.d https://duckduckgo.com/?q=%s
 set searchurls.y https://youtube.com/results?search_query=%s
 
+setnull searchurls.github
+
 set searchengine runnaroo
 
 " }}}
@@ -69,4 +71,4 @@ blacklistadd ^https://bluejeans.com
 
 " }}}
 
-" vim: ft=vim:fdm=marker:et:sw=2:
+" vim: ft=vim:fdm=marker:fdl=0:et:sw=2:
