@@ -19,10 +19,10 @@
 (local client-move-dist 50)
 (local XIDLEHOOK_SOCKET "/tmp/xidlehook.sock")
 ;; `pactl list [sinks|sources] short` to list sinks or sources
-(local VOLUME_UP "sh -c 'pactl set-sink-mute 43 false ; pactl set-sink-volume 43 +5%'")
-(local VOLUME_DOWN "sh -c 'pactl set-sink-mute 45 false ; pactl set-sink-volume 43 -5%'")
-(local VOLUME_TOGGLE "pactl set-sink-mute 43 toggle")
-(local MIC_TOGGLE "pactl set-source-mute 44 toggle")
+(local VOLUME_UP "sh -c 'pactl set-sink-mute $(pactl get-default-sink) false ; pactl set-sink-volume $(pactl get-default-sink) +5%'")
+(local VOLUME_DOWN "sh -c 'pactl set-sink-mute $(pactl get-default-sink) false ; pactl set-sink-volume $(pactl get-default-sink) -5%'")
+(local VOLUME_TOGGLE "sh -c 'pactl set-sink-mute $(pactl get-default-sink) toggle'")
+(local MIC_TOGGLE "pactl set-source-mute $(pactl get-default-source) toggle")
 (local APPS "rofi -show drun")
 (local EXECUTABLES "rofi -show run")
 (local RUNNING-APPS "rofi -show window")
@@ -55,9 +55,15 @@
     {:description "show help" :group "awesome" })
 
   ;; Notifications
-  (awful.key [ctrl] :space
+  (awful.key [superkey] :y
     naughty.destroy_all_notifications
     {:description "Clear all notifications" :group "awesome" })
+  ;; Pause/unpause
+  (awful.key [superkey shift] :y
+    (fn []
+      (naughty.toggle)
+      (awesome.emit_signal "signal::notification" (naughty.is_suspended)))
+    {:description "Pause/unpause notifications" :group "awesome" })
 
   ;; }}}
 
@@ -232,6 +238,10 @@
     (fn [c] (c:relative_move client-move-dist 0 0 0))
     {:description "move client right" :group "navigation" })
 
+  (awful.key [superkey shift] :m
+    (fn [c] (c:move_to_screen))
+    {:description "move client to different screen" :group "navigation" })
+
   ;; Fullscreen
   (awful.key [superkey] :f
     (fn [c]
@@ -298,25 +308,30 @@
   (set keys.globalkeys (gears.table.join
     keys.globalkeys
 
+    ;; view tag
     (awful.key [superkey] (.. "#" (+ i 9))
       (fn []
         (let [screen (awful.screen.focused)
               tag (. screen.tags i)]
-          (if tag (tag:view_only))))
-      ;{:description (.. "view tag #" i) :group "tag"}
-      )
+          (if tag (tag:view_only)))))
 
+    ;; select tag
+    (awful.key [superkey ctrl] (.. "#" (+ i 9))
+      (fn []
+        (let [screen (awful.screen.focused)
+              tag (. screen.tags i)]
+          (if tag (awful.tag.viewtoggle tag)))))
+
+    ;; move to tag
     (awful.key [superkey shift] (.. "#" (+ i 9))
       (fn []
         (if client.focus
           (let [tag (. client.focus.screen.tags i)]
             (if tag
-              (client.focus:move_to_tag tag)))))
-      ;{:description (.. "move to tag #" i) :group "tag"}
-      ))))
+              (client.focus:move_to_tag tag)))))))))
 
 ;; }}}
 
 keys
 
-;; vim: et:sw=2:fdm=marker:fdl=0:tw=80
+;; vim: fdm=marker:fdl=0

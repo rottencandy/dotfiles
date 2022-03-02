@@ -8,6 +8,7 @@
 (local battery (require "bar/battery"))
 (local temp (require "bar/temp"))
 (local wifi (require "bar/wifi"))
+(local notification (require "bar/notification"))
 
 (fn [s]
   ;; tag list widget
@@ -50,13 +51,12 @@
       2 calendar
       3 ram
       4 temp
-      5 battery
-      6 systray
-      7 layout-icon
+      5 notification
+      6 battery
+      7 systray
+      8 layout-icon
       :spacing 15
       :layout wibox.layout.fixed.horizontal
     }
     :layout wibox.layout.align.horizontal
   }))
-
-;; vim: et:sw=2:fdm=marker:tw=80
