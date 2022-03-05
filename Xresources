@@ -13,8 +13,8 @@
 
 !*.cursorColor:  #ccc
 Xcursor.theme: Hacked-White
-*foreground: #d0d0d0
-*background: #3a3a3a
+!*foreground: #d0d0d0
+!*background: #3a3a3a
 *.cursorColor:  #ccc
 
 ! █▓▒░ scorcerer
@@ -226,7 +226,6 @@ st.font: SauceCodePro Nerd Font Mono-11;
 Zutty.fontsize: 14
 Zutty.fontpath: /home/msaud/.fonts
 Zutty.font: Fira Code Medium Nerd Font Complete Mono
-!Zutty.dwfont: Fira Code Medium Nerd Font Complete Mono
 Zutty.title: Zutty Terminal
 Zutty.border: 10
 !! Srcery: https://srcery-colors.github.io

@@ -202,7 +202,6 @@ augroup filetype_settings
         \ exec 'command! -buffer PRfmt   %s/\vhttps:\/\/github(\w|-|\.|\/)*pull\/(\d*)/[#\2](&)/g' |
         \ exec 'command! -buffer Jirafmt %s/\vhttps:\/\/issue(\w|-|\.|\/)*browse\/((\w|-)*)/[\2](&)/g' |
         \ exec 'command! -buffer BZfmt   %s/\vhttps:\/\/bugz(\w|\.|\/)*\?id\=(\d*)/[#\2](&)/g' |
-
         \ exec 'command! -buffer -range=% HTMLOpen w !pandoc -f markdown -t html > /tmp/firemd.html; firefox /tmp/firemd.html'
 
   " Lua

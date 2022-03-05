@@ -6,12 +6,6 @@ case $- in
     *) return;;
 esac
 
-# Start with tmux
-#if command -v tmux &> /dev/null && [ -n "$PS1" ] && [[ ! "$TERM" =~ screen ]] && [[ ! "$TERM" =~ tmux ]] && [ -z "$TMUX" ]; then
-#    tmux
-#fi
-
-
 # sources {{{
 #---------------------------------------------------------------------
 
@@ -228,7 +222,7 @@ g() {
 
 installcmd() {
     local HLP="Interactively download, extract and install a binary from provided URL."
-    local TMPDIR=~/temp_installcmd_dir
+    local TMPDIR=~/installcmd_dir
     mkdir -p $TMPDIR && pushd $TMPDIR
     case "$1" in
         "") echo $HLP ;;
@@ -267,18 +261,20 @@ installcmd() {
     echo "Successfully installed and cleaned up"
 }
 
-# Clean up merged git branches, local & remote
+# Clean up merged git branches, local & remote, requires main branch name
 cleanupbranches() {
-    local BRANCHES=$(git branch --merged | grep -v master)
+    if [ -z "$1" ]; then echo "Provide branch to track against"; return 1; fi
+    local BRANCHES=$(git branch --merged | grep -v "$1")
+    if [ -z "$BRANCHES" ]; then echo "No branches."; return; fi
     echo Deleting branches:
     echo
     for branch in $BRANCHES; do
-        echo $branch
+        echo "$branch"
     done
     echo
     read -p "Proceed? (y/n): " ANS
     echo
-    if [ "$ANS" =~ "^[Yy]$" ]; then
+    if [[ "$ANS" =~ ^[Yy]$ ]]; then
         git branch --delete $BRANCHES
         git push --delete origin $BRANCHES
     fi
@@ -350,14 +346,19 @@ alias \
     ll='lsd -l' \
     nb='cd ~/nb && nvim -c "exec \"normal 1 f\""' \
     nv='nvim' \
+    nvdaemon='nvim --headless --listen localhost:6666' \
     scrt='maim -g $(slop -q) scrt-screenshot-$(date +%s).png 2> /dev/null' \
     t='tmux' \
     tree='lsd --tree' \
     ungr='gron --ungron' \
-    v='vimx' \
+    v='vim -X' \
     yt='yt-dlp --add-metadata -i' \
     ytb='yt-dlp --add-metadata -i -f bestvideo+bestaudio' \
     yta='yt --add-metadata -x -f bestaudio'
+
+_completion_loader sudo tmux
+complete -F _sudo s
+complete -F _tmux t
 
 # }}}
 
