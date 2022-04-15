@@ -226,7 +226,7 @@ installcmd() {
     mkdir -p $TMPDIR && pushd $TMPDIR
     case "$1" in
         "") echo $HLP ;;
-        *.tar.gz | *.tbz)
+        *.tar.gz | *.tar.xz | *.tbz)
             local ARC=archive.tar.gz
             xh -d "$1" -o $ARC || return 1
             tar -xf $ARC

@@ -14,6 +14,7 @@
 !/broot/*
 !/btop/*
 !/cava/*
+!/eww/*
 !/mpd/*
 !/slop/*
 !/streamlink/*
@@ -22,6 +23,7 @@
 !/alacritty/*
 !/conky/*
 !/dunst/*
+!/helix/*
 !/kitty/*
 !/nvim/*
 !/polybar/*
