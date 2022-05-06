@@ -197,12 +197,12 @@ augroup filetype_settings
 
   " markdown
   " Note: Slack hates the text/html type, routing it through firefox for now
-  " exec 'command! -buffer -range=% HTMLCopy w !pandoc -f markdown -t html | xclip -sel c -t text/html'
   autocmd FileType markdown
         \ exec 'command! -buffer PRfmt   %s/\vhttps:\/\/github(\w|-|\.|\/)*pull\/(\d*)/[#\2](&)/g' |
         \ exec 'command! -buffer Jirafmt %s/\vhttps:\/\/issue(\w|-|\.|\/)*browse\/((\w|-)*)/[\2](&)/g' |
         \ exec 'command! -buffer BZfmt   %s/\vhttps:\/\/bugz(\w|\.|\/)*\?id\=(\d*)/[#\2](&)/g' |
-        \ exec 'command! -buffer -range=% HTMLOpen w !pandoc -f markdown -t html > /tmp/firemd.html; firefox /tmp/firemd.html'
+        \ exec 'command! -buffer -range=% HTMLOpen silent w !pandoc -f markdown -t html > /tmp/firemd.html; firefox /tmp/firemd.html' |
+        \ exec 'command! -buffer -range=% HTMLCopy silent w !pandoc -f markdown -t html | xclip -sel c -t text/html'
 
   " Lua
   autocmd Filetype lua
@@ -412,7 +412,7 @@ let BAT_CMD = 'bat --style=plain --color=always'
 let BAT_CMD_SHORT = BAT_CMD . ' --line-range :500'
 let BASIC_PREVIEW = '--preview "' . BAT_CMD_SHORT . ' {}"'
 let BUFLINE_PREVIEW = '--delimiter \" --preview "' . BAT_CMD_SHORT . ' {2}"'
-let EXPECT_BINDS = '--expect=ctrl-t,ctrl-v,ctrl-s'
+let EXPECT_BIND = '--expect=ctrl-t,ctrl-v,ctrl-s,ctrl-b'
 let RG_PREVIEW = '--delimiter
       \ : --preview "' . BAT_CMD . ' {1} --highlight-line {2}"
       \ --preview-window "+{2}/2"'
@@ -431,14 +431,15 @@ fun! s:bufnumber(bufline)
 endfun
 
 " Open buffer
-fun! s:bufopen(result)
+fun! s:bufmanage(result)
   if len(a:result) < 2
     return
   endif
 
   let cmd = get({'ctrl-s': 'sbuffer',
         \ 'ctrl-v': 'vert sbuffer',
-        \ 'ctrl-t': 'tabnew | buffer'},
+        \ 'ctrl-t': 'tabnew | buffer',
+        \ 'ctrl-b': 'bdelete'},
         \ a:result[0], 'buffer')
   let buffers = a:result[1:]
 
@@ -482,34 +483,34 @@ endfun
 
 fun! s:FuzzyContentSearch(initialQuery)
   " VimL can't do var scopes smh... :/
-  let BAT_CMD = 'bat --style=plain --color=always'
-  let RG_PREVIEW = '--delimiter
-        \ : --preview "' . BAT_CMD . ' {1} --highlight-line {2}"
+  let l:BAT_CMD = 'bat --style=plain --color=always'
+  let l:RG_PREVIEW = '--delimiter
+        \ : --preview "' . l:BAT_CMD . ' {1} --highlight-line {2}"
         \ --preview-window "+{2}/2"'
-  let EXPECT_BINDS = '--expect=ctrl-t,ctrl-v,ctrl-s'
-  let opts = {}
-  let opts.source = 'rg --line-number ''.*'''
-  let opts['sink*'] = function('OpenFilesAtLocation')
-  let opts.options = '--query "' . a:initialQuery . '" ' . RG_PREVIEW . ' ' . EXPECT_BINDS
-  call fzf#run(fzf#wrap(opts))
+  let l:EXPECT = '--expect=ctrl-t,ctrl-v,ctrl-s'
+  let l:opts = {}
+  let l:opts.source = 'rg --line-number ''.*'''
+  let l:opts['sink*'] = function('OpenFilesAtLocation')
+  let l:opts.options = '--query "' . a:initialQuery . '" ' . l:RG_PREVIEW . ' ' . l:EXPECT
+  call fzf#run(fzf#wrap(l:opts))
 endfun
 
 fun! s:FuzzyRgBackend(initialQuery)
   " VimL can't do var scopes smh... :/
-  let BAT_CMD = 'bat --style=plain --color=always'
-  let RG_PREVIEW = '--delimiter
-        \ : --preview "' . BAT_CMD . ' {1} --highlight-line {2}"
+  let l:BAT_CMD = 'bat --style=plain --color=always'
+  let l:RG_PREVIEW = '--delimiter
+        \ : --preview "' . l:BAT_CMD . ' {1} --highlight-line {2}"
         \ --preview-window "+{2}/2"'
-  let EXPECT_BINDS = '--expect=ctrl-t,ctrl-v,ctrl-s'
-  let opts = {}
-  let opts.options = '--disabled
+  let l:EXPECT = '--expect=ctrl-t,ctrl-v,ctrl-s'
+  let l:opts = {}
+  let l:opts.options = '--disabled
         \ --ansi
         \ --bind "ctrl-r:reload:rg -i --line-number {q} || true"
         \ --query "' . a:initialQuery . '"
         \ --header="Run search with CTRL+r"
-        \ ' . RG_PREVIEW . ' ' . EXPECT_BINDS
-  let opts['sink*'] = function('OpenFilesAtLocation')
-  call fzf#run(fzf#wrap(opts))
+        \ ' . l:RG_PREVIEW . ' ' . l:EXPECT
+  let l:opts['sink*'] = function('OpenFilesAtLocation')
+  call fzf#run(fzf#wrap(l:opts))
 endfun
 
 " Open files
@@ -519,11 +520,11 @@ nnoremap <silent> <Leader>f :call fzf#run(fzf#wrap({
       \ }))<CR>
 "nnoremap <silent> <leader>f :FZF<CR>
 
-" Select from open buffers
+" Manage buffers
 nnoremap <silent> <Leader>b :call fzf#run(fzf#wrap({
       \   'source':  reverse(<sid>buflist()),
-      \   'sink*':   function('<sid>bufopen'),
-      \   'options': EXPECT_BINDS . ' ' . BUFLINE_PREVIEW,
+      \   'sink*':   function('<sid>bufmanage'),
+      \   'options': EXPECT_BIND . ' ' . BUFLINE_PREVIEW,
       \ }))<CR>
 
 " Close buffers
