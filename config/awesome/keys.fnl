@@ -22,7 +22,7 @@
 (local VOLUME_UP "sh -c 'pactl set-sink-mute $(pactl get-default-sink) false ; pactl set-sink-volume $(pactl get-default-sink) +5%'")
 (local VOLUME_DOWN "sh -c 'pactl set-sink-mute $(pactl get-default-sink) false ; pactl set-sink-volume $(pactl get-default-sink) -5%'")
 (local VOLUME_TOGGLE "sh -c 'pactl set-sink-mute $(pactl get-default-sink) toggle'")
-(local MIC_TOGGLE "pactl set-source-mute $(pactl get-default-source) toggle")
+(local MIC_TOGGLE "sh -c 'pactl set-source-mute $(pactl get-default-source) toggle'")
 (local APPS "rofi -show drun")
 (local EXECUTABLES "rofi -show run")
 (local RUNNING-APPS "rofi -show window")

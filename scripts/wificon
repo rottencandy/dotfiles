@@ -28,4 +28,4 @@ if [ -z "$(echo $RESULT | grep Error)" ]; then
 fi
 
 echo Attempting to provide credentials.
-nmcli device wifi connect $SSID --ask
+nmcli device wifi connect "$(echo "$SSID" | xargs)" --ask

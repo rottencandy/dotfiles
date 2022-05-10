@@ -6,6 +6,7 @@ set searchurls.runnaroo https://runnaroo.com/first-rule-of-fightclub?term=%s
 set searchurls.g https://google.com/search?hl=en&q=%s
 set searchurls.d https://duckduckgo.com/?q=%s
 set searchurls.y https://youtube.com/results?search_query=%s
+set searchurls.b https://search.brave.com/search?q=%s
 
 setnull searchurls.github
 
@@ -40,7 +41,7 @@ unbindurl ^https://youtube.com f
 bind yg composite js "git clone " + document.location.href.replace(/https?:\/\//,"git@").replace("/",":").replace(/$/,".git") | clipboard yank
 
 " Comment toggler for Reddit, Hacker News and Lobste.rs
-bind ;c hint -Jc [class*="expand"],[class="togg"],[class="comment_folder"]
+bind ;c hint -Jc [class*="expand"],[class*="togg"],[class="comment_folder"]
 
 " Make gu take you back to subreddit from comments
 bindurl reddit.com gu urlparent 4
