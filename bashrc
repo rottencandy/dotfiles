@@ -108,7 +108,7 @@ fld() {
 
 # ftpane - switch pane (@george-b)
 # bind f run "tmux split-window -v -l 10 'bash -ci ftpane'"
-ftpane() {
+tmux_fzf_pane() {
     local panes current_window current_pane target target_window target_pane
     panes=$(tmux list-panes -s -F '#I:#P - #{pane_current_path} #{pane_current_command}')
     current_pane=$(tmux display-message -p '#I:#P')

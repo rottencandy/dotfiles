@@ -430,7 +430,7 @@ fun! s:bufnumber(bufline)
   return matchstr(a:bufline, '^[ 0-9]*')
 endfun
 
-" Open buffer
+" Manage buffers
 fun! s:bufmanage(result)
   if len(a:result) < 2
     return
@@ -446,11 +446,6 @@ fun! s:bufmanage(result)
   for each in buffers
     execute cmd s:bufnumber(each)
   endfor
-endfun
-
-" Close buffer
-fun! s:bufclose(result)
-  execute 'bdelete ' . s:bufnumber(a:result)
 endfun
 
 " Move to dir
@@ -525,13 +520,6 @@ nnoremap <silent> <Leader>b :call fzf#run(fzf#wrap({
       \   'source':  reverse(<sid>buflist()),
       \   'sink*':   function('<sid>bufmanage'),
       \   'options': EXPECT_BIND . ' ' . BUFLINE_PREVIEW,
-      \ }))<CR>
-
-" Close buffers
-nnoremap <silent> <Leader>B :call fzf#run(fzf#wrap({
-      \   'source':  reverse(<sid>buflist()),
-      \   'sink': function('<sid>bufclose'),
-      \   'options': BUFLINE_PREVIEW,
       \ }))<CR>
 
 " Directory selection

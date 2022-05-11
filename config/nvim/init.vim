@@ -44,7 +44,7 @@ Plug 'ms-jpq/coq.artifacts', { 'branch': 'artifacts' }
 Plug 'github/copilot.vim', { 'on': [] }
 command! LoadCopilot call plug#load('copilot.vim')
 " Parinfer https://shaunlebron.github.io/parinfer, disabled by default
-Plug 'eraserhd/parinfer-rust', { 'on': [] }
+Plug 'eraserhd/parinfer-rust', { 'on': [], 'do': 'cargo build --release' }
 command! LoadParinfer call plug#load('parinfer-rust')
 
 " Initialize plugin system
