@@ -19,7 +19,7 @@ i3lock \
 	--show-failed-attempts \
 	--tiling \
 	--pointer=default \
-	--image=$img
+	--image="$img"
 
 # will be handled through xidlehook in startup script
 #sleep 2

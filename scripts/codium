@@ -10,4 +10,4 @@ export VSCODE_GALLERY_CONTROL_URL=''
 export VSCODE_GALLERY_RECOMMENDATIONS_URL=''
 
 
-~/apps/vscodium/bin/codium $@
+~/apps/vscodium/bin/codium "$@"

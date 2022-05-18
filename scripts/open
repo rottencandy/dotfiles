@@ -16,7 +16,7 @@ case "${1%%:*}" in
 		exec mpv "$1"
 		;;
 	-*)
-		echo $HLP
+		echo "$HLP"
 		;;
 	*)
 		exec /usr/bin/xdg-open "$@"
