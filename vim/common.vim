@@ -53,6 +53,7 @@ set scrolloff=0         " Scroll offset
 set conceallevel=2      " Enable text conceal (for vim-markdown)
 set concealcursor=nc    " Text is not concealed when in insert mode
 set colorcolumn=80      " Show column at 80 chars
+set guifont=Fira_Code_Medium_Nerd_Font_Complete_Mono:h12:w5
 
 " Disable all error bells
 set noerrorbells
@@ -198,9 +199,6 @@ augroup filetype_settings
   " markdown
   " Note: Slack hates the text/html type, routing it through firefox for now
   autocmd FileType markdown
-        \ exec 'command! -buffer PRfmt   %s/\vhttps:\/\/github(\w|-|\.|\/)*pull\/(\d*)/[#\2](&)/g' |
-        \ exec 'command! -buffer Jirafmt %s/\vhttps:\/\/issue(\w|-|\.|\/)*browse\/((\w|-)*)/[\2](&)/g' |
-        \ exec 'command! -buffer BZfmt   %s/\vhttps:\/\/bugz(\w|\.|\/)*\?id\=(\d*)/[#\2](&)/g' |
         \ exec 'command! -buffer -range=% HTMLOpen silent w !pandoc -f markdown -t html > /tmp/firemd.html; firefox /tmp/firemd.html' |
         \ exec 'command! -buffer -range=% HTMLCopy silent w !pandoc -f markdown -t html | xclip -sel c -t text/html'
 
