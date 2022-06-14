@@ -406,13 +406,18 @@ let g:vimkubectl_command = 'oc'
 let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.7 } }
 let g:fzf_action = { 'ctrl-t': 'tab split', 'ctrl-x': 'split', 'ctrl-v': 'vsplit' }
 
+" Starter command for bat
 let BAT_CMD = 'bat --style=plain --color=always'
+
+" Only display the first x lines
 let BAT_CMD_SHORT = BAT_CMD . ' --line-range :500'
 let BASIC_PREVIEW = '--preview "' . BAT_CMD_SHORT . ' {}"'
-let BUFLINE_PREVIEW = '--delimiter \" --preview "' . BAT_CMD_SHORT . ' {2}"'
+
 let EXPECT_BIND = '--expect=ctrl-t,ctrl-v,ctrl-s,ctrl-b'
-let RG_PREVIEW = '--delimiter
-      \ : --preview "' . BAT_CMD . ' {1} --highlight-line {2}"
+let BUFLINE_PREVIEW = '--delimiter \"
+      \ --preview "' . BAT_CMD_SHORT . ' {2}"'
+let RG_PREVIEW = '--delimiter :
+      \ --preview "' . BAT_CMD . ' {1} --highlight-line {2}"
       \ --preview-window "+{2}/2"'
 
 " List open buffers
@@ -420,12 +425,25 @@ fun! s:buflist()
   redir => ls
   silent ls
   redir END
+
+  "let result = []
+  "for buf in split(ls, '\n')
+  "  let bufnum = s:bufnumber(buf)
+  "  let path = matchlist(buf, '\v"(.*)"')[1]
+  "  let lineno = matchlist(buf, '\v([0-9]*)$')[1] + 0
+  "  let fulpath = bufname(bufnum + 0)
+  "  " Use relative path with "../.."
+  "  " Doesn't work currently...
+  "  " let relpath = system(printf('realpath --relative-to="${PWD}" "%s"', fulpath))
+  "  call add(result, printf('%s "%s" %s', bufnum, fulpath, lineno))
+  "endfor
+
   return split(ls, '\n')
 endfun
 
 " Get bufno from bufline
 fun! s:bufnumber(bufline)
-  return matchstr(a:bufline, '^[ 0-9]*')
+  return matchlist(a:bufline, '\v^ +([0-9]*)')[1]
 endfun
 
 " Manage buffers
