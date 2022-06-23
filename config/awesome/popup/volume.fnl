@@ -6,7 +6,7 @@
 (local (window bar icon) (popup.create beautiful.volume-icon))
 
 (local timer (gears.timer {
-  :timeout 3
+  :timeout 1
   :single_shot true
   :callback (fn [] (set window.visible false))
 }))
