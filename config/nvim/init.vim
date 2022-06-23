@@ -31,6 +31,8 @@ Plug 'plasticboy/vim-markdown'
 Plug 'tikhomirov/vim-glsl'
 " Gdscript support
 Plug 'calviken/vim-gdscript3'
+" hjson support
+Plug 'hjson/vim-hjson'
 " Editorconfig
 Plug 'editorconfig/editorconfig-vim'
 " Prettier
