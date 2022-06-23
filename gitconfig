@@ -47,6 +47,17 @@
 
 	# Pretty log
 	lg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+
+	# Show current branch
+	pwd = symbolic-ref --short HEAD
+	# Show corresponding upstream branch
+	upstream = name-rev @{upstream}
+
+	# Set upstream before pushing if necessary
+	pu = "!f() { if [ \"$(git upstream 2> /dev/null)\" ]; then git push; else git push -u origin $(git pwd); fi }; f"
+
+	# Pull submodules
+	pulsub = submodule update --remote
 [filter "lfs"]
 
 	clean = git-lfs clean -- %f
