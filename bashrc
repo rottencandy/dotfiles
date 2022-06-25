@@ -261,25 +261,6 @@ installcmd() {
     echo "Successfully installed and cleaned up"
 }
 
-# Clean up merged git branches, local & remote, requires main branch name
-cleanupbranches() {
-    if [ -z "$1" ]; then echo "Provide branch to track against"; return 1; fi
-    local BRANCHES=$(git branch --merged | grep -v "$1")
-    if [ -z "$BRANCHES" ]; then echo "No branches."; return; fi
-    echo Deleting branches:
-    echo
-    for branch in $BRANCHES; do
-        echo "$branch"
-    done
-    echo
-    read -p "Proceed? (y/n): " ANS
-    echo
-    if [[ "$ANS" =~ ^[Yy]$ ]]; then
-        git branch --delete $BRANCHES
-        git push --delete origin $BRANCHES
-    fi
-}
-
 # }}}
 
 # Mappings {{{
