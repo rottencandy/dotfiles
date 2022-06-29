@@ -8,20 +8,38 @@
 #
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
+
 # Home row direction keys, like vim
 set $left h
 set $down j
 set $up k
 set $right l
+
 # Your preferred terminal emulator
 set $term alacritty
+set $altterm foot
+
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu dmenu_path | dmenu | xargs swaymsg exec --
+set $menu wofi --show drun
+
+# lock
+set $lock swaylock -f -e --image ~/.cache/i3lock.png
+
+# volume
+set $volume_up     pactl set-sink-volume $(pactl get-default-sink) +5%
+set $volume_down   pactl set-sink-volume $(pactl get-default-sink) -5%
+set $volume_toggle pactl set-sink-mute @DEFAULT_SINK@ toggle
+set $mic_toggle    pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+# notifications
+set $notif_clear     makoctl dismiss
+set $notif_clear_all makoctl dismiss --all
+set $notif_restore   makoctl restore
 
 gaps inner 10
-smart_gaps on
+#smart_gaps on
 
 ### Output configuration
 #
@@ -33,6 +51,10 @@ output * bg ~/Pictures/wall.jpg fill
 #   output HDMI-A-1 resolution 1920x1080 position 1920,0
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
+output HDMI-A-2 pos 0    0
+output eDP-1    pos 1920 0
+# exec is so that focus doesn't change on reload
+exec swaymsg focus output HDMI-A-2
 
 ### Idle configuration
 #
@@ -46,6 +68,10 @@ output * bg ~/Pictures/wall.jpg fill
 # This will lock your screen after 300 seconds of inactivity, then turn off
 # your displays after another 300 seconds, and turn your screens back on when
 # resumed. It will also lock your screen before your computer goes to sleep.
+exec swayidle -w \
+         timeout 120 '$lock' \
+         timeout 150 'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"' \
+         before-sleep 'swaylock -f -c 000000'
 
 ### Input configuration
 #
@@ -60,6 +86,11 @@ output * bg ~/Pictures/wall.jpg fill
 #
 # You can get the names of your inputs by running: swaymsg -t get_inputs
 # Read `man 5 sway-input` for more information about this section.
+input "2:7:SynPS/2_Synaptics_TouchPad" {
+    dwt enabled
+    natural_scroll enabled
+    pointer_accel 0.5
+}
 
 ### Key bindings
 #
@@ -67,6 +98,10 @@ output * bg ~/Pictures/wall.jpg fill
 #
     # Start a terminal
     bindsym $mod+Return exec $term
+    bindsym $mod+Shift+Return exec $altterm
+
+    # Lock screen
+    bindsym $mod+p exec $lock
 
     # Kill focused window
     bindsym $mod+Shift+q kill
@@ -85,7 +120,29 @@ output * bg ~/Pictures/wall.jpg fill
     bindsym $mod+Shift+r reload
 
     # Exit sway (logs you out of your Wayland session)
-    bindsym $mod+Shift+Escape exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+    bindsym $mod+Shift+Escape exec swaynag -t warning -m 'Really exit sway?' -b 'Yes, exit sway' 'swaymsg exit'
+
+    # Notifications
+    bindsym $mod+y exec $notif_clear
+    bindsym $mod+Shift+y exec $notif_clear_all
+
+#
+# Hardware
+#
+    # Volume
+    bindsym --locked XF86AudioRaiseVolume exec $volume_up
+    bindsym --locked XF86AudioLowerVolume exec $volume_down
+    bindsym --locked XF86AudioMute        exec $volume_toggle
+    bindsym --locked XF86AudioMicMute     exec $mic_toggle
+
+    bindsym --locked $mod+F1 exec $volume_up
+    bindsym --locked $mod+F2 exec $volume_down
+    bindsym --locked $mod+F3 exec $volume_toggle
+    bindsym --locked $mod+F4 exec $mic_toggle
+
+    # Brightness
+    bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
+    bindsym --locked XF86MonBrightnessUp   exec brightnessctl set 5%+
 #
 # Moving around:
 #
@@ -161,7 +218,9 @@ output * bg ~/Pictures/wall.jpg fill
     bindsym $mod+space focus mode_toggle
 
     # Move focus to the parent container
-    bindsym $mod+a focus parent
+    bindsym $mod+o focus parent
+    # Move focus to the child container
+    bindsym $mod+i focus child
 #
 # Scratchpad:
 #
@@ -203,18 +262,31 @@ bindsym $mod+r mode "resize"
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
-bar {
-    position top
+bar swaybar_command waybar
+#bar {
+#    position top
+#
+#    # When the status_command prints a new line to stdout, swaybar updates.
+#    # The default just shows the current date and time.
+#    status_command while date +'%d/%m %l:%M %p'; do sleep 30; done
+#
+#    colors {
+#        statusline #ffffff
+#        background #323232
+#        inactive_workspace #32323200 #32323200 #5c5c5c
+#    }
+#}
 
-    # When the status_command prints a new line to stdout, swaybar updates.
-    # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
+#
+# Window decorations:
+#
+default_border pixel 2
 
-    colors {
-        statusline #ffffff
-        background #323232
-        inactive_workspace #32323200 #32323200 #5c5c5c
-    }
-}
+#
+# Programs:
+#
+exec_always kdeconnect-indicator
+exec_always fcitx -d
+exec        mako
 
 include /etc/sway/config.d/*

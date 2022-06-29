@@ -30,8 +30,10 @@
 !/rofi/*
 !/sakura/*
 
+!/environment.d/*
 !/awesome/*
 !/bspwm/*
 !/sway/*
+!/waybar/*
 !/sxhkd/*
 !/tridactyl/*

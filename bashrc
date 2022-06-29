@@ -328,7 +328,9 @@ alias \
     nb='cd ~/nb && nvim -c "exec \"normal 1 f\""' \
     nv='nvim' \
     nvdaemon='nvim --headless --listen localhost:6666' \
-    scrt='maim -g $(slop -q) scrt-screenshot-$(date +%s).png 2> /dev/null' \
+    xscrt='maim -g $(slop -q) screenshot-$(date +%s).png 2> /dev/null' \
+    scrt='grim -g "$(slurp)" screenshot-$(date +%s).png 2> /dev/null' \
+    srec='wf-recorder -g "$(slurp)" -c h264_vaapi -d /dev/dri/renderD128 -f recording-$(date +%s).mp4' \
     t='tmux' \
     tree='lsd --tree' \
     ungr='gron --ungron' \
