@@ -443,7 +443,7 @@ endfun
 
 " Get bufno from bufline
 fun! s:bufnumber(bufline)
-  return matchlist(a:bufline, '\v^ +([0-9]*)')[1]
+  return matchlist(a:bufline, '\v^ *([0-9]*)')[1]
 endfun
 
 " Manage buffers

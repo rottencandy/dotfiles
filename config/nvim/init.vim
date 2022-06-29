@@ -33,6 +33,8 @@ Plug 'tikhomirov/vim-glsl'
 Plug 'calviken/vim-gdscript3'
 " hjson support
 Plug 'hjson/vim-hjson'
+" pug support
+Plug 'digitaltoad/vim-pug'
 " Editorconfig
 Plug 'editorconfig/editorconfig-vim'
 " Prettier
