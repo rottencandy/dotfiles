@@ -80,6 +80,14 @@ if executable('yaml-language-server')
         \ })
 endif
 
+if executable('cucumber-language-server')
+  au User lsp_setup call lsp#register_server({
+        \ 'name': 'cucumber-language-server',
+        \ 'cmd': { server_info->['cucumber-language-server', '--stdio'] },
+        \ 'allowlist': ['cucumber'],
+        \ })
+endif
+
 fun! s:on_lsp_buf_enabled() abort
   setlocal omnifunc=lsp#complete
   setlocal signcolumn=yes
