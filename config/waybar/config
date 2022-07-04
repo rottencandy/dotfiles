@@ -7,7 +7,7 @@
     // Choose the order of the modules
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["sway/window"],
-    "modules-right": ["idle_inhibitor", "pulseaudio", "network", "cpu", "memory", "temperature", "backlight", "battery", "clock", "tray"],
+    "modules-right": ["idle_inhibitor", "network", "cpu", "memory", "temperature", "battery", "clock", "tray"],
     // Modules configuration
     // "sway/workspaces": {
     //     "disable-scroll": true,
@@ -119,12 +119,12 @@
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
-        "format-wifi": " ({signalStrength}%)",
-        "format-ethernet": "{ipaddr}/{cidr} ",
-        "tooltip-format": "{essid}, {ifname} via {gwaddr} ",
+        "format-wifi": "",
+        "format-ethernet": "(E) ",
+        "tooltip-format": "{essid}, {ifname} via {gwaddr}  ({signalStrength}%)",
         "format-linked": "(No IP) ",
         "format-disconnected": "睊",
-        "format-alt": "{ifname}: {ipaddr}/{cidr}"
+        "format-alt": "?"
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float

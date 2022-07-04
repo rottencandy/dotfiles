@@ -15,9 +15,12 @@ set $down j
 set $up k
 set $right l
 
-# Your preferred terminal emulator
+# terminal emulator
 set $term alacritty
 set $altterm foot
+
+# move to run scripts from user directory
+set $myscript cd ~/.scripts
 
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
@@ -28,15 +31,18 @@ set $menu wofi --show drun
 set $lock swaylock -f -e --image ~/.cache/i3lock.png
 
 # volume
-set $volume_up     pactl set-sink-volume $(pactl get-default-sink) +5%
-set $volume_down   pactl set-sink-volume $(pactl get-default-sink) -5%
-set $volume_toggle pactl set-sink-mute @DEFAULT_SINK@ toggle
+set $volume_up     pactl set-sink-volume $(pactl get-default-sink) +5% && $myscript && ./emit-vol-notif
+set $volume_down   pactl set-sink-volume $(pactl get-default-sink) -5% && $myscript && ./emit-vol-notif
+set $volume_toggle pactl set-sink-mute @DEFAULT_SINK@ toggle           && $myscript && ./emit-vol-notif
 set $mic_toggle    pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 # notifications
 set $notif_clear     makoctl dismiss
 set $notif_clear_all makoctl dismiss --all
 set $notif_restore   makoctl restore
+
+# useless shortcut
+set $nb cd nb && $term -e nvim _temp.md
 
 gaps inner 10
 #smart_gaps on
@@ -126,6 +132,8 @@ input "2:7:SynPS/2_Synaptics_TouchPad" {
     bindsym $mod+y exec $notif_clear
     bindsym $mod+Shift+y exec $notif_clear_all
 
+    bindsym $mod+n exec $nb
+
 #
 # Hardware
 #
@@ -141,8 +149,8 @@ input "2:7:SynPS/2_Synaptics_TouchPad" {
     bindsym --locked $mod+F4 exec $mic_toggle
 
     # Brightness
-    bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%-
-    bindsym --locked XF86MonBrightnessUp   exec brightnessctl set 5%+
+    bindsym --locked XF86MonBrightnessDown exec brightnessctl set 5%- && $myscript && ./emit-brightness-notif
+    bindsym --locked XF86MonBrightnessUp   exec brightnessctl set 5%+ && $myscript && ./emit-brightness-notif
 #
 # Moving around:
 #

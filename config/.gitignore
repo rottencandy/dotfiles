@@ -25,15 +25,17 @@
 !/dunst/*
 !/helix/*
 !/kitty/*
+!/mako/*
 !/nvim/*
 !/polybar/*
 !/rofi/*
 !/sakura/*
 
-!/environment.d/*
 !/awesome/*
+!/environment.d/*
 !/bspwm/*
+!/icons/*
 !/sway/*
-!/waybar/*
 !/sxhkd/*
 !/tridactyl/*
+!/waybar/*

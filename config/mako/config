@@ -1,0 +1,12 @@
+font=Fira Code Regular Nerd Font Complete
+layer=overlay
+background-color=#2e3440
+
+[urgency=low]
+border-color=#cccccc
+
+[urgency=normal]
+border-color=#d08770
+
+[urgency=high]
+border-color=#ccaaaa
