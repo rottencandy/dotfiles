@@ -37,9 +37,9 @@ set $volume_toggle pactl set-sink-mute @DEFAULT_SINK@ toggle           && $myscr
 set $mic_toggle    pactl set-source-mute @DEFAULT_SOURCE@ toggle
 
 # notifications
-set $notif_clear     makoctl dismiss
-set $notif_clear_all makoctl dismiss --all
-set $notif_restore   makoctl restore
+set $notif_clear     dunstctl close
+set $notif_clear_all dunstctl close-all
+set $notif_restore   dunstctl history-pop
 
 # useless shortcut
 set $nb cd nb && $term -e nvim _temp.md

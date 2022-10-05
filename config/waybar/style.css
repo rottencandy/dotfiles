@@ -1,25 +1,16 @@
 * {
     border: none;
     border-radius: 0;
-    font-family: "Ubuntu Nerd Font";
-    font-size: 15px;
+    font-family: "FuraCode Nerd Font", sans-serif;
+    font-size: 16px;
     min-height: 0;
+    color: #dedecd;
 }
 
 window#waybar {
     background: transparent;
     color: white;
 }
-
-#window {
-    font-weight: bold;
-    font-family: "Ubuntu";
-}
-/*
-#workspaces {
-    padding: 0 5px;
-}
-*/
 
 #workspaces button {
     padding: 0 5px;
@@ -33,28 +24,21 @@ window#waybar {
     border-top: 2px solid #c9545d;
 }
 
-#mode {
-    background: #64727D;
-    border-bottom: 3px solid white;
-}
-
-#clock, #battery, #cpu, #memory, #network, #pulseaudio, #tray, #mode {
+#clock, #battery, #cpu, #memory, #network, #tray {
     padding: 0 5px;
     margin: 0 5px;
+}
+
+#idle_inhibitor.activated {
+    background: #78bc67;
 }
 
 #clock {
     font-weight: bold;
 }
 
-#battery {
-}
-
 #battery icon {
     color: red;
-}
-
-#battery.charging {
 }
 
 @keyframes blink {
@@ -73,25 +57,10 @@ window#waybar {
     animation-direction: alternate;
 }
 
-#cpu {
-}
-
-#memory {
-}
-
-#network {
-}
-
 #network.disconnected {
     background: #f53c3c;
 }
 
-#pulseaudio {
-}
-
 #pulseaudio.muted {
     background: #cdcdcd;
-}
-
-#tray {
 }
