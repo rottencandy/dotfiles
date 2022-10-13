@@ -13,7 +13,7 @@ let &packpath = &runtimepath
 call plug#begin('~/.config/nvim/plugged')
 
 " Treeshitter
-Plug 'nvim-treesitter/nvim-treesitter', { 'branch': '0.5-compat', 'do': ':TSUpdate' }
+Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 " Colorschemes
 Plug 'bluz71/vim-moonfly-colors'
 Plug 'mhartington/oceanic-next'
@@ -170,7 +170,11 @@ end
 
 nvim_lsp.tsserver.setup(coq.lsp_ensure_capabilities({
   on_attach = on_attach,
-  root_dir = nvim_lsp.util.root_pattern('.git')
+  root_dir = nvim_lsp.util.root_pattern('.git'),
+  settings = {
+    -- https://stackoverflow.com/a/69223288/7683374
+    defaultMaximumTruncationLength = 800
+  }
 }))
 -- Use a loop to conveniently both setup defined servers 
 -- and map buffer local keybindings when the language server attaches
