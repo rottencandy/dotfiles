@@ -61,6 +61,6 @@
 [submodule "vim/pack/general/start/vim-hjson"]
 	path = vim/pack/general/start/vim-hjson
 	url = https://github.com/hjson/vim-hjson
-[submodule "vim/pack/general/start/fern.vim"]
+[submodule "fern"]
 	path = vim/pack/general/start/fern.vim
 	url = https://github.com/lambdalisue/fern.vim
