@@ -241,6 +241,11 @@ installcmd() {
             xh -d "$1" -o $ARC || return 1
             unzip $ARC
             ;;
+        *.apk)
+            local ARC=archive.apk
+            xh -d "$1" -o $ARC || return 1
+            tar -xf $ARC
+            ;;
         *)
             xh -d "$1"
             # xh adds .bin to downloaded files by default
@@ -337,7 +342,10 @@ alias \
     v='vim -X' \
     yt='yt-dlp --add-metadata -i' \
     ytb='yt-dlp --add-metadata -i -f bestvideo+bestaudio' \
-    yta='yt --add-metadata -x -f bestaudio'
+    yta='yt --add-metadata -x -f bestaudio' \
+    brownnoise='play -n synth brownnoise synth pinknoise mix synth sine amod 0.3 10' \
+    whitenoise='play -q -c 2 -n synth brownnoise band -n 1600 1500 tremolo .1 30' \
+    pinknoise='play -t sl -r48000 -c2 -n synth -1 pinknoise .1 80'
 
 _completion_loader sudo tmux
 complete -F _sudo s

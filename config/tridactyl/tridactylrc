@@ -69,6 +69,7 @@ autocmd DocStart ^http(s?)://www.reddit.com js tri.excmds.urlmodify("-t", "www",
 blacklistadd ^https://meet.google.com
 blacklistadd ^https://docs.google.com
 blacklistadd ^https://bluejeans.com
+set leavegithubalone true
 
 " }}}
 
