@@ -53,7 +53,7 @@ set scrolloff=0         " Scroll offset
 set conceallevel=2      " Enable text conceal (for vim-markdown)
 set concealcursor=nc    " Text is not concealed when in insert mode
 set colorcolumn=80      " Show column at 80 chars
-set guifont=Fira_Code_Medium_Nerd_Font_Complete_Mono:h12:w5
+set guifont=Hack:h12
 
 " Disable all error bells
 set noerrorbells
