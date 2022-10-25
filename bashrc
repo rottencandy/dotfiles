@@ -357,6 +357,7 @@ complete -F _tmux t
 #---------------------------------------------------------------------
 
 test -s $HOME/.local/bin          && PATH="$PATH:$HOME/.local/bin"
+test -s $HOME/.local/sbin         && PATH="$PATH:$HOME/.local/sbin"
 test -s $HOME/bin                 && PATH="$PATH:$HOME/bin"
 test -s $HOME/.scripts            && PATH="$PATH:$HOME/.scripts"
 test -s $HOME/go/bin              && PATH="$PATH:$HOME/go/bin"
@@ -446,6 +447,10 @@ export HISTFILESIZE=2000
 export HISTCONTROL=erasedups:ignorespace
 
 export SYSTEMD_PAGER=
+
+export GTK_IM_MODULE="fcitx"
+export QT_IM_MODULE="fcitx"
+export XMODIFIERS="@im=fcitx"
 
 # }}}
 
