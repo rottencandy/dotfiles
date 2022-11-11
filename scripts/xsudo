@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# small script to enable root access to x-windows system
+# https://github.com/WayfireWM/wayfire/wiki/Tips-&-Tricks
+
+# enable root access
+xhost +SI:localuser:root
+
+sudo -E $@
+
+# disable root access after application terminates
+xhost -SI:localuser:root
