@@ -10,6 +10,7 @@
 !greenclip.toml
 !starship.toml
 !wayfire.ini
+!wf-shell.ini
 
 !/bottom/*
 !/broot/*
@@ -26,11 +27,13 @@
 !/dunst/*
 !/helix/*
 !/kitty/*
+!/kanshi/*
 !/mako/*
 !/nvim/*
 !/polybar/*
 !/rofi/*
 !/sakura/*
+!/wofi/*
 
 !/awesome/*
 !/environment.d/*
