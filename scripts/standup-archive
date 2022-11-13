@@ -1,6 +1,7 @@
 #!/bin/bash
 
-ARCHIVE_LOCATION=~/nb/standup-archive.md
+ARCHIVE_LOCATION=~/nb/work/standup-archive.md
+READ_LOCATION=~/nb/work/stand.md
 HTML_LOCATION=/tmp/firemd.html
 OUT=""
 
@@ -10,7 +11,7 @@ CONTENT="$(sed -E \
 	-e 's/https:\/\/github(\w|-|\.|\/)*pull\/([[:digit:]]*)/[#\2](&)/g' \
 	-e 's/https:\/\/issues(\w|-|\.|\/)*browse\/((\w|-)*)/[\2](&)/g' \
 	-e 's/https:\/\/bugzil(\w|\.|\/)*\?id\=([[:digit:]]*)/[#\2](&)/g' \
-	~/nb/stand.md)"
+	$READ_LOCATION)"
 
 OUT+=$'\n\n'$HEADING$'\n----\n\n'
 OUT+=$CONTENT

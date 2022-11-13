@@ -336,6 +336,7 @@ alias \
     xscrt='maim -g $(slop -q) screenshot-$(date +%s).png 2> /dev/null' \
     scrt='grim -g "$(slurp)" screenshot-$(date +%s).png 2> /dev/null' \
     srec='wf-recorder -g "$(slurp)" -c h264_vaapi -d /dev/dri/renderD128 -f recording-$(date +%s).mp4' \
+    arec='parec --monitor-system="$(pacmd get-default-source)" --file-format="wav" recording-$(date +%s).wav' \
     t='tmux' \
     tree='lsd --tree' \
     ungr='gron --ungron' \
