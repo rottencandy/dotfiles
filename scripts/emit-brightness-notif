@@ -1,9 +1,6 @@
 #!/bin/bash
 
-VAL=$(brightnessctl get)
-MAX=$(brightnessctl max)
-# +1 is to ceil, bc uses floor for scale=2
-PERC=$(echo "scale=2; $VAL / $MAX * 100 + 1" | bc -l | sed 's/.[0-9]*$//')
+PERC=$(light -G | sed 's/.[0-9]*$//')
 DURATION=2000
 ICON="$HOME/.config/icons/sun.svg"
 
