@@ -8,7 +8,7 @@ OUT=""
 HEADING="$(date +'%a, %b %d (%d/%m/%y)')"
 
 CONTENT="$(sed -E \
-	-e 's/https:\/\/github(\w|-|\.|\/)*pull\/([[:digit:]]*)/[#\2](&)/g' \
+	-e 's/https:\/\/github(\w|-|\.|\/)*(pull|issues)\/([[:digit:]]*)/[#\3](&)/g' \
 	-e 's/https:\/\/issues(\w|-|\.|\/)*browse\/((\w|-)*)/[\2](&)/g' \
 	-e 's/https:\/\/bugzil(\w|\.|\/)*\?id\=([[:digit:]]*)/[#\2](&)/g' \
 	$READ_LOCATION)"
