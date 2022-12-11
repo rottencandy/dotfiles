@@ -14,7 +14,7 @@ if pgrep i3lock > /dev/null ; then
 	exit 0
 fi
 
-i3lock \
+swaylock \
 	--ignore-empty-password \
 	--show-failed-attempts \
 	--tiling \
