@@ -8,7 +8,7 @@ if [[ -z $1 ]]; then
 	exit 1
 fi
 
-W=~/.local/share/lutris/runners/wine/lutris-GE-Proton7-34-x86_64
+W=~/.local/share/lutris/runners/wine/lutris-GE-Proton7-35-x86_64
 BIN="$W/bin"
 
 WINEVERPATH=$W
