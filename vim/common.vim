@@ -334,6 +334,9 @@ nnoremap <leader>ev :edit $MYVIMRC<CR>
 " Highlight trailing whitespace
 nnoremap <leader>w :match Error /\v\s+$/<CR>
 
+" Write if there are unsaved changes
+nnoremap <leader>u :update<CR>
+
 " Navigate panes
 nnoremap <silent> <leader>h :wincmd h<CR>
 nnoremap <silent> <leader>j :wincmd j<CR>
