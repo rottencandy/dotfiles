@@ -178,7 +178,7 @@ nvim_lsp.tsserver.setup(coq.lsp_ensure_capabilities({
 }))
 -- Use a loop to conveniently both setup defined servers 
 -- and map buffer local keybindings when the language server attaches
-local servers = { 'ccls', 'cssls', 'gopls', 'html', 'jsonls', 'rust_analyzer', 'yamlls', 'eslint', 'gdscript', 'cucumber_language_server' }
+local servers = { 'ccls', 'cssls', 'gopls', 'html', 'jsonls', 'rust_analyzer', 'yamlls', 'eslint', 'gdscript', 'cucumber_language_server', 'denols' }
 for _, lsp in ipairs(servers) do
   nvim_lsp[lsp].setup(coq.lsp_ensure_capabilities({ on_attach = on_attach }))
 end
