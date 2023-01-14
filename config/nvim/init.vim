@@ -93,53 +93,39 @@ set foldexpr=nvim_treesitter#foldexpr()
 "LSP {{{
 
 lua << EOF
-local nvim_lsp = require('lspconfig')
+local lspconfig = require('lspconfig')
 local coq = require('coq')
+
+local opts = { noremap=true, silent=true }
+vim.keymap.set('n', '<leader>e', vim.diagnostic.get, opts)
+vim.keymap.set('n', '<leader>n', vim.diagnostic.goto_next, opts)
+vim.keymap.set('n', '<leader>N', vim.diagnostic.goto_prev, opts)
+--vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
+
 local on_attach = function(client, bufnr)
-  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
-
-  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
-
-  -- peek definition
-  local function preview_location_callback(_, _, result)
-    if result == nil or vim.tbl_isempty(result) then
-      return nil
-    end
-    vim.lsp.util.preview_location(result[1])
-  end
-  function PeekDefinition()
-    local params = vim.lsp.util.make_position_params()
-    return vim.lsp.buf_request(0, 'textDocument/definition', params, preview_location_callback)
-  end
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  --vim.api.nvim_buf_set_option(bufnr, 'completeopt', 'menuone,noinsert,noselect')
+  -- Use <Tab> and <S-Tab> to navigate through popup menu
+  --inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+  --inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
   -- Mappings.
-  local opts = { noremap=true, silent=true }
-  buf_set_keymap('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  buf_set_keymap('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  buf_set_keymap('n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  buf_set_keymap('n', '<leader>K', '<cmd>lua PeekDefinition()<CR>', opts)
-  buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  --buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  --buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
-  --buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
-  --buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
-  buf_set_keymap('n', 'gt', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
-  buf_set_keymap('n', '<leader>r', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-  buf_set_keymap('n', '<leader>a', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('v', '<leader>a', '<cmd>lua vim.lsp.buf.range_code_action()<CR>', opts)
-  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-  buf_set_keymap('n', '<leader>e', '<cmd>lua vim.diagnostic.get()<CR>', opts)
-  buf_set_keymap('n', '<leader>n', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<leader>N', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-  --buf_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-
-  -- Set some keybinds conditional on server capabilities
-  if client.server_capabilities.document_formatting then
-    buf_set_keymap("n", "<leader>=", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-  elseif client.server_capabilities.document_range_formatting then
-    buf_set_keymap("n", "<leader>=", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-  end
+  local opts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+  vim.keymap.set('n', '<leader>K', vim.lsp.buf.hover, opts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+  --vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+  --vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+  --vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+  --vim.keymap.set('n', '<space>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, opts)
+  vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, opts)
+  vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, opts)
+  vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, opts)
+  vim.keymap.set('v', '<leader>a', vim.lsp.buf.range_code_action, opts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+  vim.keymap.set("n", "<leader>=", function() vim.lsp.buf.format{async=true} end, opts)
 
   -- Set autocommands conditional on server_capabilities
   if client.server_capabilities.document_highlight then
@@ -154,33 +140,27 @@ local on_attach = function(client, bufnr)
       augroup END
     ]], false)
   end
-
-  vim.api.nvim_exec([[
-    " Use <Tab> and <S-Tab> to navigate through popup menu
-    "inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-    "inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-    " Set completeopt to have a better completion experience
-    set completeopt=menuone,noinsert,noselect
-
-    " Avoid showing message extra message when using completion
-    set shortmess+=c
-  ]], false)
 end
 
-nvim_lsp.tsserver.setup(coq.lsp_ensure_capabilities({
+lspconfig['tsserver'].setup(coq.lsp_ensure_capabilities({
   on_attach = on_attach,
-  root_dir = nvim_lsp.util.root_pattern('.git'),
+  root_dir = lspconfig.util.root_pattern('package.json'),
   settings = {
     -- https://stackoverflow.com/a/69223288/7683374
     defaultMaximumTruncationLength = 800
   }
 }))
+
+lspconfig['denols'].setup(coq.lsp_ensure_capabilities({
+  on_attach = on_attach,
+  root_dir = lspconfig.util.root_pattern('deno.json', 'dneo.jsonc')
+}))
+
 -- Use a loop to conveniently both setup defined servers 
 -- and map buffer local keybindings when the language server attaches
-local servers = { 'ccls', 'cssls', 'gopls', 'html', 'jsonls', 'rust_analyzer', 'yamlls', 'eslint', 'gdscript', 'cucumber_language_server', 'denols' }
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup(coq.lsp_ensure_capabilities({ on_attach = on_attach }))
+local servers = { 'ccls', 'cssls', 'gopls', 'html', 'jsonls', 'rust_analyzer', 'yamlls', 'eslint', 'gdscript', 'cucumber_language_server' }
+for _, lang in ipairs(servers) do
+  lspconfig[lang].setup(coq.lsp_ensure_capabilities({ on_attach = on_attach }))
 end
 EOF
 
