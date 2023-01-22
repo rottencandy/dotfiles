@@ -145,6 +145,7 @@ end
 lspconfig['tsserver'].setup(coq.lsp_ensure_capabilities({
   on_attach = on_attach,
   root_dir = lspconfig.util.root_pattern('package.json'),
+  single_file_support = false,
   settings = {
     -- https://stackoverflow.com/a/69223288/7683374
     defaultMaximumTruncationLength = 800
@@ -153,7 +154,7 @@ lspconfig['tsserver'].setup(coq.lsp_ensure_capabilities({
 
 lspconfig['denols'].setup(coq.lsp_ensure_capabilities({
   on_attach = on_attach,
-  root_dir = lspconfig.util.root_pattern('deno.json', 'dneo.jsonc')
+  root_dir = lspconfig.util.root_pattern('deno.json', 'dneo.jsonc', 'deno.lock')
 }))
 
 -- Use a loop to conveniently both setup defined servers 
