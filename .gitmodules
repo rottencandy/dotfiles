@@ -19,9 +19,6 @@
 [submodule "vim/pack/general/start/delimitMate"]
 	path = vim/pack/general/start/delimitMate
 	url = https://github.com/Raimondi/delimitMate
-[submodule "vim/pack/rust/rust.vim"]
-	path = vim/pack/rust/start/rust.vim
-	url = https://github.com/rust-lang/rust.vim
 [submodule "vim/pack/godot/start/vim-gdscript3"]
 	path = vim/pack/godot/start/vim-gdscript3
 	url = https://github.com/clktmr/vim-gdscript3
