@@ -154,7 +154,7 @@ lspconfig['tsserver'].setup(coq.lsp_ensure_capabilities({
 
 lspconfig['denols'].setup(coq.lsp_ensure_capabilities({
   on_attach = on_attach,
-  root_dir = lspconfig.util.root_pattern('deno.json', 'dneo.jsonc', 'deno.lock')
+  root_dir = lspconfig.util.root_pattern('deno.json', 'deno.jsonc', 'deno.lock')
 }))
 
 -- Use a loop to conveniently both setup defined servers 
