@@ -61,3 +61,6 @@
 [submodule "fern"]
 	path = vim/pack/general/start/fern.vim
 	url = https://github.com/lambdalisue/fern.vim
+[submodule "vim/pack/general/start/vim-sandwich"]
+	path = vim/pack/general/start/vim-sandwich
+	url = https://github.com/machakann/vim-sandwich

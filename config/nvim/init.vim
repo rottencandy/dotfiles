@@ -50,6 +50,8 @@ command! LoadCopilot call plug#load('copilot.vim')
 " Parinfer https://shaunlebron.github.io/parinfer, disabled by default
 Plug 'eraserhd/parinfer-rust', { 'on': [], 'do': 'cargo build --release' }
 command! LoadParinfer call plug#load('parinfer-rust')
+" Surrounding
+Plug 'machakann/vim-sandwich'
 
 " Initialize plugin system
 call plug#end()
