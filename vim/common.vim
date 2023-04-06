@@ -177,18 +177,25 @@ if executable('rg')
   set grepformat=%f:%l:%c:%m
 endif
 
+" For vim-sandwitch to work reliably
+nmap s <Nop>
+xmap s <Nop>
+
 " }}}
 
 "Autocmds {{{
 
 augroup filetype_settings
-  autocmd!
+  au!
   " set filetypes as typescriptreact, for vim-jsx-typescript
   autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescriptreact
 
   " GLSL
   autocmd BufNewFile,BufRead *.glslx
         \ set ft=glsl
+
+  " Encrypted files, disable all backups
+  autocmd BufReadPre,FileReadPre *.gpg,*.asc set viminfo= noswapfile noundofile nobackup
 
   " JS/TS
   autocmd FileType javascript,typescript,javascriptreact,typescriptreact,javascript.jsx,typescript.tsx
@@ -212,7 +219,7 @@ augroup filetype_settings
 augroup END
 
 augroup quickfix_settings
-  autocmd!
+  au!
   " Open quickfix window if getexpr is run
   autocmd QuickFixCmdPost cgetexpr cwindow
   autocmd QuickFixCmdPost lgetexpr lwindow
@@ -338,6 +345,9 @@ nnoremap <leader>w :match Error /\v\s+$/<CR>
 " Write if there are unsaved changes
 nnoremap <leader>u :update<CR>
 
+" Quit
+nnoremap <leader>q :q<CR>
+
 " Navigate panes
 nnoremap <silent> <leader>h :wincmd h<CR>
 nnoremap <silent> <leader>j :wincmd j<CR>
@@ -394,6 +404,21 @@ command -nargs=+ -complete=file_in_path LGrep lgetexpr Grep(<f-args>)
 
 " :grep is :Grep
 cnoreabbrev <expr> grep (getcmdtype() ==# ':' && getcmdline() ==# 'grep') ? 'Grep' : 'grep'
+
+fun! EncryptFile()
+  exec '%!gpg --default-recipient-self --armor --encrypt 2> /dev/null'
+  setlocal bin
+  setlocal ch=2
+endfun
+
+fun! DecryptFile()
+  exec '%!gpg --decrypt 2> /dev/null'
+  setlocal nobin
+  setlocal ch=1
+endfun
+
+command Decrypt call DecryptFile()
+command Encrypt call EncryptFile()
 
 " }}}
 
