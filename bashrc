@@ -292,7 +292,7 @@ if [ -x /usr/bin/dircolors ]; then
 
         grep='grep --color=auto' \
         fgrep='fgrep --color=auto' \
-        egrep='egrep --color=auto'
+        egrep='grep -E --color=auto'
 fi
 
 alias \
@@ -321,7 +321,8 @@ alias \
     camfeed='gst-launch-1.0 -v v4l2src device=/dev/video0 ! glimagesink' \
     brownnoise='play -n synth brownnoise synth pinknoise mix synth sine amod 0.3 10' \
     whitenoise='play -q -c 2 -n synth brownnoise band -n 1600 1500 tremolo .1 30' \
-    pinknoise='play -t sl -r48000 -c2 -n synth -1 pinknoise .1 80'
+    pinknoise='play -t sl -r48000 -c2 -n synth -1 pinknoise .1 80' \
+    dnf='dnf -C'
 
 _completion_loader sudo tmux
 complete -F _sudo s
