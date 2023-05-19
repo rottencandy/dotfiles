@@ -406,6 +406,9 @@ export WASMER_DIR="$HOME/.wasmer"
 # n (https://github.com/tj/n)
 export N_PREFIX="$HOME/.node_caches"
 
+# broot
+[ -s ~/.config/broot/launcher/bash/br ] && source ~/.config/broot/launcher/bash/br
+
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$PATH:$BUN_INSTALL/bin"

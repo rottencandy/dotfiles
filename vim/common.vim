@@ -589,10 +589,10 @@ vnoremap <silent> <Leader>s :call <SID>withSelection(function('<SID>FuzzyRgBacke
 let g:fern#disable_default_mappings = 1
 
 fun! s:init_fern() abort
-  nnoremap  <buffer>  q      :q<CR>
+  nnoremap  <buffer>  q      :bd<CR>
   nmap      <buffer>  h      <Plug>(fern-action-collapse)
   nmap      <buffer>  l      <Plug>(fern-action-open-or-expand)
-  nmap      <buffer>  .      <Plug>(fern-action-hidden)
+  nmap      <buffer>  g.     <Plug>(fern-action-hidden:toggle)
   nmap      <buffer>  <C-H>  <Plug>(fern-action-leave)
   nmap      <buffer>  <C-L>  <Plug>(fern-action-redraw)
   nmap      <buffer>  <CR>   <Plug>(fern-action-open-or-enter)
