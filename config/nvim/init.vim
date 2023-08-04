@@ -124,10 +124,9 @@ local on_attach = function(client, bufnr)
   --vim.keymap.set('n', '<space>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end, opts)
   vim.keymap.set('n', 'gt', vim.lsp.buf.type_definition, opts)
   vim.keymap.set('n', '<leader>r', vim.lsp.buf.rename, opts)
-  vim.keymap.set('n', '<leader>a', vim.lsp.buf.code_action, opts)
-  vim.keymap.set('v', '<leader>a', vim.lsp.buf.range_code_action, opts)
+  vim.keymap.set({'n', 'v'}, '<leader>a', vim.lsp.buf.code_action, opts)
   vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
-  vim.keymap.set("n", "<leader>=", function() vim.lsp.buf.format{async=true} end, opts)
+  vim.keymap.set('n', '<leader>=', function() vim.lsp.buf.format{async=true} end, opts)
 
   -- Set autocommands conditional on server_capabilities
   if client.server_capabilities.document_highlight then
