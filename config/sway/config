@@ -25,7 +25,7 @@ set $myscript cd ~/.scripts
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.
-set $menu wofi --show drun
+set $menu fuzzel
 
 # lock
 set $lock swaylock -f -e --image ~/.cache/i3lock.png
@@ -41,8 +41,10 @@ set $notif_clear     dunstctl close
 set $notif_clear_all dunstctl close-all
 set $notif_restore   dunstctl history-pop
 
-# useless shortcut
+# useless shortcuts
 set $nb cd nb && $term -e nvim _temp.md
+set $pass ~/.scripts/passmenu
+set $switch ~/.scripts/switchmenu
 
 gaps inner 10
 #smart_gaps on
@@ -135,6 +137,8 @@ bindsym $mod+y exec $notif_clear
 bindsym $mod+Shift+y exec $notif_clear_all
 
 bindsym $mod+n exec $nb
+bindsym $mod+m exec $pass
+bindsym $mod+r exec $switch
 
 #
 # Hardware
@@ -246,27 +250,27 @@ bindsym $mod+minus scratchpad show
 #
 # Resizing containers:
 #
-mode "resize" {
-    # left will shrink the containers width
-    # right will grow the containers width
-    # up will shrink the containers height
-    # down will grow the containers height
-    bindsym $left resize shrink width 10px
-    bindsym $down resize grow height 10px
-    bindsym $up resize shrink height 10px
-    bindsym $right resize grow width 10px
-
-    # Ditto, with arrow keys
-    bindsym Left resize shrink width 10px
-    bindsym Down resize grow height 10px
-    bindsym Up resize shrink height 10px
-    bindsym Right resize grow width 10px
-
-    # Return to default mode
-    bindsym Return mode "default"
-    bindsym Escape mode "default"
-}
-bindsym $mod+r mode "resize"
+#mode "resize" {
+#    # left will shrink the containers width
+#    # right will grow the containers width
+#    # up will shrink the containers height
+#    # down will grow the containers height
+#    bindsym $left resize shrink width 10px
+#    bindsym $down resize grow height 10px
+#    bindsym $up resize shrink height 10px
+#    bindsym $right resize grow width 10px
+#
+#    # Ditto, with arrow keys
+#    bindsym Left resize shrink width 10px
+#    bindsym Down resize grow height 10px
+#    bindsym Up resize shrink height 10px
+#    bindsym Right resize grow width 10px
+#
+#    # Return to default mode
+#    bindsym Return mode "default"
+#    bindsym Escape mode "default"
+#}
+#bindsym $mod+r mode "resize"
 
 #
 # Status Bar:
