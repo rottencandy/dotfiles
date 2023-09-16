@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Required to use VSCode marketplace instead of open-vsx.org
 # TODO: Remove as soon as Microsoft considers this illegal :)

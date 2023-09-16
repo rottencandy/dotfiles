@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 icon="$HOME/.config/sxhkd/lock.png"
 img="$HOME/.cache/i3lock.png"

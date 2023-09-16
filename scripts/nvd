@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Need to run in xwayland mode
 # https://github.com/neovide/neovide/issues/1356

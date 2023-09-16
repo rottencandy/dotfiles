@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Lutris Proton-GE runner.
 # Runs commands with dGPU & gamescope

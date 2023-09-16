@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # small script to enable root access to x-windows system
 # https://github.com/WayfireWM/wayfire/wiki/Tips-&-Tricks

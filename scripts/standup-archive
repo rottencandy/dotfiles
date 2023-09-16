@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 ARCHIVE_LOCATION=~/nb/work/standup-archive.md
 READ_LOCATION=~/nb/work/stand.md

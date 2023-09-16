@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Clean up merged git branches, local & remote, requires main branch name
 if [ -z "$1" ]; then

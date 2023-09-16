@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # shellcheck disable=SC2016
 VOL=$(pactl list sinks | rg --only-matching '(\d+)%' -r '$1' | head -n 1)
