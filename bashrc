@@ -323,7 +323,7 @@ alias \
     whitenoise='play -q -c 2 -n synth brownnoise band -n 1600 1500 tremolo .1 30' \
     pinknoise='play -t sl -r48000 -c2 -n synth -1 pinknoise .1 80' \
     dnf='dnf -C' \
-    wezterm='flatpak run org.wezfurlong.wezterm'
+    ng='nixGLIntel'
 
 _completion_loader sudo tmux
 complete -F _sudo s
