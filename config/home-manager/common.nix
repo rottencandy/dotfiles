@@ -9,6 +9,8 @@ in
 {
   home.packages = with pkgs; [
     hyprland
+    hyprpaper
+    mako
     wezterm
     emacs
     helix
