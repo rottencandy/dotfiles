@@ -38,11 +38,12 @@
 !/wofi/*
 
 !/awesome/*
-!/environment.d/*
 !/bspwm/*
+!/environment.d/*
+!/home-manager/*
+!/hypr/*
 !/icons/*
 !/sway/*
 !/sxhkd/*
 !/tridactyl/*
 !/waybar/*
-!/home-manager/*
