@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-PERC=$(light -G | sed 's/.[0-9]*$//')
+MAX=$(brightnessctl max)
+VAL=$(brightnessctl get)
+PERC=$(($VAL * 100 / $MAX + 1))
 DURATION=2000
 ICON="$HOME/.config/icons/sun.svg"
 
@@ -9,4 +11,4 @@ ICON="$HOME/.config/icons/sun.svg"
 	--urgency=low \
 	--expire-time="$DURATION" \
 	--hint=int:value:"$PERC" \
-	--replace=10
+	--replace-file=/tmp/brightness-notif
