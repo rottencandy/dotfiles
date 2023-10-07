@@ -79,6 +79,17 @@ n ()
     fi
 }
 
+# yazi with cd on quit
+y ()
+{
+    tmp="$(mktemp -t "yazi-cwd.XXXXX")"
+    yazi --cwd-file="$tmp"
+    if cwd="$(cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
+        cd -- "$cwd"
+    fi
+    rm -f -- "$tmp"
+}
+
 # do sudo, or sudo the last command if no argument given
 s() {
     if [[ $# == 0 ]]; then
