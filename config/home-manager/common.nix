@@ -11,6 +11,8 @@ in
     hyprland
     hyprpaper
     mako
+    obs-studio
+    wf-recorder
     wezterm
     emacs
     helix
@@ -19,6 +21,7 @@ in
     broot
     btop
     bottom
+    difftastic
     jless
     fx
     gron

@@ -17,6 +17,7 @@ Plug 'nvim-treesitter/nvim-treesitter', { 'do': ':TSUpdate' }
 " Colorschemes
 Plug 'bluz71/vim-moonfly-colors'
 Plug 'mhartington/oceanic-next'
+Plug 'rebelot/kanagawa.nvim'
 " File explorer
 Plug 'lambdalisue/fern.vim'
 " Closing brackets/quotes/... insertion
@@ -25,6 +26,7 @@ Plug 'Raimondi/delimitMate'
 Plug 'thaerkh/vim-indentguides'
 " Git
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-rhubarb'
 " Markdown support
 Plug 'plasticboy/vim-markdown'
 " GLSL support
